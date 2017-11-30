@@ -1,0 +1,7 @@
+SELECT fpcData, fpcHora, fpcValor, utilizadores.uUsuario as fpdusuario, estudantes.id as estudantes_id, Financas_Forma_Pagamento_id,
+Financas_Contas_id, fpcRefPagamento, estudantes.Semestres_id
+FROM sgi3.financas_pagamentos_candidatos
+inner join candidatos on(financas_pagamentos_candidatos.candidatos_id = candidatos.id)
+inner join Estudantes on(Estudantes.candidatos_id = candidatos.id)
+inner join utilizadores on(financas_pagamentos_candidatos.utilizadores_id = utilizadores.id)
+where financa_tipo_pagamento_id = 3 limit 100000

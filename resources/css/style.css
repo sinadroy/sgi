@@ -1,0 +1,214 @@
+/*@import url('//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'); */
+
+
+#social {
+    margin: 20px 10px;
+    text-align: center;
+}
+
+.smGlobalBtn{ /* global button class */
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    width: 50px;
+    height: 50px;
+    box-shadow: 0 2px 2px #999;
+    padding: 0px;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    font-size: 25px;
+    font-weight: normal;
+    line-height: 2em;
+    border-radius: 25px;
+    -moz-border-radius:25px;
+    -webkit-border-radius:25px;
+}
+
+/* facebook button class*/
+.facebookBtn{
+    background: #4060A5;
+}
+
+.facebookBtn:before{ /* use :before to add the relevant icons */
+    font-family: "FontAwesome";
+    content: "\f09a"; /* add facebook icon */
+}
+
+.facebookBtn:hover{
+    color: #4060A5;
+    background: #fff;
+}
+
+/* twitter button class*/
+.twitterBtn{
+    background: #00ABE3;
+}
+
+.twitterBtn:before{
+    font-family: "FontAwesome";
+    content: "\f099"; /* add twitter icon */
+}
+
+.twitterBtn:hover{
+    color: #00ABE3;
+    background: #fff;
+}
+
+/* google plus button class*/
+.googleplusBtn{
+    background: #e64522;
+}
+
+.googleplusBtn:before{
+    font-family: "FontAwesome";
+    content: "\f0d5"; /* add googleplus icon */
+}
+
+.googleplusBtn:hover{
+    color: #e64522;
+    background: #fff;
+}
+
+/* linkedin button class*/
+.linkedinBtn{
+    background: #0094BC;
+}
+
+.linkedinBtn:before{
+    font-family: "FontAwesome";
+    content: "\f0e1"; /* add linkedin icon */
+}
+
+.linkedinBtn:hover{
+    color: #0094BC;
+    background: #fff;
+}
+
+/* pinterest button class*/
+.pinterestBtn{
+    background: #cb2027;
+}
+
+.pinterestBtn:before{
+    font-family: "FontAwesome";
+    content: "\f0d2"; /* add pinterest icon */
+}
+
+.pinterestBtn:hover{
+    color: #cb2027;
+    background: #fff;
+}
+
+/* tumblr button class*/
+.tumblrBtn{
+    background: #3a5876;
+}
+
+.tumblrBtn:before{
+    font-family: "FontAwesome";
+    content: "\f173"; /* add tumblr icon */
+}
+
+.tumblrBtn:hover{
+    color: #3a5876;
+    background: #fff;
+}
+
+/* rss button class*/
+.rssBtn{
+    background: #e88845;
+}
+
+.rssBtn:before{
+    font-family: "FontAwesome";
+    content: "\f09e"; /* add rss icon */
+}
+
+.rssBtn:hover{
+    color: #e88845;
+    background: #fff;
+}
+
+/* BOTONES DE LA INT PRINCIPAL*/
+.myBtnCSS1{
+    font-style: italic;
+    //font-family: white, sans-serif;
+    background-color: #3498db;
+    //color: white;
+    border-radius: 10px;
+}
+.myBtnCSS2{
+    font-style: italic;
+    //text-decoration-color:#FFF;
+    background: #58dccd;
+    border-radius: 10px;
+}
+.myBtnCSS3{
+    font-style: italic;
+    background: #F0DCB6;
+    border-radius: 10px;
+}
+.myBtnCSS4{
+    //color:white;
+    font-style: italic;
+    background: #2980b9;
+    border-radius: 10px;
+}
+//#f1c40f
+.myBtnCSS0{
+    font-style: italic;
+    background: #cbdeeb;
+    border-radius: 10px;
+}
+.myBtnCSS5{
+    font-style: italic;
+    background: #E6E6FA;
+    border-radius: 10px;
+}
+.myBtnCSS6{
+    font-style: italic;
+    background: #5F9EA0;
+    border-radius: 10px;
+}
+.myBtnCSS7{
+    font-style: italic;
+    background: #A9A9A9;
+    border-radius: 10px;
+}
+.myBtnCSS8{
+    font-style: italic;
+    background: #1E90FF;
+    border-radius: 10px;
+}
+.myBtnCSS9{
+    font-style: italic;
+    background: #B0C4DE;
+    border-radius: 10px;
+}
+.myBtnCSS10{
+    font-style: italic;
+    background: #F0DCB6;
+    border-radius: 10px;
+}
+.myBtnCSS11{
+    font-style: italic;
+    background: #ecf0f1;
+    border-radius: 10px;
+}
+.myBtnCSS12{
+    font-style: italic;
+    background: #e74c3c;
+    border-radius: 10px;
+}
+//tomado de glamour
+
+.blue_row{
+    background-color: #bdc3c7 !important;
+    border-radius: 10px;
+    color:  #fff;
+}
+.blue_row .webixtype_form{
+    font-size: 18px;
+}
+.button5 {background: #bdc3c7;} /* Blue */

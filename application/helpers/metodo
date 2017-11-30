@@ -1,0 +1,42 @@
+	public function pruebaexcel(){
+        $this->load->helper('exportexcel');
+        $namaFile = "cuota.xls";
+        $judul = "cuota";
+        $tablehead = 0;
+        $tablebody = 1;
+        $nourut = 1;
+        //penulisan header
+        header("Pragma: public");
+        header("Expires: 0");
+        header("Cache-Control: must-revalidate, post-check=0,pre-check=0");
+        header("Content-Type: application/force-download");
+        header("Content-Type: application/octet-stream");
+        header("Content-Type: application/download");
+        header("Content-Disposition: attachment;filename=" . $namaFile . "");
+        header("Content-Transfer-Encoding: binary ");
+
+        xlsBOF();
+
+        $kolomhead = 0;
+        xlsWriteLabel($tablehead, $kolomhead++, "No");
+        xlsWriteLabel($tablehead, $kolomhead++, "Detalles");
+        xlsWriteLabel($tablehead, $kolomhead++, "Grupo");
+        xlsWriteLabel($tablehead, $kolomhead++, "Cantidad");
+
+        for($i=0; $i < 7000; $i++) {
+            $kolombody = 0;
+
+            //ubah xlsWriteLabel menjadi xlsWriteNumber untuk kolom numeric
+            xlsWriteNumber($tablebody, $kolombody++, $i);
+            xlsWriteLabel($tablebody, $kolombody++, 'detalles');
+            xlsWriteLabel($tablebody, $kolombody++, 'grupo');
+            xlsWriteNumber($tablebody, $kolombody++, $i);
+
+            $tablebody++;
+            $nourut++;
+        }
+
+        xlsEOF();
+        exit();
+    }
+
