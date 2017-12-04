@@ -51,7 +51,7 @@ class CCandidatos extends CI_Controller {
 	}
 
 	public function readDP(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 
@@ -62,7 +62,7 @@ class CCandidatos extends CI_Controller {
 	}
 
 	public function readDP_search(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 		$x = $this->input->get('x');
@@ -83,7 +83,7 @@ class CCandidatos extends CI_Controller {
 	
 	public function readDPRO(){
 		
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 
@@ -95,7 +95,7 @@ class CCandidatos extends CI_Controller {
 
 	public function readDPRO_search(){
 		
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 		$x = $this->input->get('x');
@@ -115,7 +115,7 @@ class CCandidatos extends CI_Controller {
 	}
 	
 	public function readDACA(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 
@@ -126,7 +126,7 @@ class CCandidatos extends CI_Controller {
 	}
 
 	public function readDACA_search(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 		$x = $this->input->get('x');
@@ -146,7 +146,7 @@ class CCandidatos extends CI_Controller {
 	}
 	
 	public function readDLOC(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 
@@ -157,7 +157,7 @@ class CCandidatos extends CI_Controller {
 	}
 
 	public function readDLOC_search(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 		$x = $this->input->get('x');
@@ -177,7 +177,7 @@ class CCandidatos extends CI_Controller {
 	}
 	
 	public function readDInscricao(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 		
@@ -188,7 +188,7 @@ class CCandidatos extends CI_Controller {
 	}
 
 	public function readDInscricao_search(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):'2017';
+		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 		$x = $this->input->get('x');

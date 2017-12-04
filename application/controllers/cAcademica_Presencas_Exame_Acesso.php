@@ -16,11 +16,11 @@ class CAcademica_Presencas_Exame_Acesso extends CI_Controller {
     public function readXpresente(){
         $request = $_POST;
         $codigo_barra = $request["cb"];
-        $c = $request["cNome"];
-        $p = $request["pNome"];
-        $s = $request["atcNome"];
+        // $c = $request["cNome"];
+        // $p = $request["pNome"];
+        // $s = $request["atcNome"];
         $this->load->model('MAcademica_Presencas_Exame_Acesso');
-        if($this->MAcademica_Presencas_Exame_Acesso->mreadXpresente($codigo_barra,$c,$p,$s))
+        if($this->MAcademica_Presencas_Exame_Acesso->mreadXpresente($codigo_barra/*,$c,$p,$s*/))
             echo "true";
         else
             echo "false";

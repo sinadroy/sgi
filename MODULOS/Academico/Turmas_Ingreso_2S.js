@@ -887,7 +887,7 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
                                                                                 //Carregar PDF
                                                                                 webix.ui({
                                                                                     view: "window",
-                                                                                    id: "idWinPDFCodigo_Barra",
+                                                                                    id: "idWinPDFCodigo_Barra_2s",
                                                                                     height: 600,
                                                                                     width: 950,
                                                                                     left: 50, top: 50,
@@ -897,7 +897,7 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
                                                                                     head: {
                                                                                         view: "toolbar", cols: [
                                                                                             { view: "label", label: "Imprimir" },
-                                                                                            { view: "button", label: 'X', width: 50, align: 'right', click: "$$('idWinPDFCodigo_Barra').close();" }
+                                                                                            { view: "button", label: 'X', width: 50, align: 'right', click: "$$('idWinPDFCodigo_Barra_2s').close();" }
                                                                                         ]
                                                                                     },
                                                                                     body: {

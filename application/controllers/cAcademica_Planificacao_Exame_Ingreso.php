@@ -2,8 +2,13 @@
 class CAcademica_Planificacao_Exame_Ingreso extends CI_Controller {
     
     public function read(){
+        $this->load->model('manos_lectivos');
+        $alAct = $this->manos_lectivos->mGetID(date('Y'));
+        $al = $this->input->get('al');
+        $al = ($al)?$al:$alAct;
+        // echo 'antes:'.$al.'</br>';
         $this->load->model('MAcademica_Planificacao_Exame_Ingreso');
-        echo json_encode($this->MAcademica_Planificacao_Exame_Ingreso->mread());
+        echo json_encode($this->MAcademica_Planificacao_Exame_Ingreso->mread($al));
     }
 
     public function crud(){

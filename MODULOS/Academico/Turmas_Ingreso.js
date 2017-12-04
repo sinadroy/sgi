@@ -63,6 +63,11 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                 $$("idDTEdTurmas_Ingreso").clearAll();
                                                 $$("idDTEdTurmas_Ingreso").load(BASE_URL + "CAcademica_Turmas_Ingreso/read?al=" + $$('idalAno_s').getValue());
                                                 */
+                                                // para obter ano lectivo actual
+                                                //var envio = "ngNome=" + record.ngNome;
+                                                var rng = webix.ajax().sync().get(BASE_URL + "CAnos_Lectivos/ano_lectivo_actual");
+                                                $$("idcb_al_addsalas").setValue(rng.responseText);
+                                                $$("idcb_al_addsalas").disable();
                                             }
                                         },
                                         {
@@ -337,6 +342,9 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                                     $$("idCB_Horas_Planificadas").setValue();
                                                                     $$("idCB_Horas_Planificadas").disable();
                                                                     $$("btnCarregar2").disable();
+
+                                                                    $$("idDTEdPlanificacao_Exame_Candidatos").clearAll();
+                                                                    $$("idDTEdPlanificacao_Exame_Candidatos").load(BASE_URL + "CAcademica_Planificacao_Exame_Candidatos/read?al=" + this.getValue());
                                                                 }
                                                             }
                                                         },
@@ -1068,6 +1076,7 @@ var formADDSalas = {
                 {
                     view: "combo", width: 300,
                     label: 'Ano Lectivo', name: "alAno",
+                    id: "idcb_al_addsalas",
                     options: {
                         body: {
                             template: "#alAno#",

@@ -17,6 +17,10 @@ class CAnos_Lectivos extends CI_Controller {
         $response = $data;
         echo $response;
     }
+    public function ano_lectivo_actual(){
+        $this->load->model('mAnos_Lectivos');
+        echo $this->mAnos_Lectivos->mGetID(date('Y'));
+    }
     public function GetID() {
         $ano = $this->input->post('alAno');
         $this->load->model('mAnos_Lectivos');

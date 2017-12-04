@@ -48,12 +48,11 @@
         return $this->db->count_all_results();
       }
 
-      function mread(){
+      function mread($al){
+          //echo 'desp:'.$al.'</br>';
           //Academica_Turmas_Ingreso.atcNome,Academica_Turmas_Ingreso.atcLocalizacao,
           $this->db->select('Academica_Planificacao_Exame_Ingreso.id,Academica_Planificacao_Exame_Ingreso.apeiData,Academica_Planificacao_Exame_Ingreso.apeiHora,
-          anos_lectivos.alAno,
-          Academica_Turmas_Ingreso.atcNome,Academica_Turmas_Ingreso.atcLocalizacao,
-          niveis.nNome,cursos.cNome,periodos.pNome');
+          anos_lectivos.alAno, Academica_Turmas_Ingreso.atcNome, Academica_Turmas_Ingreso.atcLocalizacao, niveis.nNome, cursos.cNome, periodos.pNome');
           $this->db->from('Academica_Planificacao_Exame_Ingreso');
           $this->db->join('anos_lectivos','Academica_Planificacao_Exame_Ingreso.anos_lectivos_id = anos_lectivos.id');
           $this->db->join('Academica_Turmas_Ingreso','Academica_Planificacao_Exame_Ingreso.Academica_Turmas_Ingreso_id = Academica_Turmas_Ingreso.id');
@@ -61,6 +60,9 @@
           $this->db->join('niveis','niveis_cursos.niveis_id = niveis.id');
           $this->db->join('cursos','niveis_cursos.cursos_id = cursos.id');
           $this->db->join('periodos','niveis_cursos.periodos_id = periodos.id');
+
+          $this->db->where('Academica_Planificacao_Exame_Ingreso.anos_lectivos_id',$al);
+
           $consulta = $this->db->get();
           $orden = 1;
           foreach($consulta->result() as $row){
@@ -473,7 +475,17 @@
             if($ct > 0 && $this->mDeterminarSeColocadoXid($row->id,$niveis_cursos_id) == false){
                 $ct = $ct - 1;
                 //gerar codigo de barra de 6 digitos
-                $CodigoBarra = chr(rand(ord("A"), ord("Z"))).rand(0, 9).chr(rand(ord("A"), ord("Z"))).rand(0, 9).chr(rand(ord("A"), ord("Z"))).rand(0, 9);
+                //$CodigoBarra = chr(rand(ord("A"), ord("Z"))).rand(0, 9).chr(rand(ord("A"), ord("Z"))).rand(0, 9).chr(rand(ord("A"), ord("Z"))).rand(0, 9);
+
+                //para criar codigo de barra unico
+                $cb_unico = "";
+                do{
+                    $CodigoBarra = chr(rand(ord("A"), ord("Z"))).rand(0, 9).chr(rand(ord("A"), ord("Z"))).rand(0, 9).chr(rand(ord("A"), ord("Z"))).rand(0, 9);
+                    if($this->mExiste_CB($CodigoBarra) == false)
+                        $cb_unico = $CodigoBarra;
+                }
+                while($this->mExiste_CB($CodigoBarra));
+
                 if($this->minsert($row->id,$planificacao_id,$CodigoBarra))
                     $contador++;
             }
@@ -502,5 +514,14 @@
             return false;
         
     }
-    */        
+    */ 
+    function mExiste_CB($cb){
+        $this->db->select('id');
+        $this->db->from('Academica_Planificacao_Exame_Candidatos');
+        $this->db->where('apecCodigoBarra', $cb);
+        if($this->db->count_all_results() > 0)
+          return true;
+        else
+          return false;
+    }       
 }

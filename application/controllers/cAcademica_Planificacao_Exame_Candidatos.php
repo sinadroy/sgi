@@ -20,8 +20,12 @@ class CAcademica_Planificacao_Exame_Candidatos extends CI_Controller {
         para cargar la grid de distribuicao
     */
     public function read(){
+        $this->load->model('manos_lectivos');
+        $alAct = $this->manos_lectivos->mGetID(date('Y'));
+        $al = $this->input->get('al');
+        $al = ($al)?$al:$alAct;
         $this->load->model('MAcademica_Planificacao_Exame_Candidatos');
-        echo json_encode($this->MAcademica_Planificacao_Exame_Candidatos->mread());
+        echo json_encode($this->MAcademica_Planificacao_Exame_Candidatos->mread($al));
     }
     /*
         para cargar las listas por salas
@@ -173,25 +177,33 @@ class CAcademica_Planificacao_Exame_Candidatos extends CI_Controller {
         $apeiHora = $request["apeiHora"];
         //webix_operation
         $webix_operation = $request["webix_operation"];
-        $this->load->model('MAcademica_Planificacao_Exame_Ingreso');
 
-        if ($webix_operation == "insert"){
-            if($this->MAcademica_Planificacao_Exame_Ingreso->minsert($alAno,$nNome,$cNome,$pNome,$atcNome,$apeiData,$apeiHora))
-                echo "true";
-            else
-                echo "false";
+        $this->load->model('manos_lectivos');
+        $alNome = $this->manos_lectivos->mreadX($alAno);
+        if($alNome >= date('Y')){
+            $this->load->model('MAcademica_Planificacao_Exame_Ingreso');
 
-        } else if ($webix_operation == "update"){
-            if($this->MAcademica_Planificacao_Exame_Ingreso->mupdate($id,$alAno,$nNome,$cNome,$pNome,$atcNome,$apeiData,$apeiHora))
-                echo "true"; 
-            else
+            if ($webix_operation == "insert"){
+                if($this->MAcademica_Planificacao_Exame_Ingreso->minsert($alAno,$nNome,$cNome,$pNome,$atcNome,$apeiData,$apeiHora))
+                    echo "true";
+                else
+                    echo "false";
+
+            } else if ($webix_operation == "update"){
+                if($this->MAcademica_Planificacao_Exame_Ingreso->mupdate($id,$alAno,$nNome,$cNome,$pNome,$atcNome,$apeiData,$apeiHora))
+                    echo "true"; 
+                else
+                    echo "false";
+            } else if ($webix_operation == "delete"){
+                if($this->MAcademica_Planificacao_Exame_Ingreso->mdelete($id))
+                    echo "true"; 
+                else
                 echo "false";
-        } else if ($webix_operation == "delete"){
-            if($this->MAcademica_Planificacao_Exame_Ingreso->mdelete($id))
-                echo "true"; 
-            else
-               echo "false";
-        } else 
+            } else 
+                echo "false";
+        }else
             echo "false";
+
+        
     }
 }

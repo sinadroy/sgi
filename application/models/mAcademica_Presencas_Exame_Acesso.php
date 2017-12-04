@@ -41,15 +41,15 @@
         }
         return $data;
       }
-      public function mreadXpresente($codigo_barra,$c,$p,$s){
+      public function mreadXpresente($codigo_barra/*,$c,$p,$s*/){
         $this->db->select('Academica_Planificacao_Exame_Candidatos.apecEstado');
         $this->db->from('Academica_Planificacao_Exame_Candidatos');
 
-        $this->db->join('academica_planificacao_exame_ingreso', 'academica_planificacao_exame_candidatos.Academica_Planificacao_Exame_Ingreso_id= academica_planificacao_exame_ingreso.id');
-            $this->db->join('niveis_cursos', 'Academica_Planificacao_Exame_Ingreso.niveis_cursos_id = niveis_cursos.id');
-            $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
-            $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
-            $this->db->join('periodos', 'niveis_cursos.Periodos_id = periodos.id');
+        // $this->db->join('academica_planificacao_exame_ingreso', 'academica_planificacao_exame_candidatos.Academica_Planificacao_Exame_Ingreso_id= academica_planificacao_exame_ingreso.id');
+            // $this->db->join('niveis_cursos', 'Academica_Planificacao_Exame_Ingreso.niveis_cursos_id = niveis_cursos.id');
+            // $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+            // $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+            // $this->db->join('periodos', 'niveis_cursos.Periodos_id = periodos.id');
 
         $this->db->where('Academica_Planificacao_Exame_Candidatos.apecCodigoBarra',$codigo_barra);
 

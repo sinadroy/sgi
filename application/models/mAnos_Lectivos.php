@@ -8,6 +8,7 @@
           $consulta = $this->db->get();
           return $consulta->result();
       }
+      
       function mreadX($id){
           $this->db->select('anos_lectivos.alAno');
           $this->db->from('anos_lectivos');
