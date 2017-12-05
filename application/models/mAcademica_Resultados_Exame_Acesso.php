@@ -230,14 +230,10 @@ where Academica_Planificacao_Exame_Candidatos.apecCodigoBarra = 'X0E9H3'
             }
       }
 
-      function mupdate($cb,$apecNota,$user_sessao,$bi,/*$c,$p,$s,*/$na){
-          $bi_decod = ($na == "Administradores")?$bi:base64_decode($bi);
-        $id_apec = $this->get_id_upd($cb,$bi_decod/*,$c,$p,$s*/);
-        
-        echo $na.'</br>';
-        echo $bi_decod.'</br>';
-        echo $id_apec.'</br>';
-
+      function mupdate($cb,$apecNota,$user_sessao,$bi,$na){
+            $bi_decod = ($na == "Administradores")?$bi:base64_decode($bi);
+            $id_apec = $this->get_id_upd($cb,$bi_decod/*,$c,$p,$s*/);
+            
             $dados = array('apecNota'=>$apecNota);
             //if($this->db->update('Academica_Planificacao_Exame_Candidatos', $dados, array('apecCodigoBarra' => $cb))){
             if($this->db->update('Academica_Planificacao_Exame_Candidatos', $dados, array('id' => $id_apec))){

@@ -181,7 +181,7 @@ function cargarVistaListas_Resultados_Exame_Acesso(itemID) {
                                         { id: "cBI_Passaporte", header: ["cBI_Passaporte", { content: "textFilter" }], width: 170, sort: "string" },
                                         { id: "provNome", header: ["Provincia Formação", { content: "selectFilter" }], width: 170, sort: "string" },
                                         {
-                                            id: "apecNota", editor: "text", header: "Nota", width: 70, sort: "int", format: webix.Number.numToStr({
+                                            id: "apecNota", editor: "text", header: ["Nota", { content: "textFilter" }], width: 70, sort: "int", format: webix.Number.numToStr({
                                                 groupDelimiter: ",",
                                                 groupSize: 2,
                                                 decimalDelimiter: ",",
@@ -192,7 +192,7 @@ function cargarVistaListas_Resultados_Exame_Acesso(itemID) {
                                         { id: "condicionado", header: ["Condicionado", { content: "masterCheckbox" }], checkValue: 'on', uncheckValue: 'off', template: "{common.checkbox()}", width: 100 },
                                         { id: "condicionadoExcel", header: "Condicionado", hidden: true, width: 100 },
                                         {
-                                            id: "estado", header: ["Estado", { content: "textFilter" }],
+                                            id: "estado", header: "Estado",
                                             template: function (obj) {
                                                 var nNome = $$('idCBn_LR').getValue();
                                                 var cNome = $$('idCBc_LR').getValue();

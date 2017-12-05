@@ -111,7 +111,7 @@ class CAcademica_Resultados_Exame_Acesso extends CI_Controller {
         $this->load->model('MAcademica_Resultados_Exame_Acesso');
         
         if ($webix_operation == "update"){
-            if($this->MAcademica_Resultados_Exame_Acesso->mupdate($cb,$apecNota,$user_sessao,$bi/*,$c,$p,$s*/,$na))
+            if($this->MAcademica_Resultados_Exame_Acesso->mupdate($cb,$apecNota,$user_sessao,$bi,$na))
                 echo "true"; 
             else
                 echo "false";

@@ -195,7 +195,7 @@ function cargarVistaResultados_Exame_Acesso(itemID) {
                                                                         // var p = $$('idLI_CB_pNome_rea').getValue();
                                                                         // var s = $$('id_atcNome_rea').getValue();
                                                                         if (cb && /*nota &&*/ bi /* && c && p && s */) {
-                                                                            var r = webix.ajax().sync().post(BASE_URL + "CAcademica_Resultados_Exame_Acesso/crud", "webix_operation=update&cb=" + cb + "&apecNota=" + nota + "&user_sessao=" + user_sessao + "&bi=" + bi /* + "&cNome=" + c + "&pNome=" + p + "&atcNome=" + s */ + "&na=" + nivel_acesso);
+                                                                            var r = webix.ajax().sync().post(BASE_URL + "CAcademica_Resultados_Exame_Acesso/crud", "webix_operation=update&cb=" + cb + "&apecNota=" + nota + "&user_sessao=" + user_sessao + "&bi=" + bi /* + "&cNome=" + c + "&pNome=" + p + "&atcNome=" + s */ + "&na=" + nivel_acesso.responseText);
                                                                             if (r.responseText == "true") {
                                                                                 webix.message("Dados inseridos com sucesso");
                                                                                 //limpar componentes
