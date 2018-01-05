@@ -200,6 +200,7 @@ class MCursos_Pretendidos extends CI_Model {
         $this->db->from('Cursos_Pretendidos');
         $this->db->where('Cursos_Pretendidos.Candidatos_id', $candidatos_id);
         $this->db->where('Cursos_Pretendidos.niveis_cursos_id', $niveis_cursos_id);
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', date('Y'));
         if($this->db->count_all_results() > 0)
             return true;
         else

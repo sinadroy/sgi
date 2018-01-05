@@ -51,14 +51,12 @@ class CCandidatos extends CI_Controller {
 	}
 
 	public function readDP(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
+		$al = $this->input->get('ano');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 
 		$this->load->model('MCandidatos');
-		
 		echo json_encode($this->MCandidatos->mreadDP($al,$i,$l));
-		
 	}
 
 	public function readDP_search(){

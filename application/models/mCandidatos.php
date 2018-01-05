@@ -379,7 +379,7 @@ function mreadto_Excel2() {
         $this->db->join('Profissao', 'Candidatos.Profissao_id = Profissao.id');
         $this->db->join('Nacionalidades_Geral', 'Candidatos.Nacionalidades_Geral_id = Nacionalidades_Geral.id');
         $this->db->join('Necessita_Educacao_Especial', 'Candidatos.Necessita_Educacao_Especial_id = Necessita_Educacao_Especial.id');
-        if($al)
+        if(is_numeric($al))
             $this->db->where('Candidatos.Anos_Lectivos_id', $al);
         else
             $this->db->where('Candidatos.Anos_Lectivos_id', $ala);

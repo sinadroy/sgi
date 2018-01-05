@@ -1350,7 +1350,7 @@ function cargarVistaInscricao(itemID) {
                                                 },
                                             },
                                             {
-                                                id: "alAno", header: "Ano Lectivo", width: 100, sort: "int",
+                                                id: "cp_ano_lec_insc", header: "Ano Lectivo", width: 100, sort: "int",
                                                 /*  template: function (obj) {
                                                       if (obj.cEstado == "Espera de Pagamento")
                                                           return "<span style='color:red;'>" + obj.cEstado + "</span>";
