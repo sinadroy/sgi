@@ -51,12 +51,17 @@ class MFinancas_Pagamentos_Candidatos extends CI_Model {
 
     //$this->db->select_sum('age');
     function mread_valor_total_inscricao() {
-        $this->db->select_sum('fpcValor');
+        // $this->db->select_sum('fpcValor, fpcData');
+        $this->db->select('fpcValor, fpcData');
         $this->db->from('Financas_Pagamentos_Candidatos');
         $this->db->where('Financas_Pagamentos_Candidatos.Financa_Tipo_Pagamento_id', 1);
         $consulta = $this->db->get();
+        $valor_total_inscricao = 0;
         foreach ($consulta->result() as $row) {
-                $valor_total_inscricao = $row->fpcValor;
+            list($ano, $mes, $dia) = preg_split('[-]', $row->fpcData);
+            if($ano == date('Y')){ // si el ano del pagamento es igual al ano actual
+                $valor_total_inscricao += $row->fpcValor;
+            }
         }
         return $valor_total_inscricao;
     }

@@ -178,23 +178,17 @@ class CCandidatos extends CI_Controller {
 		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
-		
 		$this->load->model('MCandidatos');
-		
 		echo json_encode($this->MCandidatos->mreadDInscricao($al,$i,$l));
-		
 	}
 
 	public function readDInscricao_search(){
-		$al = ($this->input->get('ano'))?$this->input->get('ano'):date('Y');
+		$al = $this->input->get('ano');
 		$i = $this->input->get('i');
 		$l = $this->input->get('l');
 		$x = $this->input->get('x');
-		
 		$this->load->model('MCandidatos');
-		
 		echo json_encode($this->MCandidatos->mreadDInscricao_search($al,$i,$l,$x));
-		
 	}
 
 	public function readDInscricao_Financas(){
@@ -310,6 +304,26 @@ class CCandidatos extends CI_Controller {
 		
 	}
 	
+	// para combo buscar em cursos pretendidos
+	public function readIDxBI_CP(){
+		
+		$bi = $this->input->post('bi');
+		
+		$this->load->model('MCandidatos');
+		
+		//$existe_bi = $this->MCandidatos->mreadIDxBICount($bi);
+		$existe_bi = $this->MCandidatos->mExiste_BI_CP($bi);
+		
+		if($existe_bi){
+			
+			$retorno = $this->MCandidatos->mreadIDxBI($bi);
+			
+			echo $retorno;
+		}
+		else
+			echo "false";
+	}
+
 	//p	ara financas
 	public function readIDxBI(){
 		
@@ -746,7 +760,6 @@ class CCandidatos extends CI_Controller {
 				//si fue inscrito en anos anteriores, actualizarle el campo ano_lec_insc.
 				if($this->mCandidatos->mactualizar_inscicao($bi,$al)){
 					//ponerlo en estado "Espera de pagamento" para que pague de nuevo en financas.
-
 					echo "true";
 				}else
 					echo "false";

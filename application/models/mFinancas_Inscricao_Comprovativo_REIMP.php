@@ -47,6 +47,7 @@
      * Datos para comprobativo de Inscricaos
     */
     function mread($id) {
+        $al = date('Y');
         $this->db->select('Candidatos.id,Candidatos.cNome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
                 Candidatos.anos_lectivos_id,anos_lectivos.alAno,
                 Candidatos.cEstado,
@@ -60,6 +61,7 @@
         $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
         $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
         $this->db->where('Candidatos.cBI_Passaporte', $id);
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
         $consulta = $this->db->get();
         $data = array();
         foreach ($consulta->result() as $row) {

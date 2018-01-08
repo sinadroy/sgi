@@ -842,15 +842,15 @@ function cargarVistaInscricao(itemID) {
                                                         on: {
                                                             "onChange": function (newv, oldv) {
                                                                 var envio = "bi=" + this.getValue();
-                                                                var rbi = webix.ajax().sync().post(BASE_URL + "cCandidatos/readIDxBI", envio);
+                                                                var rbi = webix.ajax().sync().post(BASE_URL + "cCandidatos/readIDxBI_CP", envio);
                                                                 var candidato_id = rbi.responseText;
                                                                 if (this.getValue !== "") {
                                                                     if (candidato_id !== "false") {
                                                                         var cNome = webix.ajax().sync().post(BASE_URL + "cCandidatos/readNomeXID", "id=" + candidato_id/*this.getValue()*/);
                                                                         var cApelido = webix.ajax().sync().post(BASE_URL + "cCandidatos/readApelidoXID", "id=" + candidato_id/*this.getValue()*/);
                                                                         $$("idNomes").setValue(cNome.responseText + " " + cApelido.responseText);
-                                                                        //$$("idComboFNome").setValue(fNome.responseText);
-                                                                        //$$("idComboFApelido").setValue(fApelido.responseText);
+                                                                    }else{
+                                                                        webix.message({ type: "error", text: "Erro, O candidato não está inscrito no ano actual."});
                                                                     }
                                                                 }
                                                             }
@@ -1350,7 +1350,7 @@ function cargarVistaInscricao(itemID) {
                                                 },
                                             },
                                             {
-                                                id: "cp_ano_lec_insc", header: "Ano Lectivo", width: 100, sort: "int",
+                                                id: "alAno", header: "Ano Lectivo", width: 100, sort: "int",
                                                 /*  template: function (obj) {
                                                       if (obj.cEstado == "Espera de Pagamento")
                                                           return "<span style='color:red;'>" + obj.cEstado + "</span>";

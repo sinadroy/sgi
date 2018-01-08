@@ -58,8 +58,12 @@ foreach ($variable as $key => $value) {
 */
 //echo md5('fmv');
 
-$m = new MongoClient();
-$collection = $m->selectCollection('navegacion', 'dominios');
+//$m = new MongoClient();
+//$collection = $m->selectCollection('navegacion', 'dominios');
 
-$collection->insert(array('nombre' => 'dtse.esy.es'));
+//$collection->insert(array('nombre' => 'dtse.esy.es'));
 
+//echo date('Y');
+
+list($ano, $mes, $dia) = preg_split('[-]', '2017-01-05');
+echo $ano;

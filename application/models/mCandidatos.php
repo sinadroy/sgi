@@ -94,8 +94,11 @@ class MCandidatos extends CI_Model {
     }
 
     function mread_total(){
+        $al = date('Y');
         $this->db->select('id');
         $this->db->from('Candidatos');
+        $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
+        $this->db->where('anos_lectivos.alAno', $al);
         return $this->db->count_all_results();
     }
 
@@ -1100,9 +1103,9 @@ function mreadto_Excel2() {
         $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
         //$this->db->join('Financas_Pagamentos_Candidatos', 'Financas_Pagamentos_Candidatos.Candidatos_id = Candidatos.id');
         if($al != "")
-            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
+            $this->db->where('anos_lectivos.alAno', $al);
         else
-            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $ala);
+            $this->db->where('anos_lectivos.alAno', $ala);
 
         $this->db->order_by('cNome,cApelido','ASC');
         $this->db->limit($l, $i);
@@ -1120,7 +1123,7 @@ function mreadto_Excel2() {
                 "cApelido" => $row->cApelido,
                 "cBI_Passaporte" => $row->cBI_Passaporte,
                 "cEstado" => $row->cEstado,
-                "alAno" => $row->cp_ano_lec_insc
+                "alAno" => $row->alAno
             );
             $ord++;
         }
@@ -1129,8 +1132,9 @@ function mreadto_Excel2() {
 
     function mreadDInscricao_search($al,$i,$l,$x) {
         $this->load->model('manos_lectivos');
-        $al = $this->manos_lectivos->mGetID($al);
-        $ala = $this->manos_lectivos->mGetID(date('Y'));
+        // $al = $this->manos_lectivos->mGetID($al);
+        // $ala = $this->manos_lectivos->mGetID(date('Y'));
+        $ala = date('Y');
         $this->db->select('Candidatos.id,Candidatos.cNome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
                 Candidatos.anos_lectivos_id,anos_lectivos.alAno,
                 Candidatos.cEstado,
@@ -1139,11 +1143,15 @@ function mreadto_Excel2() {
         $this->db->join('Cursos_Pretendidos', 'Cursos_Pretendidos.Candidatos_id = Candidatos.id');
         $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
         //$this->db->join('Financas_Pagamentos_Candidatos', 'Financas_Pagamentos_Candidatos.Candidatos_id = Candidatos.id');
-        if($al != "")
-            $this->db->where('Candidatos.Anos_Lectivos_id', $al);
-        else
-            $this->db->where('Candidatos.Anos_Lectivos_id', $ala);
-
+        if($al != ""){
+            $this->db->where('anos_lectivos.alAno', $al);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
+        }
+        else {
+            $this->db->where('anos_lectivos.alAno', $ala);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $ala);
+        }
+        
         $this->db->like('Candidatos.cNome',$x);
         $this->db->or_like('Candidatos.cNomes',$x);
         $this->db->or_like('Candidatos.cApelido',$x);
@@ -1166,7 +1174,7 @@ function mreadto_Excel2() {
                 "cApelido" => $row->cApelido,
                 "cBI_Passaporte" => $row->cBI_Passaporte,
                 "cEstado" => $row->cEstado,
-                "alAno" => $row->cp_ano_lec_insc
+                "alAno" => $row->alAno
             );
             $ord++;
         }
@@ -1426,12 +1434,27 @@ function mreadto_Excel2() {
       function mExiste_BI($bi){
           $this->db->select('Candidatos.id');
           $this->db->from('Candidatos');
+          // $this->db->where('Candidatos.cBI_Passaporte', $bi);
           $this->db->where('Candidatos.cBI_Passaporte', $bi);
           if($this->db->count_all_results() > 0)
             return true;
           else
             return false;
       }
+
+      //ver si ya existe un BI inscrito en le año actual en la BD
+      function mExiste_BI_CP($bi){
+        $this->load->model('manos_lectivos');
+        $ano_actual_id = $this->manos_lectivos->mGetID(date('Y'));
+        $this->db->select('Candidatos.id');
+        $this->db->from('Candidatos');
+        $this->db->where('Candidatos.cBI_Passaporte', $bi);
+        $this->db->where('Candidatos.anos_lectivos_id', $ano_actual_id);
+        if($this->db->count_all_results() > 0)
+          return true;
+        else
+          return false;
+    }
 
       function mreadIDxBICount($bi){
           $this->db->select('Candidatos.id');
