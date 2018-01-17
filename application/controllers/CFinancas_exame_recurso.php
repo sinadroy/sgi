@@ -1,9 +1,9 @@
 <?php
-class CFinancas_cartao extends CI_Controller {
+class CFinancas_exame_recurso extends CI_Controller {
     
     public function read(){
-        $this->load->model('MFinancas_cartao');
-        echo json_encode($this->MFinancas_cartao->mread());
+        $this->load->model('MFinancas_exame_recurso');
+        echo json_encode($this->MFinancas_exame_recurso->mread());
     }
     
     public function crud(){
@@ -26,20 +26,20 @@ class CFinancas_cartao extends CI_Controller {
 
         //webix_operation
         $webix_operation = $request["webix_operation"];
-        $this->load->model('MFinancas_cartao');
+        $this->load->model('MFinancas_exame_recurso');
 
         if ($webix_operation == "insert"){
-            if($this->MFinancas_cartao->minsert($fc_data,$fc_hora,$fc_ref_pag,$fc_valor,$Financas_Forma_Pagamento_id,$Financas_Contas_id,$anos_lectivos_id,$Estudantes_id))
+            if($this->MFinancas_exame_recurso->minsert($fc_data,$fc_hora,$fc_ref_pag,$fc_valor,$Financas_Forma_Pagamento_id,$Financas_Contas_id,$anos_lectivos_id,$Estudantes_id))
                 echo "true";
             else
                 echo "false";
         } else if ($webix_operation == "update"){
-            if($this->MFinancas_cartao->mupdate($id,$fc_data,$fc_hora,$fc_ref_pag,$fc_valor,$Financas_Forma_Pagamento_id,$Financas_Contas_id,$anos_lectivos_id,$Estudantes_id))
+            if($this->MFinancas_exame_recurso->mupdate($id,$fc_data,$fc_hora,$fc_ref_pag,$fc_valor,$Financas_Forma_Pagamento_id,$Financas_Contas_id,$anos_lectivos_id,$Estudantes_id))
                 echo "true"; 
             else
                 echo "false";
         } else if ($webix_operation == "delete"){
-            if($this->MFinancas_cartao->mdelete($id))
+            if($this->MFinancas_exame_recurso->mdelete($id))
                 echo "true"; 
             else
                echo "false";

@@ -1,6 +1,6 @@
 <?php
 
-class CFinancas_Cartao_Comprobativo extends CI_Controller {
+class CFinancas_Folha_Prova_Comprobativo extends CI_Controller {
     
     public function imprimir(){
         $request = $_POST;
@@ -31,7 +31,7 @@ class CFinancas_Cartao_Comprobativo extends CI_Controller {
 
         $user = $request["utilizadores_id"];
         
-        $this->load->model('MFinancas_Cartao_Comprobativo');
-        $this->MFinancas_Cartao_Comprobativo->criarPdf($id,$fc_data,$fc_hora,$fc_ref_pag,$fc_valor,$ffpNome,$contNumero,$anos_lectivos_id,$bi,$Estudantes_id,$user);
+        $this->load->model('MFinancas_Folha_Prova_Comprobativo');
+        $this->MFinancas_Folha_Prova_Comprobativo->criarPdf($id,$fc_data,$fc_hora,$fc_ref_pag,$fc_valor,$ffpNome,$contNumero,$anos_lectivos_id,$bi,$Estudantes_id,$user);
     }
 }

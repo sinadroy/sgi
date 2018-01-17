@@ -21,7 +21,7 @@
             return $data;
       }
       // ver preco de um pag comprobativo
-      function mread_precario($pc_nome,$id_ncp){
+      function mread_precario($pc_nome,$id_ncp) {
         $this->db->select('ncp_preco');
         $this->db->from('pagamentos_comprobativos_niveis_cursos_precario');
         $this->db->join('pagamentos_comprobativo', 'pagamentos_comprobativos_niveis_cursos_precario.pagamentos_comprobativo_id = pagamentos_comprobativo.id');
@@ -31,15 +31,15 @@
         $this->db->where('niveis_cursos_precario.niveis_cursos_id', $id_ncp);
         $consulta = $this->db->get();
         $data = array();
-          foreach ($consulta->result() as $row) {
-                  return $row->ncp_preco;
-          }
+        foreach ($consulta->result() as $row) {
+            return $row->ncp_preco;
+        }
     }
 
     function existe($id){
         $this->db->select('id');
         $this->db->from('pagamentos_comprobativos_niveis_cursos_precario');
-        $this->db->where('id', $id);
+        $this->db->where('pagamentos_comprobativo_id', $id);
         if($this->db->count_all_results() > 0)
             return true;
         else

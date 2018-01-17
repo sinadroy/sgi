@@ -1,4 +1,4 @@
-function cargarVistaFCartao(itemID) {
+function cargarVistaFExame_Recurso(itemID) {
     $$("views").addView({
         view: "tabview",
         id: itemID,
@@ -6,7 +6,7 @@ function cargarVistaFCartao(itemID) {
         cells: [
             {
                 //regime e sessao na BD
-                header: "Pagamentos Cartão Estudante", body: {
+                header: "Pagamentos Exame Recurso", body: {
 
                     rows: [
                         {
@@ -14,11 +14,11 @@ function cargarVistaFCartao(itemID) {
                             rows: [
                                 {
                                     cols: [
-                                        { view: "text", label: 'BI / Passaporte (Estudantes)', name: "cbi_passaporte", id: "idtext_bi_fce", width: 300, labelPosition: "top" },
+                                        { view: "text", label: 'BI / Passaporte (Estudantes)', name: "cbi_passaporte", id: "idtext_bi_fexr", width: 300, labelPosition: "top" },
                                         {
                                             view: "button", type: "form", value: "Carregar", width: 120, click: function () {
 
-                                                var bi = $$("idtext_bi_fce").getValue();
+                                                var bi = $$("idtext_bi_fexr").getValue();
 
                                                 var envio = "bi=" + bi;
                                                 var rbi = webix.ajax().sync().post(BASE_URL + "cCandidatos/readIDxBI", envio);
@@ -27,108 +27,107 @@ function cargarVistaFCartao(itemID) {
                                                 var envio = "id=" + candidato_id; //this.getValue();
                                                 var r1 = webix.ajax().sync().post(BASE_URL + "cCandidatos/readNomeCompletoXID", envio);
                                                 var nome_completo_candidato = r1.responseText;
-                                                $$("idtext_nome_completo_fce").setValue(nome_completo_candidato);
+                                                $$("idtext_nome_completo_fexr").setValue(nome_completo_candidato);
 
                                                 var envio = "id=" + candidato_id; //this.getValue();
                                                 var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_Nivel_NomeXCandidato_id", envio);
                                                 var nivel = r1.responseText;
-                                                $$("idtext_nnome_fce").setValue(nivel);
+                                                $$("idtext_nnome_fexr").setValue(nivel);
 
                                                 var envio = "id=" + candidato_id; //this.getValue();
                                                 var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_Curso_NomeXCandidato_id", envio);
                                                 var curso = r1.responseText;
-                                                $$("idtext_cnome_fce").setValue(curso);
+                                                $$("idtext_cnome_fexr").setValue(curso);
 
                                                 var envio = "id=" + candidato_id; //this.getValue();
                                                 var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_Periodo_NomeXCandidato_id", envio);
                                                 var periodo = r1.responseText;
-                                                $$("idtext_pnome_fce").setValue(periodo);
+                                                $$("idtext_pnome_fexr").setValue(periodo);
 
                                                 var envio = "id=" + candidato_id; //this.getValue();
                                                 var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_AC_NomeXCandidato_id", envio);
                                                 var ac = r1.responseText;
-                                                $$("idtext_acnome_fce").setValue(ac);
+                                                $$("idtext_acnome_fexr").setValue(ac);
 
                                                 var envio = "id=" + candidato_id; //this.getValue();
                                                 var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_Semestre_NomeXCandidato_id", envio);
                                                 var s = r1.responseText;
-                                                $$("idtext_snome_fce").setValue(s);
+                                                $$("idtext_snome_fexr").setValue(s);
 
                                                 var envio = "id=" + candidato_id; //this.getValue();
                                                 var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_Turma_NomeXCandidato_id", envio);
                                                 var t = r1.responseText;
-                                                $$("idtext_tnome_fce").setValue(t);
-
+                                                $$("idtext_tnome_fexr").setValue(t);
                                             }
                                         },
                                         {}
                                     ]
                                 }, {
                                     cols: [
-                                        { view: "text", label: 'Nome Completo', name: "cnome", id: "idtext_nome_completo_fce", readonly: true, disabled: true, width: 350, labelPosition: "top" },
-                                        { view: "text", label: 'Nível', name: "nnome", id: "idtext_nnome_fce", readonly: true, disabled: true, width: 200, labelPosition: "top" },
-                                        { view: "text", label: 'Curso', name: "cnome", id: "idtext_cnome_fce", readonly: true, disabled: true, width: 400, labelPosition: "top" },
-                                        { view: "text", label: 'Período', name: "pnome", id: "idtext_pnome_fce", readonly: true, disabled: true, width: 150, labelPosition: "top" },
+                                        { view: "text", label: 'Nome Completo', name: "cnome", id: "idtext_nome_completo_fexr", readonly: true, disabled: true, width: 350, labelPosition: "top" },
+                                        { view: "text", label: 'Nível', name: "nnome", id: "idtext_nnome_fexr", readonly: true, disabled: true, width: 200, labelPosition: "top" },
+                                        { view: "text", label: 'Curso', name: "cnome", id: "idtext_cnome_fexr", readonly: true, disabled: true, width: 400, labelPosition: "top" },
+                                        { view: "text", label: 'Período', name: "pnome", id: "idtext_pnome_fexr", readonly: true, disabled: true, width: 150, labelPosition: "top" },
                                         //{ view: "text", label: 'Nível', name: "nnome", id: "idtext_nnome", readonly: true, width: 400, labelPosition:"top"},
                                         {}
                                     ]
                                 },
                                 {
                                     cols: [
-                                        { view: "text", label: 'Ano Curricular', name: "acnome", id: "idtext_acnome_fce", readonly: true, disabled: true, width: 150, labelPosition: "top" },
-                                        { view: "text", label: 'Semestre Actual', name: "snome", id: "idtext_snome_fce", readonly: true, disabled: true, width: 150, labelPosition: "top" },
-                                        { view: "text", label: 'Turma Actual', name: "tnome", id: "idtext_tnome_fce", readonly: true, disabled: true, width: 150, labelPosition: "top" },
+                                        { view: "text", label: 'Ano Curricular', name: "acnome", id: "idtext_acnome_fexr", readonly: true, disabled: true, width: 150, labelPosition: "top" },
+                                        { view: "text", label: 'Semestre Actual', name: "snome", id: "idtext_snome_fexr", readonly: true, disabled: true, width: 150, labelPosition: "top" },
+                                        { view: "text", label: 'Turma Actual', name: "tnome", id: "idtext_tnome_fexr", readonly: true, disabled: true, width: 150, labelPosition: "top" },
                                         {
                                             view: "button", type: "form", value: "Pagar", width: 120, click: function () {
-                                                var envio = "bi=" + $$('idtext_bi_fce').getValue();
+                                                var envio = "bi=" + $$('idtext_bi_fexr').getValue();
                                                 var rbi = webix.ajax().sync().post(BASE_URL + "cCandidatos/readIDxBI", envio);
                                                 var candidato_id = rbi.responseText;
-                                                if ($$('idtext_bi_fce').getValues !== "") {
+                                                if ($$('idtext_bi_fexr').getValues !== "") {
                                                     if (candidato_id !== "false") {
                                                         //levantar interface de pagamento
                                                         webix.ui({
                                                             view: "window",
-                                                            id: "id_win_fce",
+                                                            id: "id_win_fexr",
                                                             width: 600,
                                                             position: "center",
                                                             modal: true,
-                                                            head: "Pagamento Cartão Estudante",
-                                                            body: webix.copy(formADDPagFCE)
+                                                            head: "Pagamento Exame Recurso",
+                                                            body: webix.copy(formADDPagFEXR)
                                                         }).show();
 
                                                         //cargar Nome do candidato
                                                         var envio = "id=" + candidato_id; //this.getValue();
                                                         var r1 = webix.ajax().sync().post(BASE_URL + "cCandidatos/readNomeCompletoXID", envio);
                                                         var nome_completo_candidato = r1.responseText;
-                                                        $$("idText_cNome_fce").setValue(nome_completo_candidato);
+                                                        $$("idText_cNome_fexr").setValue(nome_completo_candidato);
 
                                                         //cargar BI
                                                         var envio = "id=" + candidato_id; //this.getValue();
                                                         var r2 = webix.ajax().sync().post(BASE_URL + "cCandidatos/readBIxID", envio);
                                                         var bi_candidato = r2.responseText;
-                                                        $$("idText_cBI_fce").setValue(bi_candidato);
+                                                        $$("idText_cBI_fexr").setValue(bi_candidato);
 
 
                                                         //Actualizar grid da windows
-                                                        $$("idDTFormFCE").clearAll();
-                                                        $$("idDTFormFCE").load(BASE_URL + "CFinancas_Pagamentos_Pendientes_Documentos/read_ncpXid_fd?id=" + candidato_id/*this.getValue()*/);
+                                                        $$("idDTFormFEXR").clearAll();
+                                                        $$("idDTFormFEXR").load(BASE_URL + "CFinancas_Pagamentos_Pendientes_Documentos/read_ncpXid_fd?id=" + candidato_id/*this.getValue()*/);
 
                                                         // obtener id de niveis_cursos
-                                                        let envio1 = "n=" + $$('idtext_nnome_fce').getValue() + "&c=" + $$('idtext_cnome_fce').getValue() + "&p=" + $$('idtext_pnome_fce').getValue();
+                                                        let envio1 = "n=" + $$('idtext_nnome_fexr').getValue() + "&c=" + $$('idtext_cnome_fexr').getValue() + "&p=" + $$('idtext_pnome_fexr').getValue();
                                                         let rncp = webix.ajax().sync().post(BASE_URL + "CNiveisCursos/read_x_ncp_nomes", envio1);
                                                         let id_ncp = rncp.responseText;
 
                                                         //actualizar valor total a pagar
                                                         var envio2 = "id_ncp=" + id_ncp;
-                                                        var r3 = webix.ajax().sync().post(BASE_URL + "CPagamentos_Comprobativo_Prec/read_precario_cartao", envio2);
+                                                        var r3 = webix.ajax().sync().post(BASE_URL + "CPagamentos_Comprobativo_Prec/read_precario_exame_recurso", envio2);
                                                         var total_pagar = r3.responseText;
-                                                        $$("idText_fceValor").setValue(total_pagar);
-                                                        $$("idText_fceValor").disable();
+                                                        $$("idText_fceValor_fexr").setValue(total_pagar);
+                                                        $$("idText_fceValor_fexr").disable();
                                                         //mandar este valor para que despues sea mandado para mFinancas_Inscricao_Comprobativo
                                                         // cargar efeito na janela de pagamento
                                                         // $$("idText_efeito").setValue($$('idCB_mnome_ed').getValue());
                                                         // $$("idText_td").setValue($$('idCB_tdnome_ed').getValue());
-                                                        $$("idText_id_fce").setValue(candidato_id);
+                                                        $$("idText_id_fexr").setValue(candidato_id);
                                                     } else
                                                         webix.message({ type: "error", text: "O BI inserido n&atilde;o &eacute; v&aacute;lido" });
                                                 }
@@ -141,8 +140,8 @@ function cargarVistaFCartao(itemID) {
                                     cols: [
                                         {
                                             view: "button", type : "standard", value: "Actualizar", width: 120, click: function () {
-                                                $$("idDTEdFCE").clearAll();
-                                                $$("idDTEdFCE").load(BASE_URL + "CFinancas_cartao/read");
+                                                $$("idDTEdFEXR").clearAll();
+                                                $$("idDTEdFEXR").load(BASE_URL + "CFinancas_exame_recurso/read");
                                             }
                                         },
                                         {}
@@ -150,7 +149,7 @@ function cargarVistaFCartao(itemID) {
                                 },
                                 {
                                     view: "datatable",
-                                    id: "idDTEdFCE",
+                                    id: "idDTEdFEXR",
                                     //autowidth:true,
                                     //autoConfig:true,
                                     select: true,
@@ -173,10 +172,10 @@ function cargarVistaFCartao(itemID) {
                                         { id: "fc_valor", header: ["Valor", { content: "textFilter" }], width: 80, sort: "int" },
                                     ],
                                     resizeColumn: true,
-                                    url: BASE_URL + "CFinancas_cartao/read",
-                                    pager: "pagerFCE"
+                                    url: BASE_URL + "CFinancas_exame_recurso/read",
+                                    pager: "pagerFEXR"
                                 }, {
-                                    view: "pager", id: "pagerFCE",
+                                    view: "pager", id: "pagerFEXR",
                                     template: "{common.prev()} {common.pages()} {common.next()}",
                                     size: 16,
                                     group: 10
@@ -197,9 +196,9 @@ function cargarVistaFCartao(itemID) {
     }
 }
 //Pagamento de cartao
-var formADDPagFCE = {
+var formADDPagFEXR = {
     view: "form",
-    id: "idformADDPagFCE",
+    id: "idformADDPagFEXR",
     borderless: true,
     elements: [
         {
@@ -207,7 +206,7 @@ var formADDPagFCE = {
                 {
                     view: "datatable",
                     height: 150,
-                    id: "idDTFormFCE",
+                    id: "idDTFormFEXR",
                     select: "row",
                     columns: [
                         { id: "id", header: "", css: "rank", width: 30, sort: "int" },
@@ -225,65 +224,78 @@ var formADDPagFCE = {
         },
         {
             cols: [
-                { view: "text", label: 'Nome Completo', name: "cNome", id: "idText_cNome_fce", readonly: true, validate: "isNotEmpty", validateEvent: "blur" },
-                { view: "text", label: 'BI/Passaporte', name: "cBI", id: "idText_cBI_fce", readonly: true, validate: "isNotEmpty", validateEvent: "blur" },
+                { view: "text", label: 'Nome Completo', name: "cNome", id: "idText_cNome_fexr", readonly: true, validate: "isNotEmpty", validateEvent: "blur" },
+                { view: "text", label: 'BI/Passaporte', name: "cBI", id: "idText_cBI_fexr", readonly: true, validate: "isNotEmpty", validateEvent: "blur" },
             ]
         },
         {
             cols: [
                 {
-                    view: "combo", label: 'Banco', name: "bancNome", id: "idCombo_bancNome_fce", labelPosition: "top", options: { body: { template: "#bancNome#", yCount: 7, url: BASE_URL + "CFinancas_Bancos/read" } },
+                    view: "combo", label: 'Banco', name: "bancNome", id: "idCombo_bancNome_fexr", labelPosition: "top", options: { body: { template: "#bancNome#", yCount: 7, url: BASE_URL + "CFinancas_Bancos/read" } },
                     on: {
                         "onChange": function (newv, oldv) {
                             //ACTUALIZAR COMBO CONTAS
-                            $$("idCombo_contNumero_fce").getList().clearAll();
-                            $$("idCombo_contNumero_fce").getList().load(BASE_URL + "CFinancas_Contas/readXbanco?id=" + this.getValue());
+                            $$("idCombo_contNumero_fexr").getList().clearAll();
+                            $$("idCombo_contNumero_fexr").getList().load(BASE_URL + "CFinancas_Contas/readXbanco?id=" + this.getValue());
                         }
                     }
                 },
-                { view: "combo", label: 'Conta', name: "contNumero", id: "idCombo_contNumero_fce", labelPosition: "top", options: { body: { template: "#contNumero#", yCount: 7, url: BASE_URL + "CFinancas_Contas/read" } } },
+                { view: "combo", label: 'Conta', name: "contNumero", id: "idCombo_contNumero_fexr", labelPosition: "top", options: { body: { template: "#contNumero#", yCount: 7, url: BASE_URL + "CFinancas_Contas/read" } } },
             ]
         },
         {
             cols: [
                 {
-                    view: "combo", label: 'Forma Pagamento', name: "ffpNome", id: "idCombo_ffpNome_fce", labelPosition: "top", options: { body: { template: "#ffpNome#", yCount: 7, url: BASE_URL + "CFinancas_Forma_Pagamento/read" } },
+                    view: "combo", label: 'Forma Pagamento', name: "ffpNome", id: "idCombo_ffpNome_fexr", labelPosition: "top", options: { body: { template: "#ffpNome#", yCount: 7, url: BASE_URL + "CFinancas_Forma_Pagamento/read" } },
                     on: {
                         "onChange": function (newv, oldv) {
                             //ACTUALIZAR COMBO CONTAS
                             if (this.getValue() == "2") //TPA
-                                $$("idText_fpcRefPagamento_fce").disable();
+                                $$("idText_fpcRefPagamento_fexr").disable();
                             else
-                                $$("idText_fpcRefPagamento_fce").enable();
+                                $$("idText_fpcRefPagamento_fexr").enable();
                         }
                     }
                 },
-                { view: "text", label: 'Referência Pagamento', name: "fpcRefPagamento", id: "idText_fpcRefPagamento_fce", validate: "isNotEmpty", validateEvent: "blur" },
+                { view: "text", label: 'Referência Pagamento', name: "fpcRefPagamento", id: "idText_fpcRefPagamento_fexr", validate: "isNotEmpty", validateEvent: "blur" },
             ]
         },
         {
             cols: [
-                {},
-                { view: "text", label: 'id', name: "id", id: "idText_id_fce", hidden: true, validate: "isNotEmpty", validateEvent: "blur" },
+                {
+                    view: "combo", id: "idCB_dNome_fexr",
+                    label: 'Disciplina', name: "dNome",
+                    labelPosition: "top",
+                    options: {
+                        body: {
+                            template: "#dNome#",
+                            yCount: 7,
+                            url: BASE_URL + "CDisciplinas/read"
+                        }
+                    },
+                },
                 // { view: "text", label: 'efeito', name: "efeito", id: "idText_efeito", hidden: true, validate: "isNotEmpty", validateEvent: "blur" },
                 // { view: "text", label: 'efeito', name: "efeito", id: "idText_td", hidden: true, validate: "isNotEmpty", validateEvent: "blur" },
 
-                { view: "text", label: 'Valor a Pagar (Kz)', name: "fpcValor", id: "idText_fceValor", readonly: true, validate: "isNotEmpty", validateEvent: "blur" },
+                { view: "text", label: 'Valor a Pagar (Kz)', name: "fpcValor", id: "idText_fceValor_fexr", readonly: true, validate: "isNotEmpty", validateEvent: "blur" },
             ]
         },
+            // oculto
+        { view: "text", label: 'id', name: "id", id: "idText_id_fexr", hidden: true, validate: "isNotEmpty", validateEvent: "blur" },
+
         {
             cols: [
                 {
                     view: "button", value: "Salvar", click: function () {
                         //criar PDF
-                        idSelecionado = $$("idText_id_fce").getValue();
-                        var cNome = $$('idText_cNome_fce').getValue();
-                        var cBI = $$('idText_cBI_fce').getValue();
-                        var bancNome = $$('idCombo_bancNome_fce').getValue();
-                        var contNumero = $$('idCombo_contNumero_fce').getValue();
-                        var ffpNome = $$('idCombo_ffpNome_fce').getValue();
-                        var fpcRefPagamento = $$("idText_fpcRefPagamento_fce").getValue();
-                        var fpcValor = $$("idText_fceValor").getValue();
+                        idSelecionado = $$("idText_id_fexr").getValue();
+                        var cNome = $$('idText_cNome_fexr').getValue();
+                        var cBI = $$('idText_cBI_fexr').getValue();
+                        var bancNome = $$('idCombo_bancNome_fexr').getValue();
+                        var contNumero = $$('idCombo_contNumero_fexr').getValue();
+                        var ffpNome = $$('idCombo_ffpNome_fexr').getValue();
+                        var fpcRefPagamento = $$("idText_fpcRefPagamento_fexr").getValue();
+                        var fpcValor = $$("idText_fceValor_fexr").getValue();
 
                         if (idSelecionado && bancNome && contNumero && ffpNome && fpcValor) {
                             var envio_rfc = "id=" + idSelecionado +
@@ -295,18 +307,18 @@ var formADDPagFCE = {
                                 "&fc_ref_pag=" + fpcRefPagamento +
                                 "&utilizadores_id=" + user_sessao +
                                 "&webix_operation=insert";
-                            let rfc = webix.ajax().sync().post(BASE_URL + "CFinancas_cartao/crud", envio_rfc);
+                            let rfc = webix.ajax().sync().post(BASE_URL + "CFinancas_exame_recurso/crud", envio_rfc);
                             if (rfc.responseText == "true") {
                                 webix.message("Pagamento registrado com sucesso");
                                 // criar PDF
 
-                                var r = webix.ajax().sync().post(BASE_URL + "CFinancas_Cartao_Comprobativo/imprimir", envio_rfc);
+                                var r = webix.ajax().sync().post(BASE_URL + "CFinancas_Exame_Recurso_Comprobativo/imprimir", envio_rfc);
                                 if (r.responseText == "true") {
                                     webix.message("PDF criado com sucesso");
                                     //Carregar PDF
                                     webix.ui({
                                         view: "window",
-                                        id: "idWinPDF_Comprobativo_fce",
+                                        id: "idWinPDF_Comprobativo_fexr",
                                         height: 600,
                                         width: 700,
                                         left: 50, top: 50,
@@ -315,21 +327,21 @@ var formADDPagFCE = {
                                         //head:"This window can be moved",
                                         head: {
                                             view: "toolbar", cols: [
-                                                { view: "label", label: "Finan&ccedil;as Comprovativo Cartão Estudante." },
-                                                { view: "button", label: 'X', width: 50, align: 'right', click: function () { $$('idWinPDF_Comprobativo_fce').close(); } }
+                                                { view: "label", label: "Finan&ccedil;as Comprovativo Exame Recurso." },
+                                                { view: "button", label: 'X', width: 50, align: 'right', click: function () { $$('idWinPDF_Comprobativo_fexr').close(); } }
                                             ]
                                         },
                                         body: {
                                             //template:"Some text"
-                                            template: '<div id="idPDFFD_Comprobativo" style="width:690px;  height:590px"></div>'
+                                            template: '<div id="idPDF_Comprobativo_fexr" style="width:690px;  height:590px"></div>'
                                         }
                                     }).show();
-                                    PDFObject.embed("../../relatorios/Financas_Cartao_Comprovativo.pdf", "#idPDFFD_Comprobativo");
+                                    PDFObject.embed("../../relatorios/Financas_Exame_Recurso_Comprovativo.pdf", "#idPDF_Comprobativo_fexr");
                                     //fechar a windows e limpar todo
-                                    if ($$("idtext_bi_fce").getValue() !== "") {
-                                        $$("idtext_bi_fce").setValue("");
+                                    if ($$("idtext_bi_fexr").getValue() !== "") {
+                                        $$("idtext_bi_fexr").setValue("");
                                     }
-                                    $$("id_win_fce").close();
+                                    $$("id_win_fexr").close();
 
                                 } else {
                                     webix.message({ type: "error", text: "Erro ao criar comprobativo." });
@@ -346,10 +358,10 @@ var formADDPagFCE = {
                 {
                     view: "button", value: "Cancelar", name: "cancel", type: "danger", click: function () {
                         //limpar combo de codigo de barra para a proxima busca
-                        if ($$("idtext_bi_fce").getValue() !== "") {
-                            $$("idtext_bi_fce").setValue("");
+                        if ($$("idtext_bi_fexr").getValue() !== "") {
+                            $$("idtext_bi_fexr").setValue("");
                         }
-                        $$("id_win_fce").close();
+                        $$("id_win_fexr").close();
                     }
                 }
             ]

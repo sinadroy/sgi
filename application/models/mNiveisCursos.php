@@ -62,6 +62,49 @@
             return $value->id;
         }
     }
+    function mread_n_x_ide($ide) {
+        // echo $ide;
+        $this->db->select('niveis.nnome');
+        $this->db->from('niveis_cursos');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->join('Estudantes', 'Estudantes.niveis_cursos_id = niveis_cursos.id');
+        $this->db->join('Candidatos', 'Estudantes.Candidatos_id = Candidatos.id');
+        $this->db->where('Candidatos.id', $ide);
+        $consulta = $this->db->get();
+        foreach($consulta->result() as $value) {
+            return $value->nnome;
+        }
+    }
+    function mread_c_x_ide($ide) {
+        $this->db->select('cursos.cnome');
+        $this->db->from('niveis_cursos');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->join('Estudantes', 'Estudantes.niveis_cursos_id = niveis_cursos.id');
+        $this->db->join('Candidatos', 'Estudantes.Candidatos_id = Candidatos.id');
+        $this->db->where('Candidatos.id', $ide);
+        $consulta = $this->db->get();
+        foreach($consulta->result() as $value) {
+            return $value->cnome;
+        }
+    }
+    function mread_p_x_ide($ide) {
+        $this->db->select('periodos.pnome');
+        $this->db->from('niveis_cursos');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->join('Estudantes', 'Estudantes.niveis_cursos_id = niveis_cursos.id');
+        $this->db->join('Candidatos', 'Estudantes.Candidatos_id = Candidatos.id');
+        $this->db->where('Candidatos.id', $ide);
+        $consulta = $this->db->get();
+        foreach($consulta->result() as $value) {
+            return $value->pnome;
+        }
+    }
       function mread_nota_minima($n,$c,$p){
           $this->db->select('niveis_cursos.ncNota_Minima_EA');
           $this->db->from('niveis_cursos');

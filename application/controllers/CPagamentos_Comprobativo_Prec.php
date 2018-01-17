@@ -10,6 +10,18 @@ class CPagamentos_Comprobativo_Prec extends CI_Controller {
         $this->load->model('MPagamentos_Comprobativo_Prec');
         echo $this->MPagamentos_Comprobativo_Prec->mread_precario(1, $id_ncp);
     }
+
+    public function read_precario_folha_prova(){
+        $id_ncp = $this->input->post('id_ncp');
+        $this->load->model('MPagamentos_Comprobativo_Prec');
+        echo $this->MPagamentos_Comprobativo_Prec->mread_precario(2, $id_ncp);
+    }
+
+    public function read_precario_exame_recurso(){
+        $id_ncp = $this->input->post('id_ncp');
+        $this->load->model('MPagamentos_Comprobativo_Prec');
+        echo $this->MPagamentos_Comprobativo_Prec->mread_precario(3, $id_ncp);
+    }
     
     public function crud(){
         $request = $_POST;

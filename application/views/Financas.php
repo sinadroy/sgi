@@ -65,6 +65,8 @@ if (!$this->session->userdata('idusuario')){
         <script src=<?php echo $web_dir."MODULOS/Financas/FPropinas_Mestrado.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Financas/FPrecario.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Financas/FCartao.js";?> type="text/javascript"></script>
+        <script src=<?php echo $web_dir."MODULOS/Financas/FFolha_Prova.js";?> type="text/javascript"></script>
+        <script src=<?php echo $web_dir."MODULOS/Financas/FExame_Recurso.js";?> type="text/javascript"></script>
        <!-- <div id="testA" style="width:400px; height:300px; margin:10px;"></div> -->
        <div id="headerAmin" style="margin:10px"></div>
        <div id="menuAdmin" style="margin:5px; width:210px"></div>
@@ -165,6 +167,12 @@ if (!$this->session->userdata('idusuario')){
                 }
                 if(item.smCodigo==='0511'){
                     cargarVistaFCartao(item.smCodigo);
+                }
+                if(item.smCodigo==='0512'){
+                    cargarVistaFFolha_Prova(item.smCodigo);
+                }
+                if(item.smCodigo==='0513'){
+                    cargarVistaFExame_Recurso(item.smCodigo);
                 }
                 $$("tabs").addOption(item.smCodigo, item.smNome, true);
             }

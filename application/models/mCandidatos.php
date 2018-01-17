@@ -10,15 +10,15 @@ class MCandidatos extends CI_Model {
               return $value->cTelefone;
           }
       }
-      function mGet_emailXCandidato_id($id){
-          $this->db->select('cEmail');
-          $this->db->from('Candidatos');
-          $this->db->where('id', $id);
-          $consulta = $this->db->get();
-          foreach($consulta->result() as $value) {
+    function mGet_emailXCandidato_id($id){
+        $this->db->select('cEmail');
+        $this->db->from('Candidatos');
+        $this->db->where('id', $id);
+        $consulta = $this->db->get();
+        foreach($consulta->result() as $value) {
               return $value->cEmail;
-          }
-      }
+        }
+    }
 
     //calcular edad por la fecha de nacimiento
     function calculaEdad($dataN) {
@@ -1379,7 +1379,7 @@ function mreadto_Excel2() {
               return $value->cApelido;
           }
       }
-      /*
+    /*
      * BI para combos de busqueda
     */
     function mreadBI() {
@@ -1429,7 +1429,7 @@ function mreadto_Excel2() {
           foreach($consulta->result() as $value) {
                 return $value->id;
           }
-      }
+    }
       //ver si ya existe un BI en la BD
       function mExiste_BI($bi){
           $this->db->select('Candidatos.id');
@@ -1442,8 +1442,8 @@ function mreadto_Excel2() {
             return false;
       }
 
-      //ver si ya existe un BI inscrito en le año actual en la BD
-      function mExiste_BI_CP($bi){
+    // ver si ya existe un BI inscrito en le año actual en la BD
+    function mExiste_BI_CP($bi){
         $this->load->model('manos_lectivos');
         $ano_actual_id = $this->manos_lectivos->mGetID(date('Y'));
         $this->db->select('Candidatos.id');

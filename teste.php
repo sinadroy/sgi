@@ -66,4 +66,9 @@ foreach ($variable as $key => $value) {
 //echo date('Y');
 
 list($ano, $mes, $dia) = preg_split('[-]', '2017-01-05');
-echo $ano;
+// echo $ano;
+
+// hora
+// echo date("G:i:s");
+
+echo date('Y-m-d');

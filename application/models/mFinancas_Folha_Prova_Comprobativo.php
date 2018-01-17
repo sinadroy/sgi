@@ -1,5 +1,5 @@
 <?php
-  class MFinancas_Cartao_Comprobativo extends CI_Model{
+  class MFinancas_Folha_Prova_Comprobativo extends CI_Model{
     
     var $hpdf = '';
 
@@ -44,10 +44,10 @@
 
         //$contador = 1;
         $this->load->model('mEstudantes');
-        $this->load->model('MFinancas_cartao');
+        $this->load->model('MFinancas_folha_prova');
         $this->load->model('MNiveisCursos');
         //$bi = $this->getBI($id);
-        foreach ($this->MFinancas_cartao->mreadX_id($id) as $value) {
+        foreach ($this->MFinancas_folha_prova->mreadX_id($id) as $value) {
             $cNome = $value['cnome'];
             $cNomes = $value['cnomes'];
             $cApelido = $value['capelido'];
@@ -75,7 +75,7 @@
                     <b>'.$logotipo_titulo.'</b><br>
                     <br>
                     <table align="center" border="1">
-                        <tr ><td border="0" align="center" width="600"> <h3>Finan&ccedil;as Comprovativo de Cartão de Estudante</h3><br> </td></tr>
+                        <tr ><td border="0" align="center" width="600"> <h3>Finan&ccedil;as Comprovativo de Folha de Prova.</h3><br> </td></tr>
                     </table>
                     <br>
                     <table>
@@ -113,7 +113,7 @@
                     <b>'.$logotipo_titulo.'</b><br>
                     <br>
                     <table align="center" border="1">
-                        <tr ><td border="0" align="center" width="600"> <h3>Finan&ccedil;as Comprovativo de Cartão de Estudante</h3><br> </td></tr>
+                        <tr ><td border="0" align="center" width="600"> <h3>Finan&ccedil;as Comprovativo de Folha de Prova</h3><br> </td></tr>
                     </table>
                     <br>
                     <table>
@@ -147,7 +147,7 @@
         ';
         $this->hpdf->WriteHTML($content);
         //APPPATH."libraries/html2pdf_v4.03/
-        $this->hpdf->Output('relatorios/Financas_Cartao_Comprovativo.pdf','F');
+        $this->hpdf->Output('relatorios/Financas_Folha_Prova_Comprovativo.pdf','F');
         echo "true";
     }       
   }
