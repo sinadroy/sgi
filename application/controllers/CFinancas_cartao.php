@@ -9,7 +9,7 @@ class CFinancas_cartao extends CI_Controller {
     public function crud(){
         $request = $_POST;
         $id = @$request['id'];
-        $fc_data = date('Y-m-d');;
+        $fc_data = date('Y-m-d');
         $fc_hora = date("G:i:s");
         $fc_ref_pag = $request["fc_ref_pag"];
         $fc_valor = $request["fc_valor"];

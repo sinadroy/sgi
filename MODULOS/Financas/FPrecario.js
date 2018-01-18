@@ -187,6 +187,7 @@ function cargarVistaPrecario(itemID) {
                         columns: [
                             { id: "id", header: "", hidden: true, css: "rank", width: 30, sort: "int" },
                             { id: "ord", header: "Nº", css: "rank", width: 30, sort: "int" },
+                            { id: "alAno", header: "Ano Lec.", css: "rank", width: 90, sort: "int" },
                             { id: "nNome", header: ["N&iacute;vel", { content: "textFilter" }], width: 170, sort: "string" },
                             { id: "cNome", header: ["Curso", { content: "textFilter" }], width: 170, sort: "string" },
                             { id: "pNome", header: ["Per&iacute;odo", { content: "textFilter" }], width: 170, sort: "string" },
@@ -315,6 +316,18 @@ var formADDPrecarioCursos = {
         {
             rows: [
                 {
+                    view: "richselect", /*width: 80,*/ id: "id_CB_alAno_pc",
+                    label: 'Ano Lectivo', name: "alAno",
+                    labelPosition: "top",
+                    options: {
+                        body: {
+                            template: "#alAno#",
+                            yCount: 7,
+                            url: BASE_URL + "CAnos_Lectivos/read"
+                        }
+                    }
+                },
+                {
                     view: "richselect", id: "id_CB_nNome_pc",
                     label: 'Nivel', name: "nNome",
                     labelPosition: "top",
@@ -397,8 +410,9 @@ var formADDPrecarioCursos = {
                         let prec = $$("id_CB_precNome_pc").getValue();
                         let ncp_preco = $$("id_ncp_preco").getValue();
                         let ncp_precou = $$("id_ncp_precou").getValue();
+                        let alano = $$('id_CB_alAno_pc').getValue();
 
-                        var re = webix.ajax().sync().post(BASE_URL + "CPrecarios_Cursos/existe", "n=" + n + "&c=" + c + "&p=" + p + "&prec=" + prec);
+                        var re = webix.ajax().sync().post(BASE_URL + "CPrecarios_Cursos/existe", "n=" + n + "&c=" + c + "&p=" + p + "&prec=" + prec + "&al=" + alano);
                         if (re.responseText == "false") {
                             if (n && c && p && prec && !isNaN(ncp_preco) && !isNaN(ncp_precou)) { //validate form
                                 var envio = "n=" + n +
@@ -406,7 +420,8 @@ var formADDPrecarioCursos = {
                                     "&p=" + p +
                                     "&prec=" + prec +
                                     "&ncp_preco=" + ncp_preco +
-                                    "&ncp_precou=" + ncp_precou;
+                                    "&ncp_precou=" + ncp_precou + 
+                                    "&al=" + alano;
                                 var r = webix.ajax().sync().post(BASE_URL + "CPrecarios_Cursos/insert", envio);
                                 if (r.responseText == "true") {
                                     webix.message("Dados inseridos com sucesso");

@@ -17,9 +17,10 @@ class CPrecarios_Cursos extends CI_Controller {
         $c = $this->input->post('c');
         $p = $this->input->post('p');
         $prec = $this->input->post('prec');
+        $al = $this->input->post('al');
         
         $this->load->model('MPrecarios_Cursos');
-        if($this->MPrecarios_Cursos->mexiste($n,$c,$p,$prec) > 0)
+        if($this->MPrecarios_Cursos->mexiste($n,$c,$p,$prec,$al) > 0)
             echo "true";
         else
             echo "false";
@@ -27,6 +28,7 @@ class CPrecarios_Cursos extends CI_Controller {
     
     public function update(){                       
         $id = $this->input->post('id');
+        $al = $this->input->post('al');
         $n = $this->input->post('n');
         $c = $this->input->post('c');
         $p = $this->input->post('p');
@@ -34,13 +36,14 @@ class CPrecarios_Cursos extends CI_Controller {
         $ncp_preco = $this->input->post('ncp_preco');
         $ncp_precou = $this->input->post('ncp_precou');
         $this->load->model('MPrecarios_Cursos');
-        if($this->MPrecarios_Cursos->mupdate($id,$n,$c,$p,$prec,$ncp_preco,$ncp_precou))
+        if($this->MPrecarios_Cursos->mupdate($id,$al,$n,$c,$p,$prec,$ncp_preco,$ncp_precou))
             echo "true"; 
         else
             echo "false";
     }
      
     public function insert(){
+        $al = $this->input->post('al');
         $n = $this->input->post('n');
         $c = $this->input->post('c');
         $p = $this->input->post('p');
@@ -48,7 +51,7 @@ class CPrecarios_Cursos extends CI_Controller {
         $ncp_preco = $this->input->post('ncp_preco');
         $ncp_precou = $this->input->post('ncp_precou');
         $this->load->model('MPrecarios_Cursos');
-        if($this->MPrecarios_Cursos->minsert($n,$c,$p,$prec,$ncp_preco,$ncp_precou))
+        if($this->MPrecarios_Cursos->minsert($al,$n,$c,$p,$prec,$ncp_preco,$ncp_precou))
            echo "true";
         else
            echo "false";    

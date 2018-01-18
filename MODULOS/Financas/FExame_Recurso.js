@@ -128,6 +128,13 @@ function cargarVistaFExame_Recurso(itemID) {
                                                         // $$("idText_efeito").setValue($$('idCB_mnome_ed').getValue());
                                                         // $$("idText_td").setValue($$('idCB_tdnome_ed').getValue());
                                                         $$("idText_id_fexr").setValue(candidato_id);
+
+                                                        //cargar disciplinas por nivel curso periodo
+                                                        
+                                                        var envio_combo_dic = "nNome=" + id_ncp;
+                                                        var r3 = webix.ajax().sync().post(BASE_URL + "CDiscilplinas/readXancp", envio_combo_dic);
+                                                        var total_pagar = r3.responseText;
+                                                        
                                                     } else
                                                         webix.message({ type: "error", text: "O BI inserido n&atilde;o &eacute; v&aacute;lido" });
                                                 }
