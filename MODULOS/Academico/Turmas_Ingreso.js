@@ -141,6 +141,13 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                     yCount: 7,
                                                     url: BASE_URL + "CAnos_Lectivos/read"
                                                 }
+                                            },
+                                            on: {
+                                                "onChange": function (newv, oldv) {
+                                                        $$("idCB_planificacao_t").getList().clearAll();
+                                                        $$("idCB_planificacao_t").getList().load(BASE_URL + "CAcademica_Turmas_Ingreso/read?al=" + this.getValue());
+        
+                                                }
                                             }
                                         },
                                         {
@@ -224,6 +231,12 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                 } else {
                                                     webix.message({ type: "error", text: "Faltam campos por seleccionar" });
                                                 }
+                                                //limpiar componentes
+                                                $$('idCB_planificacao_al').setValue('');
+                                                $$('idCB_planificacao_n').setValue('');
+                                                $$('idCB_planificacao_c').setValue('');
+                                                $$('idCB_planificacao_p').setValue('');
+                                                $$('idCB_planificacao_t').setValue('');
                                             }
                                         },
                                         {
@@ -345,6 +358,9 @@ function cargarVistaTurmas_Ingreso(itemID) {
 
                                                                     $$("idDTEdPlanificacao_Exame_Candidatos").clearAll();
                                                                     $$("idDTEdPlanificacao_Exame_Candidatos").load(BASE_URL + "CAcademica_Planificacao_Exame_Candidatos/read?al=" + this.getValue());
+                                                                    //actualizar salas
+                                                                    $$("idCBt").getList().clearAll();
+                                                                    $$("idCBt").getList().load(BASE_URL + "CAcademica_Turmas_Ingreso/read?al=" + this.getValue());
                                                                 }
                                                             }
                                                         },
@@ -711,6 +727,9 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                                     $$("idCB_Horas_Planificadas_ls").setValue();
                                                                     $$("idCB_Horas_Planificadas_ls").disable();
                                                                     $$("btnCarregar2_ls").disable();
+                                                                    //actualizar salas
+                                                                    $$("idCBt_ls").getList().clearAll();
+                                                                    $$("idCBt_ls").getList().load(BASE_URL + "CAcademica_Turmas_Ingreso/read?al=" + this.getValue());
                                                                 }
                                                             }
                                                         },

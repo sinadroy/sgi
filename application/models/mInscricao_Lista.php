@@ -118,8 +118,8 @@
         $listaInscricao2 = "";
         $contador = 0;
         // $this->load->model('mCandidatos');
-        $Total_Record = count($this->mreadXncpal($nNome,$cNome,$pNome,$al));
-        foreach ($this->mreadXncpal($nNome,$cNome,$pNome,$al) as $value) {
+        $Total_Record = count($this->mreadXncpal($n,$c,$p,$al));
+        foreach ($this->mreadXncpal($n,$c,$p,$al) as $value) {
             $cNome = $value['cNome'];
             $cNomes = $value['cNomes'];
             $cApelido = $value['cApelido'];
