@@ -279,6 +279,7 @@ if (!$this->session->userdata('idusuario')) {
                                         webix.message({ type: "error", text: "O Utilizador actual n&atilde;o tem acesso a este m&oacute;dulo" });
                                     }
                             }},
+                            {width: 10},
                             {view: "button", type: "image", label: "Configura&ccedil;&otilde;es", css: "myBtnCSS1", padding: 5, height: 75, width: 170, image: PRO_URL + "resources/icons/cog_edit.png", click: function () {
                                     var envio = "modulo=Configurações&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
