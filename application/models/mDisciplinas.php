@@ -227,6 +227,23 @@
           }*/
           return $consulta->result();
       }
+    
+    function mreadX_ac_n_c_p2($ac,$n,$c,$p) {
+        $this->db->select('Disciplinas.id, Disciplinas.dnome');
+        $this->db->from('Disciplinas');
+        $this->db->join('Disciplinas_Ano_Curricular', 'Disciplinas_Ano_Curricular.disciplinas_id = disciplinas.id');
+        $this->db->join('niveis_cursos', 'Disciplinas.niveis_cursos_id = niveis_cursos.id');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->where('niveis_cursos.niveis_id', $n);
+        $this->db->where('niveis_cursos.cursos_id', $c);
+        $this->db->where('niveis_cursos.periodos_id', $p);
+        $this->db->where('Disciplinas_Ano_Curricular.Ano_Curricular_id', $ac);
+        $this->db->where('Disciplinas.dEstado', "on");
+        $consulta = $this->db->get();
+        return $consulta->result();
+    }
 
       function mreadX_ac_n_c_p($ac,$n,$c,$p) {
           $this->db->select('Disciplinas.id, Disciplinas.dnome');

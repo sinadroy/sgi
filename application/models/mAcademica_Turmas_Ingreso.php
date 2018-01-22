@@ -2,12 +2,15 @@
   class MAcademica_Turmas_Ingreso extends CI_Model{
       
       function mread($al){
+          $al2 = 
           $ord = 1;
           $this->db->select('Academica_Turmas_Ingreso.id,atcNome,atcCodigo,atcLocalizacao,atcCapacidade,anos_lectivos.alAno');
           $this->db->from('Academica_Turmas_Ingreso');
           $this->db->join('anos_lectivos','Academica_Turmas_Ingreso.anos_lectivos_id = anos_lectivos.id');
           if($al != '')
             $this->db->where('Academica_Turmas_Ingreso.anos_lectivos_id', $al);
+        else
+            $this->db->where('Academica_Turmas_Ingreso.anos_lectivos_id', $al2);
           $consulta = $this->db->get();
           foreach($consulta->result() as $row){
               $data[] = array(
