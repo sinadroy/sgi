@@ -6,12 +6,17 @@ class CAcademica_Turmas_Ingreso extends CI_Controller {
 		
 		$request = $_GET;
 		
-		$al = @$request['al'];
-		
+		// $al = @$request['al'];
+		$al = '';
 		$this->load->model('mAcademica_Turmas_Ingreso');
+		$this->load->model('mAnos_lectivos');
+		if(isset($request['al'])){
+			$al = $request['al'];
+		}else{
+			$al = $this->mAnos_lectivos->mGetID(date('Y'));
+		}
 		
 		echo json_encode($this->mAcademica_Turmas_Ingreso->mread($al));
-		
 	}
 	
 	

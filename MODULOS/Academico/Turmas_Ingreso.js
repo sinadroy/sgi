@@ -187,7 +187,7 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                             }
                                         },
                                         {
-                                            view: "combo", width: 120, id: "idCB_planificacao_t",
+                                            view: "combo", width: 140, id: "idCB_planificacao_t",
                                             label: 'Sala', name: "atcNome",
                                             labelPosition: "top",
                                             options: {
@@ -425,7 +425,7 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                             }
                                                         },
                                                         {
-                                                            view: "richselect", width: 120, id: "idCBt",
+                                                            view: "richselect", width: 140, id: "idCBt",
                                                             label: 'Sala', name: "atcNome",
                                                             labelPosition: "top",
                                                             options: {
@@ -794,7 +794,7 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                             }
                                                         },
                                                         {
-                                                            view: "richselect", width: 120, id: "idCBt_ls",
+                                                            view: "richselect", width: 140, id: "idCBt_ls",
                                                             label: 'Sala', name: "atcNome",
                                                             labelPosition: "top",
                                                             options: {

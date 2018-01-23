@@ -113,7 +113,7 @@ function cargarVistaFExame_Recurso(itemID) {
                                                         $$("idDTFormFEXR").load(BASE_URL + "CFinancas_Pagamentos_Pendientes_Documentos/read_ncpXid_fd?id=" + candidato_id/*this.getValue()*/);
 
                                                         // obtener id de niveis_cursos
-                                                        let envio1 = "n=" + $$('idtext_nnome_fexr').getValue() + "&c=" + $$('idtext_cnome_fexr').getValue() + "&p=" + $$('idtext_pnome_fexr').getValue();
+                                                        let envio1 = "n=" + $$('idtext_nnome_fexr').getValue() + "&c=" + $$('idtext_cnome_fexr').getValue() + "&p=" + $$('idtext_cnome_fexr').getValue();
                                                         let rncp = webix.ajax().sync().post(BASE_URL + "CNiveisCursos/read_x_ncp_nomes", envio1);
                                                         let id_ncp = rncp.responseText;
 
@@ -129,11 +129,27 @@ function cargarVistaFExame_Recurso(itemID) {
                                                         // $$("idText_td").setValue($$('idCB_tdnome_ed').getValue());
                                                         $$("idText_id_fexr").setValue(candidato_id);
 
-                                                        //cargar disciplinas por nivel curso periodo
-                                                        
-                                                        var envio_combo_dic = "nNome=" + id_ncp;
-                                                        var r3 = webix.ajax().sync().post(BASE_URL + "CDiscilplinas/readXancp", envio_combo_dic);
-                                                        var total_pagar = r3.responseText;
+                                                        // cargar disciplinas por nivel curso periodo
+                                                        // Nivel id
+                                                        var envio = "id=" + candidato_id; //this.getValue();
+                                                        var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_NivelXCandidato_id", envio);
+                                                        var nivel = r1.responseText;
+                                                        // Curso id
+                                                        var envio = "id=" + candidato_id; //this.getValue();
+                                                        var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_CursoXCandidato_id", envio);
+                                                        var curso = r1.responseText;
+                                                        // Periodo id
+                                                        var envio = "id=" + candidato_id; //this.getValue();
+                                                        var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_PeriodoXCandidato_id", envio);
+                                                        var periodo = r1.responseText;
+                                                        // Ano Curricular id
+                                                        var envio = "id=" + candidato_id; //this.getValue();
+                                                        var r1 = webix.ajax().sync().post(BASE_URL + "cEstudantes/Get_ACXCandidato_id", envio);
+                                                        var ac = r1.responseText;
+
+                                                        var envio_combo_dic = "nNome=" + nivel + "&cNome=" + curso + "&pNome=" + periodo + "&acNome=" + ac;
+                                                        $$("idCB_dNome_fexr").getList().clearAll();
+                                                        $$("idCB_dNome_fexr").getList().load(BASE_URL + "CDiscilplinas/readXancp?"+envio_combo_dic);
                                                         
                                                     } else
                                                         webix.message({ type: "error", text: "O BI inserido n&atilde;o &eacute; v&aacute;lido" });
