@@ -91,7 +91,8 @@
           $this->db->join('niveis_cursos', 'cursos_pretendidos.niveis_cursos_id = niveis_cursos.id');
           $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
           $this->db->join('anos_lectivos', 'candidatos.anos_lectivos_id = anos_lectivos.id');
-          $this->db->where('anos_lectivos.alAno', $al);
+          // $this->db->where('anos_lectivos.alAno', $al);
+          $this->db->where('cursos_pretendidos.cp_ano_lec_insc', $al); // aqui se usa o ano da tabela cursos_pretendidos nao de candidatos ni outro.
           $this->db->where('cursos.id', $id);
           $consulta = $this->db->get();
           $data = array();

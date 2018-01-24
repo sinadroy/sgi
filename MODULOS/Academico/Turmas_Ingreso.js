@@ -503,6 +503,7 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                         {
                                                             view: "button", type: "standard", value: "Carregar", disabled: true, id: "btnCarregar2", width: 100, click: function () {
                                                                 var alAno = $$('idCBal').getValue();
+                                                                var alAno_id = $$('idCBal').getText();
                                                                 var nNome = $$('idCBn').getValue();
                                                                 var cNome = $$('idCBc').getValue();
                                                                 var pNome = $$('idCBp').getValue();
@@ -512,7 +513,7 @@ function cargarVistaTurmas_Ingreso(itemID) {
 
                                                                 if (alAno && nNome && cNome && pNome && atcNome && apeiData && apeiHora) {
                                                                     //cargar total de Candidatos
-                                                                    var envio1 = "alAno=" + alAno + "&nNome=" + nNome + "&cNome=" + cNome + "&pNome=" + pNome;
+                                                                    var envio1 = "alAno=" + alAno_id + "&nNome=" + nNome + "&cNome=" + cNome + "&pNome=" + pNome;
                                                                     var r = webix.ajax().sync().post(BASE_URL + "CAcademica_Planificacao_Exame_Candidatos/totalCandidatosXNiveisCursosPeriodo", envio1);
                                                                     var totalCandidatos = r.responseText;
                                                                     $$("idlabel_total_candidatos_valor").setValue(totalCandidatos);
@@ -523,12 +524,12 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                                     $$("idlabel_capacidade_turma_valor").setValue(capacidadeTurma);
 
                                                                     //total de candidatos colocados dentro de la turma
-                                                                    var envio3 = "alAno=" + alAno + "&nNome=" + nNome + "&cNome=" + cNome + "&pNome=" + pNome + "&atcNome=" + atcNome + "&apeiData=" + apeiData + "&apeiHora=" + apeiHora;
+                                                                    var envio3 = "alAno=" + alAno_id + "&nNome=" + nNome + "&cNome=" + cNome + "&pNome=" + pNome + "&atcNome=" + atcNome + "&apeiData=" + apeiData + "&apeiHora=" + apeiHora;
                                                                     var r = webix.ajax().sync().post(BASE_URL + "CAcademica_Planificacao_Exame_Candidatos/totalCandidatosColocadosXNiveisCursosPeriodo", envio3);
                                                                     var candidatosColocados = r.responseText;
                                                                     $$("idlabel_candidatos_colocados_valor").setValue(candidatosColocados);
                                                                     //total de candidatos nao colocados
-                                                                    var envio4 = "alAno=" + alAno + "&nNome=" + nNome + "&cNome=" + cNome + "&pNome=" + pNome;
+                                                                    var envio4 = "alAno=" + alAno_id + "&nNome=" + nNome + "&cNome=" + cNome + "&pNome=" + pNome;
                                                                     var r = webix.ajax().sync().post(BASE_URL + "CAcademica_Planificacao_Exame_Candidatos/totalCandidatosNaoColocadosGeral", envio4);
                                                                     var candidatos_nao_colocados = r.responseText;
                                                                     $$("idlabel_candidatos_nao_colocados_valor").setValue(candidatos_nao_colocados);

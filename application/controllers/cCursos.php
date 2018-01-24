@@ -45,12 +45,12 @@ class CCursos extends CI_Controller {
     }
     public function Get_total_X_curso_estadistica() {
         $al = $this->input->get('al');
-        $n = $this->input->get('n');
-        $c = $this->input->get('c');
-        $p = $this->input->get('p');
-        $ac = $this->input->get('ac');
+        // $n = $this->input->get('n');
+        // $c = $this->input->get('c');
+        // $p = $this->input->get('p');
+        // $ac = $this->input->get('ac');
         $this->load->model('mcursos');
-        echo json_encode($this->mcursos->mGet_total_X_curso_estadistica($al,$n,$c,$p,$ac));
+    echo json_encode($this->mcursos->mGet_total_X_curso_estadistica($al/*,$n,$c,$p,$ac*/));
     }
     /*
     public function GetIDXCodigo() {

@@ -88,7 +88,7 @@ class CAcademica_Planificacao_Exame_Candidatos extends CI_Controller {
         $nNome = $request["nNome"];
         $cNome = $request["cNome"];
         $pNome = $request["pNome"];
-
+        
         $this->load->model('MAcademica_Planificacao_Exame_Candidatos');
         echo $this->MAcademica_Planificacao_Exame_Candidatos->mtotalCandidatosXNiveisCursosPeriodo($alAno,$nNome,$cNome,$pNome);
         //json_encode($this->MAcademica_Planificacao_Exame_Candidatos->mreadHorasPlanificadasXancpt($alAno,$nNome,$cNome,$pNome,$atcNome));

@@ -14,7 +14,8 @@
         $this->db->join('Academica_Planificacao_Exame_Candidatos','Academica_Planificacao_Exame_Candidatos.Candidatos_id = Candidatos.id');
         $this->db->join('Academica_Planificacao_Exame_Ingreso','Academica_Planificacao_Exame_Candidatos.Academica_Planificacao_Exame_Ingreso_id = Academica_Planificacao_Exame_Ingreso.id');
         $this->db->join('Academica_Turmas_Ingreso','Academica_Planificacao_Exame_Ingreso.Academica_Turmas_Ingreso_id = Academica_Turmas_Ingreso.id');
-        $this->db->where('Candidatos.anos_lectivos_id',$alAno);
+        // $this->db->where('Candidatos.anos_lectivos_id',$alAno);
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $alAno); // aqui se usa o ano da tabela cursos_pretendidos nao de candidatos ni outro.
         $this->db->where('niveis.id',$nNome);
         $this->db->where('cursos.id',$cNome);
         $this->db->where('periodos.id',$pNome);
@@ -335,7 +336,8 @@
         $this->db->join('cursos','niveis_cursos.cursos_id = cursos.id');
         $this->db->join('periodos','niveis_cursos.periodos_id = periodos.id');
         if($alAno != "")
-            $this->db->where('Candidatos.anos_lectivos_id',$alAno);
+            $this->db->where('cursos_pretendidos.cp_ano_lec_insc', $alAno); // aqui se usa o ano da tabela cursos_pretendidos nao de candidatos ni outro.
+            // $this->db->where('Candidatos.anos_lectivos_id',$alAno);
         if($nNome != "")
             $this->db->where('niveis.id',$nNome);
         if($cNome != "")
@@ -366,7 +368,8 @@
         $this->db->join('Academica_Planificacao_Exame_Ingreso','Academica_Planificacao_Exame_Candidatos.Academica_Planificacao_Exame_Ingreso_id = Academica_Planificacao_Exame_Ingreso.id');
         $this->db->join('Academica_Turmas_Ingreso','Academica_Planificacao_Exame_Ingreso.Academica_Turmas_Ingreso_id = Academica_Turmas_Ingreso.id');
         if($alAno != "")
-            $this->db->where('Academica_Planificacao_Exame_Ingreso.anos_lectivos_id',$alAno);
+            // $this->db->where('Academica_Planificacao_Exame_Ingreso.anos_lectivos_id',$alAno);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $alAno); // aqui se usa o ano da tabela cursos_pretendidos nao de candidatos ni outro.
         if($nNome != "")
             $this->db->where('niveis.id',$nNome);
         if($cNome != "")
