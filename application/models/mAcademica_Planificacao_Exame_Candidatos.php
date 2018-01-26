@@ -39,7 +39,8 @@
         $this->db->join('Academica_Planificacao_Exame_Ingreso','Academica_Planificacao_Exame_Candidatos.Academica_Planificacao_Exame_Ingreso_id = Academica_Planificacao_Exame_Ingreso.id');
         $this->db->join('anos_lectivos','Academica_Planificacao_Exame_Ingreso.anos_lectivos_id = anos_lectivos.id');
         $this->db->join('Academica_Turmas_Ingreso','Academica_Planificacao_Exame_Ingreso.Academica_Turmas_Ingreso_id = Academica_Turmas_Ingreso.id');
-        $this->db->where('anos_lectivos.alAno',$alAno);
+        //$this->db->where('anos_lectivos.alAno',$alAno);
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $alAno); // aqui se usa o ano da tabela cursos_pretendidos nao de candidatos ni outro.
         $this->db->where('niveis.nNome',$nNome);
         $this->db->where('cursos.cNome',$cNome);
         $this->db->where('periodos.pNome',$pNome);
@@ -67,6 +68,7 @@
           $consulta = $this->db->get();
           $orden = 1;
           foreach($consulta->result() as $row){
+              // $totalCandidatos = $this->mtotalCandidatosColocadosXturma($row->alAno,$row->nNome,$row->cNome,$row->pNome,$row->atcNome,$row->apeiData,$row->apeiHora);
               $totalCandidatos = $this->mtotalCandidatosColocadosXturma($row->alAno,$row->nNome,$row->cNome,$row->pNome,$row->atcNome,$row->apeiData,$row->apeiHora);
               //echo $totalCandidatos;
               //echo $row->alAno;
@@ -461,6 +463,9 @@
         //conseguir ID de la planificacion a que corresponden estos parametros
         $this->load->model('MAcademica_Planificacao_Exame_Ingreso');
         $planificacao_id = $this->MAcademica_Planificacao_Exame_Ingreso->mreadX($alAno,$niveis_cursos_id,$atcNome,$apeiData,$apeiHora);
+        // cambiar id ano por ano nome
+        $this->load->model('MAnos_Lectivos');
+        $ano_nome = $this->MAnos_Lectivos->mreadX($alAno);
         //cargar candidatos del curso seleccionado
         $this->db->select('Candidatos.id,Candidatos.cNome');
         $this->db->from('Cursos_Pretendidos');
@@ -474,7 +479,8 @@
         //$this->db->join('Academica_Planificacao_Exame_Candidatos','Academica_Planificacao_Exame_Candidatos.Candidatos_id = Candidatos.id');
         //$this->db->join('Academica_Planificacao_Exame_Ingreso','Academica_Planificacao_Exame_Candidatos.Academica_Planificacao_Exame_Ingreso_id = Academica_Planificacao_Exame_Ingreso.id');
 
-        $this->db->where('Candidatos.anos_lectivos_id', $alAno);
+        // $this->db->where('Candidatos.anos_lectivos_id', $alAno);
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $ano_nome);
         $this->db->where('niveis_cursos.niveis_id', $nNome);
         $this->db->where('niveis_cursos.cursos_id', $cNome);
         $this->db->where('niveis_cursos.periodos_id', $pNome);
