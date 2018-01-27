@@ -196,6 +196,10 @@
         para cargar todo lo que se necesita en listas por turmas utilizando los parametros como IDs
       */
       function mread22($alAno,$nNome,$cNome,$pNome,$atcNome, $apeiData, $apeiHora){
+        // cambiar id ano por ano nome
+        $this->load->model('MAnos_Lectivos');
+        $ano_nome = $this->MAnos_Lectivos->mreadX($alAno);
+
         $this->db->select('niveis.nNome,cursos.cNome as curso, periodos.pNome,
             Academica_Planificacao_Exame_Candidatos.id, Candidatos.cNome, Candidatos.cNomes, Candidatos.cApelido, Candidatos.cBI_Passaporte,
             Academica_Turmas_Ingreso.atcNome, anos_lectivos.alAno,Academica_Planificacao_Exame_Ingreso.apeiData,Academica_Planificacao_Exame_Ingreso.apeiHora,
@@ -210,8 +214,12 @@
         $this->db->join('Academica_Planificacao_Exame_Ingreso','Academica_Planificacao_Exame_Candidatos.Academica_Planificacao_Exame_Ingreso_id = Academica_Planificacao_Exame_Ingreso.id');
         $this->db->join('Academica_Turmas_Ingreso','Academica_Planificacao_Exame_Ingreso.Academica_Turmas_Ingreso_id = Academica_Turmas_Ingreso.id');
         $this->db->join('anos_lectivos','Academica_Planificacao_Exame_Ingreso.anos_lectivos_id = anos_lectivos.id');
-        if($alAno != "")
+        if($alAno != ""){
             $this->db->where('anos_lectivos.id',$alAno);
+            $this->db->where('Academica_Planificacao_Exame_Ingreso.anos_lectivos_id',$alAno);
+            $this->db->where('Candidatos.anos_lectivos_id',$alAno);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc',$ano_nome);
+        }
         if($nNome != "")
             $this->db->where('niveis.id',$nNome);
         if($cNome != "")
