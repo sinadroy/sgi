@@ -5,8 +5,6 @@ class CAcademica_Turmas_Ingreso extends CI_Controller {
 	public function read(){
 		
 		$request = $_GET;
-		
-		// $al = @$request['al'];
 		$al = '';
 		$this->load->model('mAcademica_Turmas_Ingreso');
 		$this->load->model('mAnos_lectivos');
@@ -36,36 +34,23 @@ class CAcademica_Turmas_Ingreso extends CI_Controller {
 	
 	
 	public function crud(){
-		
 		$request = $_POST;
-		
 		$id = @$request['id'];
-		
 		$atcNome = $request["atcNome"];
-		
 		$atcCodigo = $request["atcCodigo"];
-		
 		$atcCapacidade = $request["atcCapacidade"];
-		
 		$atcLocalizacao = $request["atcLocalizacao"];
-		
 		$al = $request["alAno"];
-		
-		//w		ebix_operation
+		// webix_operation
 		$webix_operation = $request["webix_operation"];
-		
-		//s		i el ano lectivo es anterior al ano actual del sistema no permitir alteraciones.
+		// si el ano lectivo es anterior al ano actual del sistema no permitir alteraciones.
 		$this->load->model('manos_lectivos');
-		
 		$al2 = $this->manos_lectivos->mreadX($al);
-		
 		//if($al2 >= date('Y')){
 			
 			$this->load->model('MAcademica_Turmas_Ingreso');
 			
-			
 			if ($webix_operation == "insert"){
-				
 				if($this->MAcademica_Turmas_Ingreso->minsert($atcNome,$atcCodigo,$atcCapacidade,$atcLocalizacao,$al))
 				echo "true";
 				

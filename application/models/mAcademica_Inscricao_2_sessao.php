@@ -152,7 +152,7 @@
                 $candidato_id = $row->id;
                 $existe_cp = $this->mExiste_CP($candidato_id,$niveis_cursos_id);
                 if($row->condicionado != "on" && $existe_cp == false){
-                    if($this->mupdate_candidatos($candidato_id) && $this->minsert_cursos_pretendidos_2S($candidato_id,$niveis_cursos_id)){
+                    if($this->mupdate_candidatos($candidato_id) && $this->minsert_cursos_pretendidos_2S($candidato_id,$niveis_cursos_id,$alAno)){
                         if($this->mExiste_Divida($candidato_id) == false)
                             $this->registrar_pagamento($candidato_id);
                         $contador++;
@@ -183,10 +183,10 @@
             else
                 return false;
         }
-        function minsert_cursos_pretendidos_2S($candidatos_id,$niveis_cursos_id){
+        function minsert_cursos_pretendidos_2S($candidatos_id,$niveis_cursos_id,$anos_lectivos_id){
             //$existe_cp = $this->mExiste_CP($candidatos_id,$niveis_cursos_id);
 
-            if($this->db->insert('Cursos_Pretendidos_2S', array('Candidatos_id'=>$candidatos_id,'niveis_cursos_id'=>$niveis_cursos_id)))
+            if($this->db->insert('Cursos_Pretendidos_2S', array('Candidatos_id'=>$candidatos_id,'niveis_cursos_id'=>$niveis_cursos_id, 'anos_lectivos_id'=>$anos_lectivos_id)))
             {
                 return true;
             }else{

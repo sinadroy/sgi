@@ -19,29 +19,63 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
                                     view: "toolbar", elements: [
                                         //{ view: "label", id: "idlabelTipoHorario", template: "Regime Horario" },
                                         {
+                                            view: "richselect",
+                                            label: 'Ano Lectivo',
+                                            name: "alAno",
+                                            id: "idalAno_s_2s",
+                                            width: 160,
+                                            //value: ,
+                                            options: {
+                                                body: {
+                                                    template: "#alAno#",
+                                                    yCount: 7,
+                                                    url: BASE_URL + "CAnos_Lectivos/read"
+                                                }
+                                            },
+                                            on: {
+                                                "onChange": function (newv, oldv) {
+                                                    $$("idDTEdTurmas_Ingreso_2s").clearAll();
+                                                    $$("idDTEdTurmas_Ingreso_2s").load(BASE_URL + "CAcademica_Turmas_Ingreso_2S/read?al=" + this.getValue());
+                                                }
+                                            }
+                                        },
+                                        {
                                             view: "button", type: "form", value: "Adicionar", width: 100, click: function () {
-                                                $$('idDTEdTurmas_Ingreso').add({
-                                                    atcNome: "Sala X",
-                                                    atcCodigo: "00",
-                                                    atcCapacidade: 50,
-                                                    atcLocalizacao: "Bloco X",
-                                                });
-                                                setTimeout('', 3000);
-                                                $$("idDTEdTurmas_Ingreso").clearAll();
-                                                $$("idDTEdTurmas_Ingreso").load(BASE_URL + "CAcademica_Turmas_Ingreso_2S/read");
+                                                webix.ui({
+                                                    view: "window",
+                                                    id: "idwinADDSalas_2s",
+                                                    width: 500,
+                                                    position: "center",
+                                                    modal: true,
+                                                    head: "Adicionar Sala",
+                                                    body: webix.copy(formADDSalas_2s)
+                                                }).show();
+
+                                                var rng = webix.ajax().sync().get(BASE_URL + "CAnos_Lectivos/ano_lectivo_actual");
+                                                $$("idcb_al_addsalas_2s").setValue(rng.responseText);
+                                                $$("idcb_al_addsalas_2s").disable();
+                                                // $$('idDTEdTurmas_Ingreso_2s').add({
+                                                //     atcNome: "Sala X",
+                                                //     atcCodigo: "00",
+                                                //     atcCapacidade: 50,
+                                                //     atcLocalizacao: "Bloco X",
+                                                // });
+                                                // setTimeout('', 3000);
+                                                // $$("idDTEdTurmas_Ingreso_2s").clearAll();
+                                                // $$("idDTEdTurmas_Ingreso_2s").load(BASE_URL + "CAcademica_Turmas_Ingreso_2S/read");
                                             }
                                         },
                                         {
                                             view: "button", type: "danger", value: "Apagar", width: 100, click: function () {
-                                                var id = $$('idDTEdTurmas_Ingreso').getSelectedId();
+                                                var id = $$('idDTEdTurmas_Ingreso_2s').getSelectedId();
                                                 if (id)
-                                                    $$('idDTEdTurmas_Ingreso').remove(id);
+                                                    $$('idDTEdTurmas_Ingreso_2s').remove(id);
                                             }
                                         },
                                         {
                                             view: "button", type: "standard", value: "Actualizar", width: 100, click: function () {
-                                                $$("idDTEdTurmas_Ingreso").clearAll();
-                                                $$("idDTEdTurmas_Ingreso").load(BASE_URL + "CAcademica_Turmas_Ingreso_2S/read");
+                                                $$("idDTEdTurmas_Ingreso_2s").clearAll();
+                                                $$("idDTEdTurmas_Ingreso_2s").load(BASE_URL + "CAcademica_Turmas_Ingreso_2S/read");
                                             }
                                         },
                                         {}
@@ -49,7 +83,7 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
                                 },
                                 {
                                     view: "datatable",
-                                    id: "idDTEdTurmas_Ingreso",
+                                    id: "idDTEdTurmas_Ingreso_2s",
                                     columns: [
                                         { id: "id", header: "ID", hidden: true, css: "rank", width: 50 },
                                         { id: "atcNome", editor: "text", header: "Nome", css: "rank", width: 200 },
@@ -60,9 +94,10 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
                                         //{id:"fBI_Provincia_Emissao",editor:"richselect",header:"BI Prov Emiss&atilde;o", width:140,template:"#provNome#",options:BASE_URL+"CProvincias/read"},
                                         { id: "atcLocalizacao", editor: "text", header: "localiza&ccedil;&atilde;o", css: "rank", width: 300 }
                                     ],
+                                    resizeColumn: true,
                                     //height: true,
                                     //autowidth: true,
-                                    select: "row", editable: true, editaction: "click",
+                                    select: "row", // editable: false, editaction: "click",
                                     save: BASE_URL + "CAcademica_Turmas_Ingreso_2S/crud",
                                     url: BASE_URL + "CAcademica_Turmas_Ingreso_2S/read",
                                     pager: "pagerTurmas_Ingreso_2S"
@@ -990,3 +1025,67 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
         ]
     });
 }
+
+//Adicionar Salas
+var formADDSalas_2s = {
+    view: "form",
+    id: "idformADDSalas_2s",
+    borderless: true,
+    elements: [
+        {
+            rows: [
+                { view: "text", label: 'Nome', name: "atcNome", validate: "isNotEmpty", validateEvent: "blur" },
+                { view: "text", label: 'C&oacute;digo', name: "atcCodigo", validate: "isNotEmpty", validateEvent: "blur" },
+                { view: "counter", label: 'Capacidade', name: "atcCapacidade", validate: "isNotEmpty", validateEvent: "blur" },
+                { view: "text", label: 'localização', name: "atcLocalizacao", validate: "isNotEmpty", validateEvent: "blur" },
+                {
+                    view: "combo", width: 300,
+                    label: 'Ano Lectivo', name: "alAno",
+                    id: "idcb_al_addsalas_2s",
+                    options: {
+                        body: {
+                            template: "#alAno#",
+                            yCount: 7,
+                            url: BASE_URL + "canos_lectivos/read"
+                        }
+                    }
+                },
+            ]
+        }, {
+            cols: [
+                {
+                    view: "button", value: "Aceitar", click: function () {
+                        var atcNome = $$("idformADDSalas_2s").getValues().atcNome;
+                        var atcCodigo = $$("idformADDSalas_2s").getValues().atcCodigo;
+                        var atcCapacidade = $$("idformADDSalas_2s").getValues().atcCapacidade;
+                        var atcLocalizacao = $$("idformADDSalas_2s").getValues().atcLocalizacao;
+                        var alAno = $$("idformADDSalas_2s").getValues().alAno;
+                        if (atcNome && atcCodigo && !isNaN(atcCapacidade) && atcLocalizacao && alAno) { //validate form
+                            $$('idDTEdTurmas_Ingreso_2s').add({
+                                atcNome:  atcNome,
+                                atcCodigo: atcCodigo,
+                                atcCapacidade: atcCapacidade,
+                                atcLocalizacao: atcLocalizacao,
+                                alAno: alAno
+                            });
+                            webix.message("Dados inseridos com sucesso");
+                            $$("idDTEdTurmas_Ingreso_2s").clearAll();
+                            $$("idDTEdTurmas_Ingreso_2s").load(BASE_URL + "CAcademica_Turmas_Ingreso_2S/read?al=" + $$('idalAno_s_2s').getValue());
+                            $$('idwinADDSalas_2s').close();
+                        }
+                        else
+                            webix.message({ type: "error", text: "Erro ao inserir dados" });
+                    }
+                },
+                {
+                    view: "button", value: "Cancelar", name: "cancel", type: "danger", click: function () {
+                        $$("idwinADDSalas_2s").close();
+                    }
+                }
+            ]
+        }
+    ],
+    elementsConfig: {
+        labelPosition: "top",
+    }
+};

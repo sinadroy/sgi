@@ -375,7 +375,7 @@ function cargarVistaNiveisCursos(itemID) {
                                         
                                         var idDep;
                                         if (isNaN(data.depnome)) {
-                                            var r1 = webix.ajax().sync().post(BASE_URL + "cdepartamentos/GetID", "depnome=" + data.depnome);
+                                            var r1 = webix.ajax().sync().post(BASE_URL + "cdepartamentos/GetID", "depNome=" + data.depnome);
                                             idDep = r1.responseText;
                                         } else
                                             idDep = data.depnome;

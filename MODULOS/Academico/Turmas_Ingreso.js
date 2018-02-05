@@ -48,7 +48,7 @@ function cargarVistaTurmas_Ingreso(itemID) {
                                                     width: 500,
                                                     position: "center",
                                                     modal: true,
-                                                    head: "Adicionar Tipo Aula",
+                                                    head: "Adicionar Sala",
                                                     body: webix.copy(formADDSalas)
                                                 }).show();
                                                 /*

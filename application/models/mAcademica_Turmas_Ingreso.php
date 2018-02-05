@@ -3,7 +3,12 @@
       
       function mread($al){
           $ord = 1;
-          $this->db->select('Academica_Turmas_Ingreso.id,atcNome,atcCodigo,atcLocalizacao,atcCapacidade,anos_lectivos.alAno');
+          $this->db->select('Academica_Turmas_Ingreso.id,
+            atcNome,
+            atcCodigo,
+            atcLocalizacao,
+            atcCapacidade,
+            anos_lectivos.alAno');
           $this->db->from('Academica_Turmas_Ingreso');
           $this->db->join('anos_lectivos','Academica_Turmas_Ingreso.anos_lectivos_id = anos_lectivos.id');
           if($al != '')

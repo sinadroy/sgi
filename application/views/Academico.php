@@ -132,15 +132,16 @@ if (!$this->session->userdata('idusuario')){
                   onItemClick:open_new_tab
                 }
             },
-                    { type:"clean", 
+            { type:"clean", 
                     rows:[
                         { id:"tabs", view:"tabbar",close:true,  multiview:true, options:[], height:40},
                         { id:"views", cells:[
                             {view:"template", id:"tpl", height:900,template:"Vem-Bindo ao Sub-Sistema da &Aacute;rea Acad&eacute;mica."}
                         ]}
                     ]}
-                ]}
-            ]
+                ]
+        }
+        ]
 	});
         function open_new_tab(id){
             var item = $$('menuAcademico').getItem(id);
