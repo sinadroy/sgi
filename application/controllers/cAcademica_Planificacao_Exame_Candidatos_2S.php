@@ -4,8 +4,12 @@ class CAcademica_Planificacao_Exame_Candidatos_2S extends CI_Controller {
         para cargar la grid de distribuicao
     */
     public function read(){
+        $this->load->model('manos_lectivos');
+        $alAct = $this->manos_lectivos->mGetID(date('Y'));
+        $al = $this->input->get('al');
+        $al = ($al)?$al:$alAct;
         $this->load->model('MAcademica_Planificacao_Exame_Candidatos_2S');
-        echo json_encode($this->MAcademica_Planificacao_Exame_Candidatos_2S->mread());
+        echo json_encode($this->MAcademica_Planificacao_Exame_Candidatos_2S->mread($al));
     }
     /*
         para cargar las listas por salas

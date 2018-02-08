@@ -1,7 +1,7 @@
 <?php
   class MAcademica_Planificacao_Exame_Ingreso_2S extends CI_Model{
       
-      function mread(){
+      function mread($alAno){
           $this->db->select('Academica_Planificacao_Exame_Ingreso_2S.id,Academica_Planificacao_Exame_Ingreso_2S.apeiData,Academica_Planificacao_Exame_Ingreso_2S.apeiHora,
           anos_lectivos.alAno,
           Academica_Turmas_Ingreso_2S.atcNome,Academica_Turmas_Ingreso_2S.atcLocalizacao,
@@ -13,6 +13,7 @@
           $this->db->join('niveis','niveis_cursos.niveis_id = niveis.id');
           $this->db->join('cursos','niveis_cursos.cursos_id = cursos.id');
           $this->db->join('periodos','niveis_cursos.periodos_id = periodos.id');
+          $this->db->where('Academica_Planificacao_Exame_Ingreso_2S.anos_lectivos_id',$alAno);
           $consulta = $this->db->get();
           $orden = 1;
           foreach($consulta->result() as $row){

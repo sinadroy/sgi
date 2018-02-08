@@ -135,6 +135,12 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
                                                     yCount: 7,
                                                     url: BASE_URL + "CAnos_Lectivos/read"
                                                 }
+                                            },
+                                            on: {
+                                                "onChange": function (newv, oldv) {
+                                                    $$("idDTEdPlanificacao_Ingreso_2S").clearAll();
+                                                    $$("idDTEdPlanificacao_Ingreso_2S").load(BASE_URL + "CAcademica_Planificacao_Exame_Ingreso_2S/read?al="+this.getValue());
+                                                }
                                             }
                                         },
                                         {
@@ -191,7 +197,7 @@ function cargarVistaTurmas_Ingreso_2S(itemID) {
                                     ]
                                 },
                                 {
-                                    cols:[
+                                    cols: [
                                         {
                                             view: "button", type: "form", value: "Adicionar", width: 100, click: function () {
                                                 var alAno = $$('idCB_planificacao_al_2s').getValue();
@@ -1062,7 +1068,7 @@ var formADDSalas_2s = {
                         var alAno = $$("idformADDSalas_2s").getValues().alAno;
                         if (atcNome && atcCodigo && !isNaN(atcCapacidade) && atcLocalizacao && alAno) { //validate form
                             $$('idDTEdTurmas_Ingreso_2s').add({
-                                atcNome:  atcNome,
+                                atcNome: atcNome,
                                 atcCodigo: atcCodigo,
                                 atcCapacidade: atcCapacidade,
                                 atcLocalizacao: atcLocalizacao,
