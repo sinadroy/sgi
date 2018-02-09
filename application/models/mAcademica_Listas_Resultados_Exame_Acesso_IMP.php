@@ -48,6 +48,7 @@
         $this->load->model('MAcademica_Listas_Resultados_Exame_Acesso');
         //$Total_Record = count($this->mCandidatos->mreadXncp($n,$c,$p));
         foreach ($this->MAcademica_Listas_Resultados_Exame_Acesso->mreadXtodos($a,$n,$c,$p,$provFormacao,$idade_minima,$idade_maxima) as $value) {
+            $orden = $value['orden'];
             $cNome = $value['cNome'];
             $cNomes = $value['cNomes'];
             $cApelido = $value['cApelido'];
@@ -59,7 +60,6 @@
             $pNome = $value['pNome'];
             $apecNota = $value['apecNota'];
             $condicionado = $value['condicionado'];
-            $orden = $value['orden'];
             $estado = ($apecNota < $nota_minima_ea && $condicionado !== "on")?"Não Admitido":"Admitido";
             $nota = ($condicionado == "on")?"Condic":$apecNota;
             if($tipo == $estado){

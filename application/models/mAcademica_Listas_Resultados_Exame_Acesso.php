@@ -64,6 +64,7 @@
             niveis.nNome,
             cursos.cNome as curso,
             periodos.pNome');
+            $this->db->distinct(true);
             $this->db->from('Candidatos');
             $this->db->join('Cursos_Pretendidos','Cursos_Pretendidos.Candidatos_id = Candidatos.id');
             $this->db->join('niveis_cursos','Cursos_Pretendidos.niveis_cursos_id = niveis_cursos.id');
