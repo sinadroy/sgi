@@ -5,6 +5,14 @@
     
     public function criarPdf($a,$n,$c,$p,$utilizador,$tipo_doc, $provFormacao, $idade_minima,$idade_maxima)
     {
+        ini_set('memory_limit', '256M');
+		ini_set('upload_max_filesize', '20M');
+		ini_set('download_max_filesize', '20M');
+		ini_set('post_max_size', '20M'); 
+		//ini_set('get_max_size', '20M'); 
+		ini_set('max_input_time', '500');
+		ini_set('max_execution_time', '500');
+
         $this->load->library('hpdf');
         date_default_timezone_set('UTC');
         $this->hpdf = new HTML2PDF('P','A4','pt','true','UTF-8');
@@ -47,8 +55,9 @@
         $contador = 0;
         $this->load->model('MAcademica_Listas_Resultados_Exame_Acesso');
         //$Total_Record = count($this->mCandidatos->mreadXncp($n,$c,$p));
+        $ord = 1;
         foreach ($this->MAcademica_Listas_Resultados_Exame_Acesso->mreadXtodos($a,$n,$c,$p,$provFormacao,$idade_minima,$idade_maxima) as $value) {
-            $orden = $value['orden'];
+            $orden = $ord;
             $cNome = $value['cNome'];
             $cNomes = $value['cNomes'];
             $cApelido = $value['cApelido'];
@@ -76,6 +85,7 @@
                 }else
                     $listaInscricao2 = $listaInscricao2.'<tr> <td align="center">'.$orden.'</td> <td align="left" width="365">'.$cNome.' '.$cNomes.' '.$cApelido.'</td> <td align="center">'.$cBI_Passaporte.'</td> <td align="center">'.$nota.'</td> <td align="center">'.$estado.'</td></tr>';
             }
+            $ord++;
         }
         
         $content = '

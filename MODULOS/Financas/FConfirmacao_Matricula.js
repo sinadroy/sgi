@@ -232,6 +232,7 @@ function cargarVistaFConfirmacao_Matricula(itemID) {
                                 { id: "nNome", editor: "text", header: ["Nível", { content: "textFilter" }], width: 150, sort: "strig" },
                                 { id: "curso", editor: "text", header: ["Curso", { content: "textFilter" }], width: 150, sort: "strig" },
                                 { id: "pNome", editor: "text", header: ["Período", { content: "textFilter" }], width: 150, sort: "strig" },
+                                { id: "alAno", editor: "text", header: ["Ano Lec.", { content: "textFilter" }], width: 80, sort: "int" },
                                 { id: "snome", editor: "text", header: ["Semestre", { content: "textFilter" }], width: 80, sort: "strig" },
                                 { id: "fpdvalor", editor: "text", header: ["Valor", { content: "textFilter" }], width: 100, sort: "int" },
                             ],

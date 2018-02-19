@@ -243,7 +243,8 @@ class MEstudantes extends CI_Model {
 		$ord=1;
 		$data = array();
 		foreach ($consulta->result() as $row) {
-			//if($this->Mfinancas_pagamentos_confirmacao->mExiste_Pagamento($row->cBI_Passaporte,$s)){
+			list($ano_mat, $mes, $dia) = preg_split('[-]', $row->eData_Matricula); // para coger el ano de matricula
+			if($this->Mfinancas_pagamentos_confirmacao->mExiste_Pagamento($row->cBI_Passaporte,$s) || $ano_mat == date('Y')){
 				$nu = $row->id.'-'.$row->cDescricao.'/';
 				$this->insert_numero_universitario($row->id,$nu);
 
@@ -266,7 +267,7 @@ class MEstudantes extends CI_Model {
 					"e_num_univ"=> $row->e_num_univ
 				);
 				$ord++;
-			//}	
+			}	
 		}
 		return $data;
 	}
@@ -751,10 +752,10 @@ class MEstudantes extends CI_Model {
 		$ano_lectivo_id = $this->MAnos_Lectivos->mGetID(date('Y'));
 		
 		$audData = date("Y/m/d");
-        //$audHora = date('H:i:s', time());
-		$this->load->model('MDisciplinas');
-		$this->load->model('MDisciplinas_Estudantes');
-		$this->load->model('MPautas');
+        // $audHora = date('H:i:s', time());
+		// $this->load->model('MDisciplinas');
+		// $this->load->model('MDisciplinas_Estudantes');
+		// $this->load->model('MPautas');
         $dados = array('Candidatos_id'=>$Candidatos_id, 'niveis_cursos_id'=>$niveis_cursos_id, 'eData_Matricula'=>$audData, 
 					   'eEstado_Matricula1'=>"Mat.Esp.Pag", 'Ano_Curricular_id'=>1, 'semestres_id'=>1, 'turmas_id'=>$turmas_id);
         if ($this->db->insert('Estudantes', $dados)){

@@ -195,6 +195,7 @@ class MAcademica_Matricula extends CI_Model {
         join Academica_Turmas_Ingreso on(Academica_Planificacao_Exame_Ingreso.Academica_Turmas_Ingreso_id = Academica_Turmas_Ingreso.id)
         
         where anos_lectivos.alAno = ".date('Y')."
+        and cursos_pretendidos.cp_ano_lec_insc = ".date('Y')."
         and Academica_Planificacao_Exame_Ingreso.niveis_cursos_id = niveis_cursos.id
         order by cNome
         ");

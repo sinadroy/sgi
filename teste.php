@@ -71,4 +71,4 @@ list($ano, $mes, $dia) = preg_split('[-]', '2017-01-05');
 // hora
 // echo date("G:i:s");
 
-echo date('Y-m-d');
+echo $ano;

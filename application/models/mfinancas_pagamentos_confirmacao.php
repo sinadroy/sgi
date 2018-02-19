@@ -7,7 +7,8 @@
             semestres.snome,
             Financas_Forma_Pagamento.ffpNome,
             Financas_Contas.contNome,Financas_Contas.contNumero,
-            niveis.nNome,cursos.cNome as curso,periodos.pNome');
+            niveis.nNome,cursos.cNome as curso,periodos.pNome,
+            anos_lectivos.alAno');
           $this->db->from('financas_pagamaentos_conf_mat');
           $this->db->join('Financas_Forma_Pagamento', 'financas_pagamaentos_conf_mat.Financas_Forma_Pagamento_id = Financas_Forma_Pagamento.id');
           $this->db->join('Financas_Contas', 'financas_pagamaentos_conf_mat.Financas_Contas_id = Financas_Contas.id');
@@ -19,7 +20,7 @@
           $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
           $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
           $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
-          //$this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
+          $this->db->join('anos_lectivos', 'financas_pagamaentos_conf_mat.anos_lectivos_id = anos_lectivos.id');
           
           $this->db->order_by('fpddata','DESC');
           $consulta = $this->db->get();
@@ -47,6 +48,7 @@
                         "nNome" => $row->nNome,
                         "curso" => $row->curso,
                         "pNome" => $row->pNome,
+                        "alAno" => $row->alAno,
                     );
                     $ord++;
             }
@@ -65,8 +67,10 @@
           $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
           $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
           $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+          $this->db->join('anos_lectivos', 'financas_pagamaentos_conf_mat.anos_lectivos_id = anos_lectivos.id');
           $this->db->where('Candidatos.cBI_Passaporte', $bi);
           $this->db->where('semestres.id', $s);
+          $this->db->where('anos_lectivos.alAno', date('Y'));
           if($this->db->count_all_results() > 0)
             return true;
           else
@@ -159,8 +163,11 @@
     }
       
     function minsert($fpddata,$fpdhora,$fpdvalor,$fpdusuario,$fpdrefpagamento,$Estudantes_id,$semestres_id,$Financas_Forma_Pagamento_id,$Financas_Contas_id,$bi,$cnome){
+        $this->load->model('manos_lectivos');
+        $ano_act_id = $this->manos_lectivos->mGetID(date('Y'));
         $dados = array('fpddata'=>$fpddata,'fpdhora'=>$fpdhora,'fpdvalor'=>$fpdvalor,'fpdusuario'=>$fpdusuario,'fpdrefpagamento'=>$fpdrefpagamento,
-            'Estudantes_id'=>$Estudantes_id,'semestres_id'=>$semestres_id,'Financas_Forma_Pagamento_id'=>$Financas_Forma_Pagamento_id,'Financas_Contas_id'=>$Financas_Contas_id);
+            'Estudantes_id'=>$Estudantes_id,'semestres_id'=>$semestres_id,'Financas_Forma_Pagamento_id'=>$Financas_Forma_Pagamento_id,
+            'Financas_Contas_id'=>$Financas_Contas_id, 'anos_lectivos_id'=>$ano_act_id);
         if($this->db->insert('financas_pagamaentos_conf_mat', $dados))
         {
             $this->load->model('MAuditorias_Financas');

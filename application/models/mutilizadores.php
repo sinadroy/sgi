@@ -33,7 +33,7 @@ class Mutilizadores extends CI_Model{
 		
 		//$		this->db->where('nombre', $nombre);
 		
-		$consulta = $this->db->get_where('utilizadores',array('uUsuario' => $user,'uSenha' => $pass));
+		$consulta = $this->db->get_where('utilizadores',array('uusuario' => $user,'usenha' => $pass));
 		
 		//$		this->db->where('nombre', $nombre);
 		
