@@ -52,6 +52,38 @@
             }
             return $data;
       }
+      function mreadXncp2($n,$c,$p){
+        $this->db->select('turmas.id,turmas.tNome,turmas.tDescricao,turmas.tCodigo,turmas.tCapacidade,
+                turmas.Ano_Curricular_id,Ano_Curricular.acNome,
+                turmas.niveis_cursos_id,niveis.nNome,cursos.cNome,
+                periodos.pNome,
+                sessao.sesNome');
+        $this->db->from('turmas');
+        $this->db->join('Ano_Curricular', 'turmas.Ano_Curricular_id = Ano_Curricular.id');
+        
+        $this->db->join('niveis_cursos', 'turmas.niveis_cursos_id = niveis_cursos.id');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->join('sessao', 'turmas.sessao_id = sessao.id');
+        $this->db->where('niveis.id', $n);
+        $this->db->where('cursos.id', $c);
+        $this->db->where('periodos.id', $p);
+        $consulta = $this->db->get();
+        $orden = 1;
+          $data = array();
+          foreach($consulta->result() as $row){
+              $data[] = array(
+                  "orden"=>$orden,
+                  "id"=>$row->id,
+                  "value"=>$row->tNome,
+                  "tNome"=>$row->tNome,
+                  "tCodigo"=>$row->tCodigo
+              );
+              $orden++;
+          }
+          return $data;
+    }
       function mGetID($Nome){
           $this->db->select('turmas.id');
           $this->db->from('turmas');

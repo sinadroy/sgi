@@ -70,6 +70,10 @@ function cargarVistaEstudantes_Disciplinas(itemID) {
                                                     $$("idtext_acnome").setValue(ac);
                                                     $$("idtext_snome").setValue(s);
                                                     $$("idtext_tnome").setValue(t);
+                                                    // turma destino
+                                                    // $$('id_CB_tNome_ed2').setValue(t);
+                                                    $$("id_CB_tNome_ed2").getList().clearAll();
+                                                    $$("id_CB_tNome_ed2").getList().load(BASE_URL + "CTurmas/readXncp2?nNome=" + nivel + "&cNome=" + curso + "&pNome=" + periodo);
 
                                                     $$('idbtn_pesquisar1').enable();
                                                     //$$('idbtn_pesquisar2').enable();
@@ -390,8 +394,11 @@ function cargarVistaEstudantes_Disciplinas(itemID) {
                                                         var rs_id = webix.ajax().sync().post(BASE_URL + "CSemestres/GetID", envio_snome);
                                                         var s_id = rs_id.responseText;
 
+                                                        // turma destino
+                                                        let td = $$('id_CB_tNome_ed2').getValue();
+
                                                         var envio_ced = "id=" + ide + "&acNome=" + ac + "&sNome=" + s_id +
-                                                            "&user=" + user_sessao + "&bi=" + bi;
+                                                            "&user=" + user_sessao + "&bi=" + bi + "&td=" + td;
                                                         var rced = webix.ajax().sync().post(BASE_URL + "cEstudantes/voltar_estudante", envio_ced);
 
                                                         if (rced.responseText == "true") {
@@ -460,6 +467,18 @@ function cargarVistaEstudantes_Disciplinas(itemID) {
                                                     }
                                                 },
                                                 {
+                                                    view: "richselect", width: 170, id: "id_CB_tNome_ed2",
+                                                    label: 'Turma Destino', name: "tNome",
+                                                    labelPosition: "top",
+                                                    options: {
+                                                        body: {
+                                                            template: "#tNome#",
+                                                            yCount: 7,
+                                                            url: BASE_URL + "CTurmas/read"
+                                                        }
+                                                    }
+                                                },
+                                                {
                                                     view: "button", type: "form", value: "Transitar", width: 140, click: function () {
                                                         var bi = $$("idtext_bi_ed").getValue();
                                                         var envio = "bi=" + bi;
@@ -476,8 +495,11 @@ function cargarVistaEstudantes_Disciplinas(itemID) {
                                                         var rs_id = webix.ajax().sync().post(BASE_URL + "CSemestres/GetID", envio_snome);
                                                         var s_id = rs_id.responseText;
 
+                                                        // turma destino
+                                                        let td = $$('id_CB_tNome_ed2').getValue();
+
                                                         var envio_ced = "id=" + ide + "&acNome=" + ac + "&sNome=" + s_id +
-                                                            "&user=" + user_sessao + "&bi=" + bi;
+                                                            "&user=" + user_sessao + "&bi=" + bi + "&td=" + td;
                                                         var rced = webix.ajax().sync().post(BASE_URL + "cEstudantes/tranferir_estudante", envio_ced);
 
                                                         if (rced.responseText == "true") {
@@ -721,35 +743,35 @@ var formchefes_dpto = {
                                 existem_prec = rep.responseText;
 
                                 //ver si no tiene deuda con alguna precedencia
-                               ////// if (existem_prec == "false" || estado_precedencia1 == "Aprovado" || estado_precedencia2 == "Aprovado" || estado_precedencia3 == "Aprovado") {
-                                    if (ide && record.id) {
-                                        //ver si existe el est antes de inserir
-                                        var envio4 = "bi=" + bi + "&idd=" + record.id;
-                                        var r4 = webix.ajax().sync().post(BASE_URL + "CPautas/existe_est", envio4);
-                                        if (r4.responseText == "false") {
-                                            //inserir na pauta
-                                            var envio2 = "Estudantes_id=" + ide + "&Disciplinas_id=" + record.id;
-                                            var r = webix.ajax().sync().post(BASE_URL + "cPautas/insert_inicializar", envio2);
-                                        } else
-                                            webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
-                                        //ver si existe el est antes de inserir
-                                        var envio3 = "bi=" + bi + "&idd=" + record.id;
-                                        var r = webix.ajax().sync().post(BASE_URL + "cacademica_estudantes_disciplinas/existe_d_e", envio3);
-                                        if (r.responseText == "false") {
-                                            //inserir em Estudantes_Disciplinas
-                                            $$('idDTED').add({
-                                                idd: record.id,
-                                                bi: bi
-                                            });
-                                        } else
-                                            webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
+                                ////// if (existem_prec == "false" || estado_precedencia1 == "Aprovado" || estado_precedencia2 == "Aprovado" || estado_precedencia3 == "Aprovado") {
+                                if (ide && record.id) {
+                                    //ver si existe el est antes de inserir
+                                    var envio4 = "bi=" + bi + "&idd=" + record.id;
+                                    var r4 = webix.ajax().sync().post(BASE_URL + "CPautas/existe_est", envio4);
+                                    if (r4.responseText == "false") {
+                                        //inserir na pauta
+                                        var envio2 = "Estudantes_id=" + ide + "&Disciplinas_id=" + record.id;
+                                        var r = webix.ajax().sync().post(BASE_URL + "cPautas/insert_inicializar", envio2);
                                     } else
-                                        webix.message({ type: "error", text: "Erro, Faltam dados por inserir ou seleccionar" });
+                                        webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
+                                    //ver si existe el est antes de inserir
+                                    var envio3 = "bi=" + bi + "&idd=" + record.id;
+                                    var r = webix.ajax().sync().post(BASE_URL + "cacademica_estudantes_disciplinas/existe_d_e", envio3);
+                                    if (r.responseText == "false") {
+                                        //inserir em Estudantes_Disciplinas
+                                        $$('idDTED').add({
+                                            idd: record.id,
+                                            bi: bi
+                                        });
+                                    } else
+                                        webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
+                                } else
+                                    webix.message({ type: "error", text: "Erro, Faltam dados por inserir ou seleccionar" });
 
-                            /*    } else
-                                    webix.message({ type: "error", text: "Erro, Esta disciplina tem precedencias em estado reprovado." });
-                            */
-                            
+                                /*    } else
+                                        webix.message({ type: "error", text: "Erro, Esta disciplina tem precedencias em estado reprovado." });
+                                */
+
                                 //actualizar dados
                                 var bi = $$("idtext_bi_ed").getValue();
                                 var n = $$("idtext_nnome").getValue();
@@ -1054,35 +1076,35 @@ var form_ano_lec = {
                                 existem_prec = rep.responseText;
 
                                 //ver si no tiene deuda con alguna precedencia
-                               ////// if (existem_prec == "false" || estado_precedencia1 == "Aprovado" || estado_precedencia2 == "Aprovado" || estado_precedencia3 == "Aprovado") {
-                                    if (ide && record.id) {
-                                        //ver si existe el est antes de inserir
-                                        var envio4 = "bi=" + bi + "&idd=" + record.id;
-                                        var r4 = webix.ajax().sync().post(BASE_URL + "CPautas/existe_est", envio4);
-                                        if (r4.responseText == "false") {
-                                            //inserir na pauta
-                                            var envio2 = "Estudantes_id=" + ide + "&Disciplinas_id=" + record.id + "&al=" + al;
-                                            var r = webix.ajax().sync().post(BASE_URL + "cPautas/insert_inicializar", envio2);
-                                        } else
-                                            webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
-                                        //ver si existe el est antes de inserir
-                                        var envio3 = "bi=" + bi + "&idd=" + record.id;
-                                        var r = webix.ajax().sync().post(BASE_URL + "cacademica_estudantes_disciplinas/existe_d_e", envio3);
-                                        if (r.responseText == "false") {
-                                            //inserir em Estudantes_Disciplinas
-                                            $$('idDTED').add({
-                                                idd: record.id,
-                                                bi: bi,
-                                                al: al
-                                            });
-                                        } else
-                                            webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
+                                ////// if (existem_prec == "false" || estado_precedencia1 == "Aprovado" || estado_precedencia2 == "Aprovado" || estado_precedencia3 == "Aprovado") {
+                                if (ide && record.id) {
+                                    //ver si existe el est antes de inserir
+                                    var envio4 = "bi=" + bi + "&idd=" + record.id;
+                                    var r4 = webix.ajax().sync().post(BASE_URL + "CPautas/existe_est", envio4);
+                                    if (r4.responseText == "false") {
+                                        //inserir na pauta
+                                        var envio2 = "Estudantes_id=" + ide + "&Disciplinas_id=" + record.id + "&al=" + al;
+                                        var r = webix.ajax().sync().post(BASE_URL + "cPautas/insert_inicializar", envio2);
                                     } else
-                                        webix.message({ type: "error", text: "Erro, Faltam dados por inserir ou seleccionar" });
+                                        webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
+                                    //ver si existe el est antes de inserir
+                                    var envio3 = "bi=" + bi + "&idd=" + record.id;
+                                    var r = webix.ajax().sync().post(BASE_URL + "cacademica_estudantes_disciplinas/existe_d_e", envio3);
+                                    if (r.responseText == "false") {
+                                        //inserir em Estudantes_Disciplinas
+                                        $$('idDTED').add({
+                                            idd: record.id,
+                                            bi: bi,
+                                            al: al
+                                        });
+                                    } else
+                                        webix.message({ type: "error", text: "Erro, Os dados ja existem na Base de Dados" });
+                                } else
+                                    webix.message({ type: "error", text: "Erro, Faltam dados por inserir ou seleccionar" });
 
-                            /*    } else
-                                    webix.message({ type: "error", text: "Erro, Esta disciplina tem precedencias em estado reprovado." });
-                            */
+                                /*    } else
+                                        webix.message({ type: "error", text: "Erro, Esta disciplina tem precedencias em estado reprovado." });
+                                */
 
                                 //actualizar dados
                                 var bi = $$("idtext_bi_ed").getValue();

@@ -708,21 +708,21 @@ class MEstudantes extends CI_Model {
 			return false;
 	}
 
-	function mtranferir_estudante($id,$ac,$s){
+	function mtranferir_estudante($id,$ac,$s,$td){
 		//logica
 		if($this->par($s)){
 			$s++;
 			$ac++;
 		}else
 			$s++;
-		$dados = array('Ano_Curricular_id'=>$ac, 'semestres_id'=>$s);
+		$dados = array('Ano_Curricular_id'=>$ac, 'semestres_id'=>$s, 'turmas_id'=>$td);
 		if ($this->db->update('Estudantes', $dados, array('id' => $id))) {
 			return true;
 		}else
 		    return false;
 	}
 
-	function mvoltar_estudante($id,$ac,$s){
+	function mvoltar_estudante($id,$ac,$s,$td){
 		//logica
 		if($s > 1){ //para evitar que alguien regrese un estudiante de semestre 1 a semestre 0...
 			if($this->par($s)){
@@ -732,7 +732,7 @@ class MEstudantes extends CI_Model {
 				$ac--;
 			}
 		}
-		$dados = array('Ano_Curricular_id'=>$ac, 'semestres_id'=>$s);
+		$dados = array('Ano_Curricular_id'=>$ac, 'semestres_id'=>$s, 'turmas_id'=>$td);
 		if ($this->db->update('Estudantes', $dados, array('id' => $id))) {
 			return true;
 		}else

@@ -236,14 +236,19 @@ class CEstudantes extends CI_Controller {
 		$s = @$request['sNome'];
 		$user = @$request['user'];
 		$bi = @$request['bi'];
+		$td = @$request['td'];
 		$this->load->model('MAuditorias_Academicas');
 		$this->load->model('MEstudantes');
-		if($this->MEstudantes->mtranferir_estudante($id,$ac,$s))
-		{
-			$this->MAuditorias_Academicas->minsert("Tranferir:Estudante","Academica","Estudantes/Disciplinas",$user,"Estudante BI: ".$bi." tranferido de semestre ".$s." para ".($s+1)." Actualizado com sucesso");
-			echo "true";
+		if($id && $ac && $s && $td){
+			if($this->MEstudantes->mtranferir_estudante($id,$ac,$s,$td))
+			{
+				$this->MAuditorias_Academicas->minsert("Tranferir:Estudante","Academica","Estudantes/Disciplinas",$user,"Estudante BI: ".$bi." tranferido de semestre ".$s." para ".($s+1)." para turma id: "+ $td+" Actualizado com sucesso");
+				echo "true";
+			}else
+				echo "false";
 		}else
 			echo "false";
+		
 	}
 	public function voltar_estudante(){
 		$request = $_POST;
@@ -252,14 +257,18 @@ class CEstudantes extends CI_Controller {
 		$s = @$request['sNome'];
 		$user = @$request['user'];
 		$bi = @$request['bi'];
+		$td = @$request['td'];
 		$this->load->model('MAuditorias_Academicas');
 		$this->load->model('MEstudantes');
 		
-		if($this->MEstudantes->mvoltar_estudante($id,$ac,$s))
-		{
-			$this->MAuditorias_Academicas->minsert("Voltar:Estudante","Academica","Estudantes/Disciplinas",$user,"Estudante BI: ".$bi." tranferido de semestre ".$s." para ".($s-1)." Actualizado com sucesso");
-			echo "true";
-		}else
+		if($id && $ac && $s && $td) {
+			if($this->MEstudantes->mvoltar_estudante($id,$ac,$s,$td))
+			{
+				$this->MAuditorias_Academicas->minsert("Voltar:Estudante","Academica","Estudantes/Disciplinas",$user,"Estudante BI: ".$bi." tranferido de semestre ".$s." para ".($s-1)." Actualizado com sucesso");
+				echo "true";
+			} else
+				echo "false";
+		} else
 			echo "false";
 	}
 	

@@ -35,6 +35,21 @@ class CTurmas extends CI_Controller {
         $ac = @$request['ac'];
 		$this->load->model('mTurmas');
 		echo json_encode($this->mTurmas->mreadXncp($n,$c,$p,$ac));
+    }
+    // este es sin el ac
+    public function readXncp2() {
+        $request = $_GET;
+        $n = $request['nNome'];
+        $this->load->model('mniveis');
+        $nid = $this->mniveis->getID($n);
+        $c = $request['cNome'];
+        $this->load->model('mcursos');
+        $cid = $this->mcursos->mGetID($c);
+        $p = $request['pNome'];
+        $this->load->model('mperiodos');
+        $pid = $this->mperiodos->mGetID($p);
+		$this->load->model('mTurmas');
+		echo json_encode($this->mTurmas->mreadXncp2($nid,$cid,$pid));
 	}
     public function GetID() {
         $Nome = $this->input->post('tNome');
