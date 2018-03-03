@@ -5,6 +5,14 @@
     
     public function criarPdf($n, $c, $p, $ac, $t, $s, $utilizador)
     {
+        ini_set('memory_limit', '256M');
+		ini_set('upload_max_filesize', '20M');
+		ini_set('download_max_filesize', '20M');
+		ini_set('post_max_size', '20M'); 
+		ini_set('get_max_size', '20M');
+		ini_set('max_execution_time', '400');
+		ini_set('max_input_time', '400');
+        
         $this->load->library('hpdf');
         date_default_timezone_set('UTC');
         $this->hpdf = new HTML2PDF('P','A4','pt','true','UTF-8');
