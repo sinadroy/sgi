@@ -51,7 +51,7 @@
 
       //ano lectivo de la disciplina
       function mread_ano_lectivo($idp,$idd){
-          $this->db->select('anos_lectivos.alAno');
+          $this->db->select_max('anos_lectivos.alAno');
           $this->db->from('Professores_Disciplinas');
           $this->db->join('anos_lectivos', 'Professores_Disciplinas.anos_lectivos_id = anos_lectivos.id');
           $this->db->where('Professores_Disciplinas.ProfessorP_id', $idp);
