@@ -155,7 +155,6 @@ class Cpauta_professor extends CI_Controller {
 	}
 
 	public function importar(){
-
 		$username = $this->input->get('username');
 
         //ini_set('max_execution_time', 120);
@@ -167,7 +166,8 @@ class Cpauta_professor extends CI_Controller {
         //ini_set('upload_tmp_dir', APPPATH."/libraries/pautas/temporales");
 
         ini_set('max_execution_time', 120);
-        //$destination = realpath('./files');
+		//$destination = realpath('./files');
+		
         $destination = realpath(APPPATH."/libraries/pautas"); //para copiar aqui temporalmente la pauta cargda.
         if (isset($_FILES['upload'])){
             $file = $_FILES['upload'];
