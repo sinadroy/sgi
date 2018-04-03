@@ -98,6 +98,15 @@ class MEstudantes extends CI_Model {
 					return false;
 		  }
 	}
+	function mread_numero_universitario($ide){
+		$this->db->select('e_num_univ');
+		$this->db->from('Estudantes');
+		$this->db->where('id', $ide);
+		$consulta = $this->db->get();
+		foreach ($consulta->result() as $row) {
+			return $row->e_num_univ;
+		}
+  }
 
 	function mread() {
 		$this->db->select('Estudantes.id,Estudantes.eEstado_Matricula,Estudantes.eData_Matricula,

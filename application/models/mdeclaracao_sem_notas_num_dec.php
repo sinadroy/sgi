@@ -23,24 +23,24 @@
             }else
                 return false;
       }
-    /*  
-    function minsert($paNome,$paCodigo){
-        if($this->db->insert('Pais', array('paNome' => $paNome,'paCodigo' => $paCodigo)))
-        {
-            return true;
-        }else{
-            return false;
+
+      function mread_com_notas(){
+        $this->db->select('num_declaracao');
+        $this->db->from('declaracao_sem_notas_num_declaracao');
+        $this->db->where('id', 2);
+        $consulta = $this->db->get();
+        foreach($consulta->result() as $value) {
+            return $value->num_declaracao;
         }
-           
     }
-    function mdelete($id) {
-        if($this->db->delete('Pais', array('id' => $id)))  
-            return true;
-        else
-            return false;
-        
-    }
-      */ 
+    
+    function mupdate_com_notas($num_declaracao){
+          $dadosPaises = array('num_declaracao' => $num_declaracao);
+          if($this->db->update('declaracao_sem_notas_num_declaracao', $dadosPaises, array('id' => 2))){
+              return true;
+          }else
+              return false;
+    } 
            
   }
 ?>

@@ -66,6 +66,23 @@ class CPautas extends CI_Controller {
         echo $response;
     }
 
+    // para delcaracao com notas
+    public function read_resultXncpac_est(){
+        $n = $this->input->get('n');
+        $c = $this->input->get('c');
+        $p = $this->input->get('p');
+        $eid = $this->input->get('eid');
+        $ac = $this->input->get('ac');
+        
+        $ord = 1;
+        
+        $this->load->model('mpautas');
+        
+        $data = json_encode($this->mpautas->mread_resultXncpac_est($n,$c,$p,$eid,$ac));
+        $response = $data;
+        echo $response;
+    }
+
     public function readXdisciplina_login_pautas(){
         $n = $this->input->get('n');
         $c = $this->input->get('c');

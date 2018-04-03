@@ -14,6 +14,40 @@ class MPautas extends CI_Model {
 		$consulta = $this->db->get();
           return $consulta->result();
 	}
+	// para declaracao com notas
+	function mread_resultXncpac_est($n,$c,$p,$eid,$ac) {
+		$this->db->select('disciplinas.id, disciplinas.dNome, disciplinas.dCodigo, pautas.ef, pautas.recurso, pautas.especial, estudantes.id as eid, anos_lectivos.alAno');
+		$this->db->from('Pautas');
+		$this->db->join('Estudantes', 'Pautas.Estudantes_id = Estudantes.id');
+		$this->db->join('Disciplinas', 'Pautas.Disciplinas_id = Disciplinas.id');
+		$this->db->join('niveis_cursos', 'Disciplinas.niveis_cursos_id = niveis_cursos.id');
+		$this->db->join('Disciplinas_Ano_Curricular', 'Disciplinas_Ano_Curricular.Disciplinas_id = disciplinas.id');
+		$this->db->join('anos_lectivos', 'Pautas.Anos_Lectivos_id = anos_lectivos.id');
+		$this->db->where('niveis_id', $n);
+		$this->db->where('cursos_id', $c);
+		$this->db->where('periodos_id', $p);
+		$this->db->where('estudantes.id', $eid);
+		$this->db->where('Disciplinas_Ano_Curricular.Ano_Curricular_id', $ac);
+        $this->db->order_by('dNome','ASC');
+		$consulta = $this->db->get();
+		$arr = array();
+		$ord = 1;
+		foreach($consulta->result() as $row){
+            $arr[] = array(
+                "id" => $row->id,
+                "ord" => $ord,
+                "dNome" => $row->dNome,
+                "dCodigo" => $row->dCodigo,
+                "ef" => $row->ef,
+                "recurso" => $row->recurso,
+                "especial" => $row->especial,
+				"eid" => $row->eid,
+				"alAno" => $row->alAno
+			);
+            $ord++;
+		}
+		return $arr;
+	}
 
 	function mreadXdisciplina($n,$c,$p,$al,$d,$g) {
 		$this->db->select('Pautas.id,Pautas.pp1,Pautas.pp2,Pautas.pp3,Pautas.ef,Pautas.recurso,Pautas.especial,Pautas.estado,

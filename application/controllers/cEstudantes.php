@@ -19,7 +19,12 @@ class CEstudantes extends CI_Controller {
 		$this->load->model('MEstudantes');
 		echo $this->MEstudantes->mget_idXbi($bi);
 	}
-	
+	public function read_numero_universitario() {
+		$request = $_POST;
+		$ide = $request['ide'];
+		$this->load->model('MEstudantes');
+		echo $this->MEstudantes->mread_numero_universitario($ide);
+	}
 
 	//mread_mat_financas
 	public function read_mat_financas() {
