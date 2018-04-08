@@ -1,5 +1,5 @@
 <?php
-  class Msecretaria_declaracao_com_notas extends CI_Model{
+  class Msecretaria_declaracao_com_notas_concluicao extends CI_Model{
     
     public function criarPdf($id,$eid,$cnome,$cnomes,$capelido,$cbi_passaporte,$cBI_Data_Emissao,$cBI_Lugar_Emissao_Provincia_id,
         $acnome,$nnome, $curso, $pnome, $mnome, $tipo_documentos_id)
@@ -117,77 +117,6 @@
         $total_notas = $contador1 + $contador2 + $contador3 + $contador4 + $contador5;
         $mf = round($total_notas / $total_disc, 1);
 
-        // contriur tablas de anos dinamicamente
-        $table1 = '';
-        if ($ac - 1 >= 1) {
-            $table1 = $table1.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">1º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_1.'
-            </table>';
-        }
-        $table2 = '';
-        if ($ac - 1 >= 2) {
-            $table2 = $table2.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">2º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_2.'
-            </table>
-            ';
-        }
-        $table3 = '';
-        if ($ac - 1 >= 3) {
-            $table3 = $table3.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">3º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_3.'
-            </table>
-            ';
-        }
-        $table4 = '';
-        if ($ac - 1 >= 4) {
-            $table4 = $table4.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">4º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_4.'
-            </table>
-            ';
-        }
-        $table5 = '';
-        if ($ac - 1 >= 5) {
-            $table5 = $table5.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">5º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_5.'
-            </table>
-            ';
-        }
-
         $content = '
             <page>
                 <div align="center">
@@ -221,26 +150,65 @@
                         Instituto Superior de Ciências de Educação do Huambo. Declaro em cumprimento do despacho exarado 
                         em requerimento que fica arquivado nessa secretaria que, <b>'.$cnome.' '.$cnomes.' '.$capelido.',</b> 
                         '.$portador.' do documento de identificação N.º '.$cbi_passaporte.', passado pelo arquivo de identificação 
-                        '.$artigo.' '.$cBI_Lugar_Emissao_Provincia_id.', em '.$cBI_Data_Emissao.', no curso de <b>Ciências de Educação</b>, 
-                        opção de <b>'.$curso.'</b>, período <b>'.$pnome.'</b>, com número Universitário <b>'.$num_univ.'</b>, 
-                        concluiu o ano curricular '.--$ac.' com a seguinte classificação:
+                        '.$artigo.' '.$cBI_Lugar_Emissao_Provincia_id.', em '.$cBI_Data_Emissao.', Licenciou-se em <b>Ciências de Educação</b>, 
+                        opção de <b>'.$curso.'</b>, período <b>'.$pnome.'</b>, com número Universitário <b>'.$num_univ.'</b>, com a seguinte classificação:
                     </p>
                 </div>
                 <br>
-                    '.$table1.'
+                    <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                        <tr style="background: #999;">
+                            <td colspan=3 align="center">1º Ano</td>
+                        </tr>
+                        <tr style="background: #999;">
+                            <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
+                        </tr>
+                        '.$td_1.'
+                    </table>
                     <br>
-                    '.$table2.'
+                    <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                        <tr style="background: #999;">
+                            <td colspan=3 align="center">2º Ano</td>
+                        </tr>
+                        <tr style="background: #999;">
+                            <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
+                        </tr>
+                        '.$td_2.'
+                    </table>
                     <br>
-                    '.$table3.'
+                    <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                        <tr style="background: #999;">
+                            <td colspan=3 align="center">3º Ano</td>
+                        </tr>
+                        <tr style="background: #999;">
+                            <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
+                        </tr>
+                        '.$td_3.'
+                    </table>
                     <br>
-                    '.$table4.'
+                    <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                        <tr style="background: #999;">
+                            <td colspan=3 align="center">4º Ano</td>
+                        </tr>
+                        <tr style="background: #999;">
+                            <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
+                        </tr>
+                        '.$td_4.'
+                    </table>
                     <br>
-                    '.$table5.'
+                    <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                        <tr style="background: #999;">
+                            <td colspan=3 align="center">5º Ano</td>
+                        </tr>
+                        <tr style="background: #999;">
+                            <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
+                        </tr>
+                        '.$td_5.'
+                    </table>
                 
                 <br>
                 <div>
                     <p style="font-size: 12pt; font-family: Arial;text-align: justify; line-height: 150%;">
-                        Média: '.$mf.' Valores
+                        Média Final de Licenciatura: '.$mf.' Valores
                     </p>   
                 </div>
                 <div>
@@ -278,7 +246,7 @@
         ';
         $this->hpdf->WriteHTML($content);
         //APPPATH."libraries/html2pdf_v4.03/
-        $this->hpdf->Output('relatorios/secretaria_declaracao_com_nota.pdf','F');
+        $this->hpdf->Output('relatorios/secretaria_declaracao_com_nota_conluicao.pdf','F');
         echo "true";
     }       
   }

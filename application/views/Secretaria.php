@@ -56,6 +56,7 @@ if (!$this->session->userdata('idusuario')){
         <!-- SUB-MODULOS -->
         <script src=<?php echo $web_dir."MODULOS/Secretaria/DeclaracaoSemNotas.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Secretaria/DeclaracaoSemNotasMestrado.js";?> type="text/javascript"></script>
+        <script src=<?php echo $web_dir."MODULOS/Secretaria/DeclaracaoComNotasConcluicao.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Secretaria/DeclaracaoComNotas.js";?> type="text/javascript"></script>
         
        <!-- <div id="testA" style="width:400px; height:300px; margin:10px;"></div> -->
@@ -89,7 +90,7 @@ if (!$this->session->userdata('idusuario')){
 		{ cols:[
                     { view:"list", id:"menuSecretaria",
                         //template:"#smNome#",
-                        width: 230,
+                        width: 260,
                         autoheight:true,
                         //data: submodulosUsuarios,
                         template:"<div class='mark'>#badge# </div> #smNome#",
@@ -124,6 +125,9 @@ if (!$this->session->userdata('idusuario')){
                     cargarVistaDeclaracaoSemNotasMestrado(item.smCodigo);
                 }
                 if(item.smCodigo==='1203'){
+                    cargarVistaDeclaracaoComNotasConcluicao(item.smCodigo);
+                }
+                if(item.smCodigo==='1204'){
                     cargarVistaDeclaracaoComNotas(item.smCodigo);
                 }
 

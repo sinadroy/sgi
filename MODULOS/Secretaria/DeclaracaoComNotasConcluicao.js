@@ -1,4 +1,4 @@
-function cargarVistaDeclaracaoComNotas(itemID) {
+function cargarVistaDeclaracaoComNotasConcluicao(itemID) {
   var f = new Date();
   //f.getDate() + "/" + (f.getMonth() + 1) + "/" + f.getFullYear()
 
@@ -8,7 +8,7 @@ function cargarVistaDeclaracaoComNotas(itemID) {
     height: 900,
     cells: [
       {
-        header: 'Declaração Com Nota',
+        header: 'Declaração Concluição Com Notas',
         body: {
           rows: [
             {
@@ -22,10 +22,10 @@ function cargarVistaDeclaracaoComNotas(itemID) {
                   width: 100,
                   click: function() {
                     var idSelecionado = $$(
-                      'idDTEdDeclaracaoComNotas'
+                      'idDTEdDeclaracaoComNotasConc'
                     ).getSelectedId(false, true);
                     //cargar dados necesarios para enviar para imprimir
-                    var record = $$('idDTEdDeclaracaoComNotas').getItem(
+                    var record = $$('idDTEdDeclaracaoComNotasConc').getItem(
                       idSelecionado
                     );
 
@@ -64,7 +64,7 @@ function cargarVistaDeclaracaoComNotas(itemID) {
                         .sync()
                         .post(
                           BASE_URL +
-                            'Csecretaria_declaracao_com_notas/imprimir',
+                            'Csecretaria_declaracao_com_notas_concluicao/imprimir',
                           envio
                         );
                       if (r.responseText == 'true') {
@@ -105,13 +105,14 @@ function cargarVistaDeclaracaoComNotas(itemID) {
                           })
                           .show();
                         PDFObject.embed(
-                          '../../relatorios/secretaria_declaracao_com_nota.pdf',
+                          '../../relatorios/secretaria_declaracao_com_nota_conluicao.pdf',
                           '#idPDFDSN'
                         );
 
-                        $$('idDTEdDeclaracaoComNotas').clearAll();
-                        $$('idDTEdDeclaracaoComNotas').load(
-                          BASE_URL + 'Cdocumentos_pendientes/read_com_notas'
+                        $$('idDTEdDeclaracaoComNotasConc').clearAll();
+                        $$('idDTEdDeclaracaoComNotasConc').load(
+                          BASE_URL +
+                            'Cdocumentos_pendientes/read_com_notas_concluicao'
                         );
                       } else {
                         webix.message({
@@ -133,9 +134,10 @@ function cargarVistaDeclaracaoComNotas(itemID) {
                   value: 'Actualizar',
                   width: 100,
                   click: function() {
-                    $$('idDTEdDeclaracaoComNotas').clearAll();
-                    $$('idDTEdDeclaracaoComNotas').load(
-                      BASE_URL + 'Cdocumentos_pendientes/read_com_notas'
+                    $$('idDTEdDeclaracaoComNotasConc').clearAll();
+                    $$('idDTEdDeclaracaoComNotasConc').load(
+                      BASE_URL +
+                        'Cdocumentos_pendientes/read_com_notas_concluicao'
                     );
                   }
                 },
@@ -144,7 +146,7 @@ function cargarVistaDeclaracaoComNotas(itemID) {
             },
             {
               view: 'datatable',
-              id: 'idDTEdDeclaracaoComNotas',
+              id: 'idDTEdDeclaracaoComNotasConc',
               select: true,
               editable: false,
               columns: [
@@ -255,7 +257,8 @@ function cargarVistaDeclaracaoComNotas(itemID) {
               ],
               resizeColumn: true,
               //save: BASE_URL + "Cdocumentos_pendientes/crud",
-              url: BASE_URL + 'Cdocumentos_pendientes/read_com_notas',
+              url:
+                BASE_URL + 'Cdocumentos_pendientes/read_com_notas_concluicao',
               pager: 'pagerDocumentos_Pendientes_CN'
             },
             {

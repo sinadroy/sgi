@@ -13,6 +13,10 @@ class Cdocumentos_pendientes extends CI_Controller {
         $this->load->model('mdocumentos_pendientes');
         echo json_encode($this->mdocumentos_pendientes->mread_com_notas());
     }
+    public function read_com_notas_concluicao(){
+        $this->load->model('mdocumentos_pendientes');
+        echo json_encode($this->mdocumentos_pendientes->mread_com_notas_concluicao());
+    }
     
     public function crud(){
         $request = $_POST;

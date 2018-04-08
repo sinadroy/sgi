@@ -117,77 +117,6 @@
         $total_notas = $contador1 + $contador2 + $contador3 + $contador4 + $contador5;
         $mf = round($total_notas / $total_disc, 1);
 
-        // contriur tablas de anos dinamicamente
-        $table1 = '';
-        if ($ac - 1 >= 1) {
-            $table1 = $table1.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">1º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_1.'
-            </table>';
-        }
-        $table2 = '';
-        if ($ac - 1 >= 2) {
-            $table2 = $table2.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">2º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_2.'
-            </table>
-            ';
-        }
-        $table3 = '';
-        if ($ac - 1 >= 3) {
-            $table3 = $table3.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">3º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_3.'
-            </table>
-            ';
-        }
-        $table4 = '';
-        if ($ac - 1 >= 4) {
-            $table4 = $table4.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">4º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_4.'
-            </table>
-            ';
-        }
-        $table5 = '';
-        if ($ac - 1 >= 5) {
-            $table5 = $table5.'
-            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
-                <tr style="background: #999;">
-                    <td colspan=3 align="center">5º Ano</td>
-                </tr>
-                <tr style="background: #999;">
-                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
-                </tr>
-                '.$td_5.'
-            </table>
-            ';
-        }
-
         $content = '
             <page>
                 <div align="center">
@@ -203,6 +132,7 @@
                         </table>
                 </div>
                 <p>=================================================================================================</p>
+                <br>
                 <div>
                     <table align="center" border="0">
                         <tr ><td border="0" align="center" width="600"> <p style="font-size: 15pt; font-family: Arial;"><b>Declaração N.º '.$incremento.'/'.date('Y').'</b></p> </td></tr>
@@ -214,6 +144,7 @@
                         <tr><td  width="400"><p align="center" style="font-size: 10pt; font-family: Arial;">Visto <br><br> Director Geral Adjunto para Área Académica <br><br> <b>Afonso Vindassi Manuel</b></p></td></tr>
                     </table>
                 </div>
+				<br>
 				
                 <div>
                     <p style="font-size: 12pt; font-family: Arial; text-align: justify; line-height: 150%;">
@@ -221,35 +152,95 @@
                         Instituto Superior de Ciências de Educação do Huambo. Declaro em cumprimento do despacho exarado 
                         em requerimento que fica arquivado nessa secretaria que, <b>'.$cnome.' '.$cnomes.' '.$capelido.',</b> 
                         '.$portador.' do documento de identificação N.º '.$cbi_passaporte.', passado pelo arquivo de identificação 
-                        '.$artigo.' '.$cBI_Lugar_Emissao_Provincia_id.', em '.$cBI_Data_Emissao.', no curso de <b>Ciências de Educação</b>, 
-                        opção de <b>'.$curso.'</b>, período <b>'.$pnome.'</b>, com número Universitário <b>'.$num_univ.'</b>, 
-                        concluiu o ano curricular '.--$ac.' com a seguinte classificação:
+                        '.$artigo.' '.$cBI_Lugar_Emissao_Provincia_id.', em '.$cBI_Data_Emissao.', Licenciou-se em <b>Ciências de Educação</b>, 
+                        opção de <b>'.$curso.'</b>, período <b>'.$pnome.'</b>, com número Universitário <b>'.$num_univ.'</b>, com a seguinte classificação:.
                     </p>
                 </div>
                 <br>
-                    '.$table1.'
-                    <br>
-                    '.$table2.'
-                    <br>
-                    '.$table3.'
-                    <br>
-                    '.$table4.'
-                    <br>
-                    '.$table5.'
-                
+                <div>
+                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                                    <tr style="background: #999;">
+                                        <td colspan=3 align="center">1º Ano</td>
+                                    </tr>
+                                    <tr style="background: #999;">
+                                        <td width="240">Designação</td> <td width="40">Ano</td> <td width="40">Nota</td>
+                                    </tr>
+                                    '.$td_1.'
+                                </table>
+                            </td> 
+                            <td>
+                                <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                                    <tr style="background: #999;">
+                                        <td colspan=3 align="center">2º Ano</td>
+                                    </tr>
+                                    <tr style="background: #999;">
+                                        <td width="240">Designação</td> <td width="40">Ano</td> <td width="40">Nota</td>
+                                    </tr>
+                                    '.$td_2.'
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td>
+                                <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                                    <tr style="background: #999;">
+                                        <td colspan=3 align="center">3º Ano</td>
+                                    </tr>
+                                    <tr style="background: #999;">
+                                        <td width="240">Designação</td> <td width="40">Ano</td> <td width="40">Nota</td>
+                                    </tr>
+                                    '.$td_3.'
+                                </table>
+                            </td> 
+                            <td>
+                                <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                                    <tr style="background: #999;">
+                                        <td colspan=3 align="center">4º Ano</td>
+                                    </tr>
+                                    <tr style="background: #999;">
+                                        <td width="240">Designação</td> <td width="40">Ano</td> <td width="40">Nota</td>
+                                    </tr>
+                                    '.$td_4.'
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div>
+                    <table align="center" border="0" cellpadding="0" cellspacing="0">
+                    <tr>
+                        <td>
+                            <table align="left" border="0.5" cellpadding="0" cellspacing="0">
+                                <tr style="background: #999;">
+                                    <td colspan=3 align="center">5º Ano</td>
+                                </tr>
+                                <tr style="background: #999;">
+                                    <td width="220">Designação</td> <td width="220">Ano</td> <td width="220">Nota</td>
+                                </tr>
+                                '.$td_5.'
+                            </table>
+                        </td>
+                    </tr>
+                    </table>
+                </div>
                 <br>
                 <div>
                     <p style="font-size: 12pt; font-family: Arial;text-align: justify; line-height: 150%;">
-                        Média: '.$mf.' Valores
+                        Média Final de Licenciatura: '.$mf.' Valores
                     </p>   
                 </div>
                 <div>
                     <p style="font-size: 12pt; font-family: Arial;text-align: justify; line-height: 150%;">
-                        Esta declaração destina-se para efeito de <b>'.$mnome.'</b> E por ser verdade, e 
-                        me ter sido solicitada, mandei passar a presente declaração que vai assinada por 
-                        mim Director Geral Adjunto para Área Académica e pelo Chefe de Departamento para 
-                        os Assuntos Académicos e autenticada com carimbo a óleo em uso nesta Instituição 
-                        de Ensino Superior. 
+                        Esta informação destina-se para efeito de <b>'.$mnome.'</b><br>
+                        E por ser verdade, e me ter sido solicitada, mandei passar a presente 
+                        Informação que vai visada por mim Director Geral Adjunto para 
+                        Área Académica e pelo Chefe de Departamento para os Assuntos Académicos 
+                        e autenticada com carimbo a óleo em uso nesta Instituição de Ensino Superior. 
                     </p>
                 </div>
                 <div>
