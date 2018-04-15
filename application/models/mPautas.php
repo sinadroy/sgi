@@ -16,13 +16,16 @@ class MPautas extends CI_Model {
 	}
 	// para declaracao com notas
 	function mread_resultXncpac_est($n,$c,$p,$eid,$ac) {
-		$this->db->select('disciplinas.id, disciplinas.dNome, disciplinas.dCodigo, pautas.ef, pautas.recurso, pautas.especial, estudantes.id as eid, anos_lectivos.alAno');
+		$this->db->select('disciplinas.id, disciplinas.dNome, disciplinas.dCodigo, 
+			pautas.pp1, pautas.pp2, pautas.pp3, pautas.ef, pautas.recurso, pautas.especial, 
+			estudantes.id as eid, anos_lectivos.alAno, Disciplinas.d_geracao_id, Disciplinas_Duracao.ddNome');
 		$this->db->from('Pautas');
 		$this->db->join('Estudantes', 'Pautas.Estudantes_id = Estudantes.id');
 		$this->db->join('Disciplinas', 'Pautas.Disciplinas_id = Disciplinas.id');
 		$this->db->join('niveis_cursos', 'Disciplinas.niveis_cursos_id = niveis_cursos.id');
 		$this->db->join('Disciplinas_Ano_Curricular', 'Disciplinas_Ano_Curricular.Disciplinas_id = disciplinas.id');
 		$this->db->join('anos_lectivos', 'Pautas.Anos_Lectivos_id = anos_lectivos.id');
+		$this->db->join('Disciplinas_Duracao', 'Disciplinas.Disciplinas_Duracao_id = Disciplinas_Duracao.id');
 		$this->db->where('niveis_id', $n);
 		$this->db->where('cursos_id', $c);
 		$this->db->where('periodos_id', $p);
@@ -37,12 +40,17 @@ class MPautas extends CI_Model {
                 "id" => $row->id,
                 "ord" => $ord,
                 "dNome" => $row->dNome,
-                "dCodigo" => $row->dCodigo,
+				"dCodigo" => $row->dCodigo,
+				"pp1" => $row->pp1,
+				"pp2" => $row->pp2,
+				"pp3" => $row->pp3,
                 "ef" => $row->ef,
                 "recurso" => $row->recurso,
                 "especial" => $row->especial,
 				"eid" => $row->eid,
-				"alAno" => $row->alAno
+				"alAno" => $row->alAno,
+				"d_geracao_id" => $row->d_geracao_id,
+				"ddNome" => $row->ddNome
 			);
             $ord++;
 		}

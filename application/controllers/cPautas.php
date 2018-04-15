@@ -318,7 +318,7 @@ class CPautas extends CI_Controller {
             $td = $this->Mdisciplinas_Duracao->mGetDuracao_DisciplinaXid($idd);
             $estado = $this->mpautas->mdeterminar_estado($d_geracao_id,$td,$pp1,$pp2,$pp3,$ef,$recurso,$especial);
             if($this->mpautas->mupdate($id,$pp1,$pp2,$pp3,$ef,$recurso,$especial,$estado,$usuario,$dnome,$enome))
-                echo "true"; 
+                echo "true";
             else
                 echo "false";
         //}else

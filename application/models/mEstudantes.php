@@ -253,7 +253,7 @@ class MEstudantes extends CI_Model {
 		$data = array();
 		foreach ($consulta->result() as $row) {
 			list($ano_mat, $mes, $dia) = preg_split('[-]', $row->eData_Matricula); // para coger el ano de matricula
-			if($this->Mfinancas_pagamentos_confirmacao->mExiste_Pagamento($row->cBI_Passaporte,$s) || $ano_mat == date('Y')){
+			if($n != 1 || $this->Mfinancas_pagamentos_confirmacao->mExiste_Pagamento($row->cBI_Passaporte,$s) || $ano_mat == date('Y')){
 				$nu = $row->id.'-'.$row->cDescricao.'/';
 				$this->insert_numero_universitario($row->id,$nu);
 

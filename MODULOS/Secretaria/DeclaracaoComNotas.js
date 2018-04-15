@@ -156,6 +156,22 @@ function cargarVistaDeclaracaoComNotas(itemID) {
                   width: 30,
                   sort: 'int'
                 },
+                // {
+                //   id: 'd_geracao_id',
+                //   header: '',
+                //   hidden: true,
+                //   css: 'rank',
+                //   width: 30,
+                //   sort: 'int'
+                // },
+                // {
+                //   id: 'ddNome',
+                //   header: '',
+                //   hidden: true,
+                //   css: 'rank',
+                //   width: 30,
+                //   sort: 'string'
+                // },
                 {
                   id: 'cBI_Data_Emissao',
                   header: '',

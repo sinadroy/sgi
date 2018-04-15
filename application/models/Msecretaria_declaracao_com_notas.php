@@ -63,9 +63,10 @@
         $contador1 = 0;
         if($count_1 > 0) {
             foreach ($this->mpautas->mread_resultXncpac_est($n,$c,$p,$eid,1) as $value) {
-                $nota_1 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                // $nota_1 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                $nota_1 = $this->mpautas->mdeterminar_nota_final($value['d_geracao_id'],$value['ddNome'],$value['pp1'],$value['pp2'],$value['pp2'],$value['ef'],$value['recurso'],$value['especial']);
                 $contador1 = $contador1 + $nota_1;
-                $td_1 = $td_1.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.$nota_1.'</td> </tr>';
+                $td_1 = $td_1.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.round($nota_1,1).'</td> </tr>';
             }
         }
         $td_2 = '';
@@ -74,9 +75,10 @@
         $contador2 = 0;
         if($count_2 > 0) {
             foreach ($this->mpautas->mread_resultXncpac_est($n,$c,$p,$eid,2) as $value) {
-                $nota_2 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                // $nota_2 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                $nota_2 = $this->mpautas->mdeterminar_nota_final($value['d_geracao_id'],$value['ddNome'],$value['pp1'],$value['pp2'],$value['pp2'],$value['ef'],$value['recurso'],$value['especial']);
                 $contador2 = $contador2 + $nota_2;
-                $td_2 = $td_2.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.$nota_2.'</td> </tr>';
+                $td_2 = $td_2.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.round($nota_2,1).'</td> </tr>';
             }
         }
         $td_3 = '';
@@ -85,9 +87,10 @@
         $contador3 = 0;
         if($count_3 > 0) {
             foreach ($this->mpautas->mread_resultXncpac_est($n,$c,$p,$eid,3) as $value) {
-                $nota_3 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                // $nota_3 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                $nota_3 = $this->mpautas->mdeterminar_nota_final($value['d_geracao_id'],$value['ddNome'],$value['pp1'],$value['pp2'],$value['pp2'],$value['ef'],$value['recurso'],$value['especial']);
                 $contador3 = $contador3 + $nota_3;
-                $td_3 = $td_3.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.$nota_3.'</td> </tr>';
+                $td_3 = $td_3.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.round($nota_3,1).'</td> </tr>';
             }
         }
         $td_4 = '';
@@ -96,9 +99,10 @@
         $contador4 = 0;
         if($count_4 > 0) {
             foreach ($this->mpautas->mread_resultXncpac_est($n,$c,$p,$eid,4) as $value) {
-                $nota_4 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                // $nota_4 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                $nota_4 = $this->mpautas->mdeterminar_nota_final($value['d_geracao_id'],$value['ddNome'],$value['pp1'],$value['pp2'],$value['pp2'],$value['ef'],$value['recurso'],$value['especial']);
                 $contador4 = $contador4 + $nota_4;
-                $td_4 = $td_4.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.$nota_4.'</td> </tr>';
+                $td_4 = $td_4.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.round($nota_4,1).'</td> </tr>';
             }
         }
         $td_5 = '';
@@ -107,9 +111,10 @@
         $contador5 = 0;
         if($count_5 > 0) {
             foreach ($this->mpautas->mread_resultXncpac_est($n,$c,$p,$eid,5) as $value) {
-                $nota_5 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                // $nota_5 = ($value['especial'] > 0) ? $value['especial'] : ($value['recurso'] > 0) ? $value['recurso'] : $value['ef'];
+                $nota_5 = $this->mpautas->mdeterminar_nota_final($value['d_geracao_id'],$value['ddNome'],$value['pp1'],$value['pp2'],$value['pp2'],$value['ef'],$value['recurso'],$value['especial']);
                 $contador5 = $contador5 + $nota_5;
-                $td_5 = $td_5.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.$nota_5.'</td> </tr>';
+                $td_5 = $td_5.'<tr> <td>'.$value['dNome'].'</td> <td>'.$value['alAno'].'</td> <td>'.round($nota_5,1).'</td> </tr>';
             }
         }
 
