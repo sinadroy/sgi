@@ -87,7 +87,7 @@ if (!$this->session->userdata('idusuario')) {
                                     }
                                 }},
                             {width: 10},
-                            {view: "toggle", type: "image", label: "Científica", css: "myBtnCSS10", height: 75, width: 170, image: PRO_URL + "webix/samples/common/imgs/32/copy.gif", click: function () {
+                            {view: "toggle", type: "image", label: "Científica", css: "myBtnCSS10", height: 75, width: 170, image: PRO_URL + "resources/40x40/cientifica.png", click: function () {
                                     var envio = "modulo=A.Científica&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
                                     if(r.responseText == "true"){
@@ -109,7 +109,7 @@ if (!$this->session->userdata('idusuario')) {
                                     }
                             }},
                             {width: 10},
-                            {view: "toggle", type: "image", label: "Biblioteca", css: "myBtnCSS7", height: 75, width: 170, image: PRO_URL + "webix/samples/common/imgs/32/copy.gif", click: function () {
+                            {view: "toggle", type: "image", label: "Biblioteca", css: "myBtnCSS7", height: 75, width: 170, image: PRO_URL + "resources/40x40/biblioteca.png", click: function () {
                                     var envio = "modulo=Biblioteca&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
                                     if(r.responseText == "true"){
@@ -124,7 +124,7 @@ if (!$this->session->userdata('idusuario')) {
                     {height: 2},
                     {
                         cols: [
-                            {view: "toggle", type: "image", label: "Finan./Contab.", css: "myBtnCSS5", height: 75, width: 170, image: PRO_URL + "resources/icons/money_add.png", click: function () {
+                            {view: "toggle", type: "image", label: "Finan./Contab.", css: "myBtnCSS5", height: 75, width: 170, image: PRO_URL + "resources/40x40/financas.png", click: function () {
                                     var envio = "modulo=Finanças&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
                                     if(r.responseText == "true"){
@@ -234,7 +234,7 @@ if (!$this->session->userdata('idusuario')) {
                     {height: 2},
                     {
                         cols: [
-                            {view: "toggle", type: "image", label: "Calendarios", css: "myBtnCSS1", height: 75, width: 170, image: PRO_URL + "webix/samples/common/imgs/32/copy.gif", click: function () {
+                            {view: "toggle", type: "image", label: "Calendarios", css: "myBtnCSS1", height: 75, width: 170, image: PRO_URL + "resources/40x40/calendario.png", click: function () {
                                     var envio = "modulo=Calendarios&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
                                     if(r.responseText == "true"){
@@ -256,7 +256,7 @@ if (!$this->session->userdata('idusuario')) {
                                     }
                             }},
                             {width: 10},
-                            {view: "toggle", type: "image", label: "Planifica&ccedil;&atilde;o", css: "myBtnCSS9", height: 75, width: 170, image: PRO_URL + "webix/samples/common/imgs/32/copy.gif", click: function () {
+                            {view: "toggle", type: "image", label: "Planifica&ccedil;&atilde;o", css: "myBtnCSS9", height: 75, width: 170, image: PRO_URL + "resources/40x40/planificacao.png", click: function () {
                                     var envio = "modulo=Planificacao&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
                                     if(r.responseText == "true"){
@@ -290,7 +290,7 @@ if (!$this->session->userdata('idusuario')) {
                                     }
                             }},
                             {width: 10},
-                            {view: "toggle", type: "image", label: "Backups", css: "myBtnCSS11", height: 75, width: 170, image: PRO_URL + "webix/samples/common/imgs/32/copy.gif", click: function () {
+                            {view: "toggle", type: "image", label: "Backups", css: "myBtnCSS11", height: 75, width: 170, image: PRO_URL + "resources/40x40/backup.png", click: function () {
                                     var envio = "modulo=Backup&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
                                     if(r.responseText == "true"){
@@ -301,7 +301,7 @@ if (!$this->session->userdata('idusuario')) {
                                     }
                             }},
                             {width: 10},
-                            {view: "button", type: "image", label: "Licenças SGI", css: "myBtnCSS3", padding: 5, height: 75, width: 170, image: PRO_URL + "webix/samples/common/imgs/32/copy.gif", click: function () {
+                            {view: "button", type: "image", label: "Licenças SGI", css: "myBtnCSS3", padding: 5, height: 75, width: 170, image: PRO_URL + "resources/40x40/licencas.png", click: function () {
                                     var envio = "modulo=Presenças&usuario="+user_sessao;
                                     var r = webix.ajax().sync().post(BASE_URL + "CModulos/getAccess", envio);
                                     if(r.responseText == "true"){

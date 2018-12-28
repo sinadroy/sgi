@@ -46,7 +46,8 @@
     /*
      * Datos para comprobativo de Inscricaos
     */
-    function mread($id) {
+    function mread($id,$al) {
+        $al = ($al != "")?$al:date('Y');
         $this->db->select('Candidatos.id,Candidatos.cNome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
                 Candidatos.anos_lectivos_id,anos_lectivos.alAno,
                 Candidatos.cEstado,
@@ -60,6 +61,7 @@
         $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
         $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
         $this->db->where('Candidatos.cBI_Passaporte', $id);
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
         $consulta = $this->db->get();
         $data = array();
         foreach ($consulta->result() as $row) {
@@ -92,7 +94,7 @@
             return false;
     }
 
-    public function criarPdf($id,$codigo_barra,$codigo,$utilizadores_id)
+    public function criarPdf($id,$codigo_barra,$codigo,$utilizadores_id,$al)
     {
         $this->load->library('hpdf');
         date_default_timezone_set('UTC');
@@ -129,7 +131,7 @@
         //$contador = 1;
         //$this->load->model('mCandidatos');
         $bi = $this->getBI($id);
-        foreach ($this->mread($bi) as $value) {
+        foreach ($this->mread($bi,$al) as $value) {
             $cNome = $value['cNome'];
             $cNomes = $value['cNomes'];
             $cApelido = $value['cApelido'];

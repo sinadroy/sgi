@@ -2,12 +2,13 @@
 class MCursos_Pretendidos extends CI_Model {
 
     /*
-     * Datos 
+     * Datos
     */
     function mread($al,$i,$l) {
         $this->load->model('manos_lectivos');
-        $al = $this->manos_lectivos->mGetID($al);
-        $ala = $this->manos_lectivos->mGetID(date('Y'));
+        // $al = $this->manos_lectivos->mGetID($al);
+        //$ala = $this->manos_lectivos->mGetID(date('Y'));
+        $ala = date('Y');
         $this->db->select('Cursos_Pretendidos.id,Candidatos.cNome as Nome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
             niveis.nNome,cursos.cNome,pNome,niveis_cursos.ncPreco_Inscricao,
             Cursos_Pretendidos.cp_ano_lec_insc');
@@ -19,9 +20,9 @@ class MCursos_Pretendidos extends CI_Model {
         $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
         
         if($al != "")
-            $this->db->where('Candidatos.Anos_Lectivos_id', $al);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
         else
-            $this->db->where('Candidatos.Anos_Lectivos_id', $ala);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $ala);
 
         $this->db->order_by('Nome,cApelido','ASC');
         $this->db->limit($l, $i);
@@ -50,8 +51,9 @@ class MCursos_Pretendidos extends CI_Model {
 
     function mread_search($al,$i,$l,$x) {
         $this->load->model('manos_lectivos');
-        $al = $this->manos_lectivos->mGetID($al);
-        $ala = $this->manos_lectivos->mGetID(date('Y'));
+        //$al = $this->manos_lectivos->mGetID($al);
+        //$ala = $this->manos_lectivos->mGetID(date('Y'));
+        $ala = date('Y');
         $this->db->select('Cursos_Pretendidos.id,Candidatos.cNome as Nome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
             niveis.nNome,cursos.cNome,pNome,niveis_cursos.ncPreco_Inscricao,
             Cursos_Pretendidos.cp_ano_lec_insc');
@@ -63,9 +65,9 @@ class MCursos_Pretendidos extends CI_Model {
         $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
         
         if($al != "")
-            $this->db->where('Candidatos.Anos_Lectivos_id', $al);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
         else
-            $this->db->where('Candidatos.Anos_Lectivos_id', $ala);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $ala);
 
         $this->db->like('Candidatos.cNome',$x);
         $this->db->or_like('Candidatos.cNomes',$x);

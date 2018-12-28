@@ -3,7 +3,11 @@ class CCursos_Pretendidos extends CI_Controller {
     
     public function read(){
         $request = $_GET;
-        $al = $request['ano'];
+        $al = @$request['ano'];
+        if($al)
+            $al = $al;
+        else
+            $al = date('Y');
         $i = $request['i'];
         $l = $request['l'];
         $this->load->model('MCursos_Pretendidos');

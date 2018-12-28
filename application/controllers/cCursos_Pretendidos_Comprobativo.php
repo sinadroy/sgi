@@ -8,6 +8,7 @@ class CCursos_Pretendidos_Comprobativo extends CI_Controller {
         $data = $request['data'];
         $hora = $request['hora'];
         $utilizadores_id = $request['utilizadores_id'];
+        $al = $request['al'];
         //crear codigo de barra unico para cada comprobativo
         //Formato CB "I Data Hora"
         $codigo = "I ".$data." ".$hora;
@@ -17,6 +18,6 @@ class CCursos_Pretendidos_Comprobativo extends CI_Controller {
 
 
         $this->load->model('mCursos_Pretendidos_Comprobativo');
-        $this->mCursos_Pretendidos_Comprobativo->criarPdf($id,$codigo_barra,$codigo,$utilizadores_id);
+        $this->mCursos_Pretendidos_Comprobativo->criarPdf($id,$codigo_barra,$codigo,$utilizadores_id,$al);
     }
 }

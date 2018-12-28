@@ -280,14 +280,15 @@ function cargarVistaInscricao(itemID) {
                                         },
                                         {
                                             view: "button", type: "standard", value: "Act. Insc.", width: 120, click: function () {
-                                                //seleccionar un candidato
+                                                // seleccionar un candidato
                                                 var idSelecionado = $$('idDTEdDadosPesoais').getSelectedId();
                                                 if (idSelecionado) {
                                                     var record = $$("idDTEdDadosPesoais").getItem(idSelecionado);
-                                                    //comprobar que no sea estudiante.
-                                                    //coger BI y localizarlo para ver si se inscribio en otro ano.
-                                                    //si fue inscrito en anos anteriores, actualizarle el campo ano_lec_insc.
-                                                    //ponerlo en estado "Espera de pagamento" para que pague de nuevo en financas.
+                                                    // comprobar que no sea estudiante.
+                                                    // coger BI y localizarlo para ver si se inscribio en otro ano.
+                                                    // si fue inscrito en anos anteriores, actualizarle el campo ano_lec_insc.
+                                                    // ponerlo en estado "Espera de pagamento" para que pague de nuevo en financas.
+                                                    //
                                                     var envio = "bi=" + record.cBI_Passaporte;
                                                     var r = webix.ajax().sync().post(BASE_URL + "CCandidatos/actualizar_inscicao", envio);
                                                     if (r.responseText == "true")
@@ -913,7 +914,10 @@ function cargarVistaInscricao(itemID) {
                                                                     });
                                                                     i = 0;
                                                                     $$("idDTCPretendidos").clearAll();
-                                                                    $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read?ano=" + $$('idcb_alAno_dcp').getText() + "&i=0&l=25");
+                                                                    if ($$('idcb_alAno_dcp1').getText())
+                                                                        $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read?ano=" + $$('idcb_alAno_dcp1').getText() + "&i=0&l=25");
+                                                                    else
+                                                                        $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read?i=0&l=25");
                                                                 } else {
                                                                     webix.message({ type: "error", text: "Erro, os dados ja existem na BD" });
                                                                 }
@@ -932,7 +936,10 @@ function cargarVistaInscricao(itemID) {
                                                         view: "button", type: "standard", value: "Actualizar", width: 120, click: function () {
                                                             i = 0;
                                                             $$("idDTCPretendidos").clearAll();
-                                                            $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read?ano=" + $$('idcb_alAno_dcp').getText() + "&i=0&l=25");
+                                                            if ($$('idcb_alAno_dcp1').getText())
+                                                                $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read?ano=" + $$('idcb_alAno_dcp1').getText() + "&i=0&l=25");
+                                                            else
+                                                                $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read?i=0&l=25");
                                                             $$("idComboBI").setValue("");
                                                             $$("idNomes").setValue("");
                                                             //$$("fBI_Passaporte").getList().clearAll();
@@ -1080,7 +1087,7 @@ function cargarVistaInscricao(itemID) {
                                                         $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read?l=25&i=" + i + "&ano=" + $$('idcb_alAno_dcp1').getText());
                                                     }
                                                 }
-                                            }, 
+                                            },
                                             {
                                                 view: "button", type: "standard", value: ">>", width: 120, click: function () {
                                                     i = i + 25;
@@ -1263,7 +1270,8 @@ function cargarVistaInscricao(itemID) {
                                                                         var dataActual = d.getFullYear() + "" + (d.getMonth() + 1) + "" + d.getDate();
                                                                         var horaActual = d.getHours() + "" + d.getMinutes() + "" + d.getSeconds();
 
-                                                                        var envio = "id=" + idSelecionado + "&data=" + dataActual + "&hora=" + horaActual + "&utilizadores_id=" + user_sessao;
+                                                                        var envio = "id=" + idSelecionado + "&data=" + dataActual + "&hora=" + horaActual + "&utilizadores_id=" + user_sessao +
+                                                                            "&al="+ $$("idalAno_inc_lci2").getText();;
                                                                         var r = webix.ajax().sync().post(BASE_URL + "CCursos_Pretendidos_Comprobativo/imprimir", envio);
                                                                         if (r.responseText == "true") {
                                                                             webix.message("PDF criado com sucesso");
@@ -1310,7 +1318,7 @@ function cargarVistaInscricao(itemID) {
                                     },
                                     {
                                         view: "form", scroll: false,
-                                        cols:[
+                                        cols: [
                                             {
                                                 view: "search", label: 'Pesquisar', labelPosition: "left", name: "x", id: "idText_search_lci", placeholder: "texto a pesquisar...",
                                                 on: {
@@ -1706,76 +1714,76 @@ var formADDDadosPesoais = {
                                     // var ano_id = r.responseText;
                                     //
                                     //if (ano_id !== "false") {
-                                        if ($$("idcNome").getValue() && $$("idcApelido").getValue() && $$("idcBI_Passaporte").getValue() &&
-                                            $$("idcBI_Data_Emissao").getValue() && $$("idhlfNome").getValue() && $$("idFormacao_efNome").getValue() &&
-                                            $$("idOpcao").getValue() && isNaN($$("idMedia").getValue()) == false && $$("idAno").getValue() &&
-                                            $$("idpaNome").getValue() && $$("idprovNome").getValue() && $$("idmunNome").getValue() && $$("idbaiNome").getValue() &&
-                                            $$("idNascimento_Provincias_id").getValue() && $$("idNascimento_Municipios_id").getValue()) {
-                                            $$('idDTEdDadosPesoais').add({
-                                                cNome: $$("idcNome").getValue(),
-                                                cNomes: $$("idcNomes").getValue(),
-                                                cApelido: $$("idcApelido").getValue(),
-                                                gNome: $$("idgNome").getValue(),
-                                                ngNome: $$("idngNome").getValue(),
-                                                cNome_Mae: $$("idcNome_Mae").getValue(),
-                                                cBI_Data_Emissao: $$("idcBI_Data_Emissao").getValue(),
-                                                ecNome: $$("idecNome").getValue(),
-                                                cData_Nascimento: $$("idcData_Nascimento").getValue(),
-                                                provNascimento: $$("idNascimento_Provincias_id").getValue(),
-                                                munNascimento: $$("idNascimento_Municipios_id").getValue(),
-                                                cNome_Pai: $$("idcNome_Pai").getValue(),
-                                                cBI_Passaporte: $$("idcBI_Passaporte").getValue(),
-                                                provEmissao: $$("idcBI_Lugar_Emissao_Provincia_id").getValue(),
-                                                neeNome: $$("idneeNome").getValue(),
-                                                //Profissionais
-                                                proNome: profissao,
-                                                tilNome: ($$("idtilNome").getValue()) ? $$("idtilNome").getValue() : 1,
-                                                dlLocal_Trabalho: $$("iddlLocal_Trabalho").getValue(),
-                                                trabNome: $$("idtrabNome").getValue(),
-                                                otNome: ($$("idotNome").getValue()) ? $$("idotNome").getValue() : 1,
-                                                dlCargo: $$("iddlCargo").getValue(),
-                                                //Academicos
-                                                paFormacao: $$("idFormacao_paNome").getValue(),
-                                                provFormacao: $$("idFormacao_provNome").getValue(),
-                                                hlfNome: $$("idhlfNome").getValue(),
-                                                Opcao: $$("idOpcao").getValue(),
-                                                Media: $$("idMedia").getValue(),
-                                                efNome: $$("idFormacao_efNome").getValue(),
-                                                Ano: $$("idAno").getValue(),
-                                                //Localizacao
-                                                paNome: $$("idpaNome").getValue(),
-                                                provNome: $$("idprovNome").getValue(),
-                                                munNome: $$("idmunNome").getValue(),
-                                                baiNome: $$("idbaiNome").getValue(),
-                                                cTelefone: $$("idcTelefone").getValue(),
-                                                cEmail: $$("idcEmail").getValue(),
-                                                //outros dados
-                                                //ano: ano_id,
-                                                usuario: user_sessao
-                                            });
-                                            //actualizar combo de BI en cursos Pretendidos
-                                            ///////$$("idComboBI").getList().clearAll();
-                                            //////$$("idComboBI").getList().load(BASE_URL + "CCandidatos/readBI");
-                                            //actualizar grid de cursos Pretendidos
-                                            $$("idDTCPretendidos").clearAll();
-                                            $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read");
-                                            //actualizar grid de listas/Comprovativo
-                                            $$("idDTInscricao").clearAll();
-                                            $$("idDTInscricao").load(BASE_URL + "cCandidatos/readDInscricao");
+                                    if ($$("idcNome").getValue() && $$("idcApelido").getValue() && $$("idcBI_Passaporte").getValue() &&
+                                        $$("idcBI_Data_Emissao").getValue() && $$("idhlfNome").getValue() && $$("idFormacao_efNome").getValue() &&
+                                        $$("idOpcao").getValue() && isNaN($$("idMedia").getValue()) == false && $$("idAno").getValue() &&
+                                        $$("idpaNome").getValue() && $$("idprovNome").getValue() && $$("idmunNome").getValue() && $$("idbaiNome").getValue() &&
+                                        $$("idNascimento_Provincias_id").getValue() && $$("idNascimento_Municipios_id").getValue()) {
+                                        $$('idDTEdDadosPesoais').add({
+                                            cNome: $$("idcNome").getValue(),
+                                            cNomes: $$("idcNomes").getValue(),
+                                            cApelido: $$("idcApelido").getValue(),
+                                            gNome: $$("idgNome").getValue(),
+                                            ngNome: $$("idngNome").getValue(),
+                                            cNome_Mae: $$("idcNome_Mae").getValue(),
+                                            cBI_Data_Emissao: $$("idcBI_Data_Emissao").getValue(),
+                                            ecNome: $$("idecNome").getValue(),
+                                            cData_Nascimento: $$("idcData_Nascimento").getValue(),
+                                            provNascimento: $$("idNascimento_Provincias_id").getValue(),
+                                            munNascimento: $$("idNascimento_Municipios_id").getValue(),
+                                            cNome_Pai: $$("idcNome_Pai").getValue(),
+                                            cBI_Passaporte: $$("idcBI_Passaporte").getValue(),
+                                            provEmissao: $$("idcBI_Lugar_Emissao_Provincia_id").getValue(),
+                                            neeNome: $$("idneeNome").getValue(),
+                                            //Profissionais
+                                            proNome: profissao,
+                                            tilNome: ($$("idtilNome").getValue()) ? $$("idtilNome").getValue() : 1,
+                                            dlLocal_Trabalho: $$("iddlLocal_Trabalho").getValue(),
+                                            trabNome: $$("idtrabNome").getValue(),
+                                            otNome: ($$("idotNome").getValue()) ? $$("idotNome").getValue() : 1,
+                                            dlCargo: $$("iddlCargo").getValue(),
+                                            //Academicos
+                                            paFormacao: $$("idFormacao_paNome").getValue(),
+                                            provFormacao: $$("idFormacao_provNome").getValue(),
+                                            hlfNome: $$("idhlfNome").getValue(),
+                                            Opcao: $$("idOpcao").getValue(),
+                                            Media: $$("idMedia").getValue(),
+                                            efNome: $$("idFormacao_efNome").getValue(),
+                                            Ano: $$("idAno").getValue(),
+                                            //Localizacao
+                                            paNome: $$("idpaNome").getValue(),
+                                            provNome: $$("idprovNome").getValue(),
+                                            munNome: $$("idmunNome").getValue(),
+                                            baiNome: $$("idbaiNome").getValue(),
+                                            cTelefone: $$("idcTelefone").getValue(),
+                                            cEmail: $$("idcEmail").getValue(),
+                                            //outros dados
+                                            //ano: ano_id,
+                                            usuario: user_sessao
+                                        });
+                                        //actualizar combo de BI en cursos Pretendidos
+                                        ///////$$("idComboBI").getList().clearAll();
+                                        //////$$("idComboBI").getList().load(BASE_URL + "CCandidatos/readBI");
+                                        //actualizar grid de cursos Pretendidos
+                                        $$("idDTCPretendidos").clearAll();
+                                        $$("idDTCPretendidos").load(BASE_URL + "cCursos_Pretendidos/read");
+                                        //actualizar grid de listas/Comprovativo
+                                        $$("idDTInscricao").clearAll();
+                                        $$("idDTInscricao").load(BASE_URL + "cCandidatos/readDInscricao");
 
-                                            $$("idDTEdDadosPesoais").clearAll();
-                                            $$("idDTEdDadosPesoais").load(BASE_URL + "cCandidatos/readDP");
-                                            $$("idDTEdDadosProfisionais").clearAll();
-                                            $$("idDTEdDadosProfisionais").load(BASE_URL + "cCandidatos/readDPRO");
-                                            $$("idDTEdDadosAcademicos").clearAll();
-                                            $$("idDTEdDadosAcademicos").load(BASE_URL + "cCandidatos/readDACA");
-                                            $$("idDTEdDadosLocalizacao").clearAll();
-                                            $$("idDTEdDadosLocalizacao").load(BASE_URL + "cCandidatos/readDLOC");
+                                        $$("idDTEdDadosPesoais").clearAll();
+                                        $$("idDTEdDadosPesoais").load(BASE_URL + "cCandidatos/readDP");
+                                        $$("idDTEdDadosProfisionais").clearAll();
+                                        $$("idDTEdDadosProfisionais").load(BASE_URL + "cCandidatos/readDPRO");
+                                        $$("idDTEdDadosAcademicos").clearAll();
+                                        $$("idDTEdDadosAcademicos").load(BASE_URL + "cCandidatos/readDACA");
+                                        $$("idDTEdDadosLocalizacao").clearAll();
+                                        $$("idDTEdDadosLocalizacao").load(BASE_URL + "cCandidatos/readDLOC");
 
-                                            $$("id_win_inscricao_add").close();
-                                        } else {
-                                            webix.message({ type: "error", text: "Algums campos s&atilde;o obrigatorios" });
-                                        }
+                                        $$("id_win_inscricao_add").close();
+                                    } else {
+                                        webix.message({ type: "error", text: "Algums campos s&atilde;o obrigatorios" });
+                                    }
 
                                     // }
                                     // else {

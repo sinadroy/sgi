@@ -27,7 +27,7 @@ class Cpauta_professor extends CI_Controller {
         $this->load->model('mProfessores_Disciplinas');
         $professor = 'Professor: '.$this->mProfessores_Disciplinas->mread_ProfXDisc($idd);
 
-		// data 
+		// data e hora de impresao
 		$data_hora_imp = 'Data hora de impressão: '.date("d").' de '.$mes.' de '.date('Y').', '.date("G:i:s");
 
 		/** Error reporting */
@@ -61,7 +61,6 @@ class Cpauta_professor extends CI_Controller {
 									->setDescription("Test document for Office 2007 XLSX, generated using PHP classes.")
 									->setKeywords("office 2007 openxml php")
 									->setCategory("pauta");
-
 		// Create a first sheet
 		$objPHPExcel->setActiveSheetIndex(0);
 		//ano lectivo
@@ -86,19 +85,60 @@ class Cpauta_professor extends CI_Controller {
 
 		//$data_hora_imp
 		$objPHPExcel->getActiveSheet()->setCellValue('C135', $data_hora_imp);
-
 		//$objPHPExcel->getActiveSheet()->setCellValue('B1', "NOME");
 
 		// Rows to repeat at top
 		//$objPHPExcel->getActiveSheet()->getPageSetup()->setRowsToRepeatAtTopByStartAndEnd(1, 1);
-
 		$this->load->model('mpautas');
 		$rowExcel = 10;
 		foreach($this->mpautas->mreadXdisciplina_login_pautas($n,$c,$p,$al,$idd) as $row){
+			// colocar datos basicos
 			$nome = $row->cNome." ".$row->cNomes." ".$row->cApelido;
 			$bi = $row->cBI_Passaporte;
 			$objPHPExcel->getActiveSheet()->setCellValue('B'.$rowExcel, $nome);
 			$objPHPExcel->getActiveSheet()->setCellValue('C'.$rowExcel, $bi);
+			//colocar nota pp1 si existe esta en D10
+			if($row->pp1)
+				$objPHPExcel->getActiveSheet()->setCellValue('D'.$rowExcel, $row->pp1);
+			//
+			// colocar nota pp2 si existe
+			if($row->pp2)
+				$objPHPExcel->getActiveSheet()->setCellValue('E'.$rowExcel, $row->pp2);
+			//
+			// ver si la disc es anual
+			if($td == "Anual"){
+				// colocar pp3 si la disc es anual.
+				if($row->pp3)
+					$objPHPExcel->getActiveSheet()->setCellValue('F'.$rowExcel, $row->pp3);
+				//
+				//Exame final para disc. Anuales
+				if($row->ef)
+					$objPHPExcel->getActiveSheet()->setCellValue('H'.$rowExcel, $row->ef);
+				//
+				//recurso para disc. Anuales
+				if($row->recurso)
+					$objPHPExcel->getActiveSheet()->setCellValue('J'.$rowExcel, $row->recurso);
+				//
+				//recurso para disc. Anuales
+				if($row->especial)
+					$objPHPExcel->getActiveSheet()->setCellValue('K'.$rowExcel, $row->especial);
+				//
+			}elseif($td == "Semestral") {
+				//Exame final para disc. Anuales
+				if($row->ef)
+					$objPHPExcel->getActiveSheet()->setCellValue('G'.$rowExcel, $row->ef);
+				//
+				//recurso para disc. Anuales
+				if($row->recurso)
+					$objPHPExcel->getActiveSheet()->setCellValue('I'.$rowExcel, $row->recurso);
+				//
+				//recurso para disc. Anuales
+				if($row->especial)
+					$objPHPExcel->getActiveSheet()->setCellValue('J'.$rowExcel, $row->especial);
+				//
+			}
+			
+
 			$rowExcel++;
 		}
 		/*if($this->mDisciplinas->mreadXduracao($cod) == "Anual"){
@@ -128,7 +168,7 @@ class Cpauta_professor extends CI_Controller {
 
         ini_set('max_execution_time', 120);
         //$destination = realpath('./files');
-        $destination = realpath(APPPATH."/libraries/pautas");
+        $destination = realpath(APPPATH."/libraries/pautas"); //para copiar aqui temporalmente la pauta cargda.
         if (isset($_FILES['upload'])){
             $file = $_FILES['upload'];
             $filename = $destination."/".preg_replace("|[\\\/]|", "", $file["name"]);

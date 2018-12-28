@@ -62,7 +62,9 @@ if (!$this->session->userdata('idusuario')){
         <script src=<?php echo $web_dir."MODULOS/Financas/FPropinas.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Financas/FMatricula.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Financas/FDocumentos.js";?> type="text/javascript"></script>
-        
+        <script src=<?php echo $web_dir."MODULOS/Financas/FPropinas_Mestrado.js";?> type="text/javascript"></script>
+        <script src=<?php echo $web_dir."MODULOS/Financas/FPrecario.js";?> type="text/javascript"></script>
+        <script src=<?php echo $web_dir."MODULOS/Financas/FCartao.js";?> type="text/javascript"></script>
        <!-- <div id="testA" style="width:400px; height:300px; margin:10px;"></div> -->
        <div id="headerAmin" style="margin:10px"></div>
        <div id="menuAdmin" style="margin:5px; width:210px"></div>
@@ -104,14 +106,14 @@ if (!$this->session->userdata('idusuario')){
                         url: BASE_URL+"CSubModulos/read?modulo=05&usuario="+user_sessao,
                         select:true,
                         on:{
-                                        onItemClick:open_new_tab
+                            onItemClick:open_new_tab
                         }
                     },
                     { type:"clean", 
                     rows:[
                         { id:"tabs", view:"tabbar",close:true,  multiview:true, options:[], height:40},
                         { id:"views", cells:[
-                            {view:"template", id:"tpl", height:900,template:"Vem-Bindo ao Sub-Sistema de Finan&ccedil;as."}
+                            {view:"template", id:"tpl", height:850,template:"Vem-Bindo ao Sub-Sistema de Finan&ccedil;as."}
                         ]}
                     ]}
                 ]}
@@ -146,17 +148,24 @@ if (!$this->session->userdata('idusuario')){
                 if(item.smCodigo==='0505'){
                     cargarVistaFPropinas(item.smCodigo);
                 }
-                
                 if(item.smCodigo==='0506'){
-                    cargarVistaFRelatorio_Candidatos(item.smCodigo);
+                    cargarVistaFPropinas_mestrado(item.smCodigo);
                 }
                 if(item.smCodigo==='0507'){
-                    cargarVistaFRelatorio_Candidatos_Detalhado(item.smCodigo);
+                    cargarVistaFRelatorio_Candidatos(item.smCodigo);
                 }
                 if(item.smCodigo==='0508'){
+                    cargarVistaFRelatorio_Candidatos_Detalhado(item.smCodigo);
+                }
+                if(item.smCodigo==='0509'){
                     cargarVistaFDocumentos(item.smCodigo);
                 }
-
+                if(item.smCodigo==='0510'){
+                    cargarVistaPrecario(item.smCodigo);
+                }
+                if(item.smCodigo==='0511'){
+                    cargarVistaFCartao(item.smCodigo);
+                }
                 $$("tabs").addOption(item.smCodigo, item.smNome, true);
             }
             //or show if already added

@@ -114,8 +114,8 @@ if (!$this->session->userdata('idusuario')){
                     view:"list", id:"menuAdministracao",
                     //template:"#smNome#",
                     width: 250,
-                    height:900,
-                    autoheight:true,
+                    height:750,
+                    //autoheight:true,
                     yCount:10,
                     scroll:true,
                     //data: submodulosUsuarios,
@@ -134,7 +134,7 @@ if (!$this->session->userdata('idusuario')){
                         rows:[
                             { id:"tabs", view:"tabbar",close:true,  multiview:true, options:[], height:40},
                             { id:"views", cells:[
-                                {view:"template", id:"tpl", height:900,template:"Vem-Bindo ao Sub-Sistema de Aministra&ccedil;&atilde;o."}
+                                {view:"template", id:"tpl", height:750, /*height:800,*/template:"Vem-Bindo ao Sub-Sistema de Aministra&ccedil;&atilde;o."}
                             ]}
                         ]
                 }

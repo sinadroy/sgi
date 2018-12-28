@@ -1088,8 +1088,9 @@ function mreadto_Excel2() {
     */
     function mreadDInscricao($al,$i,$l) {
         $this->load->model('manos_lectivos');
-        $al = $this->manos_lectivos->mGetID($al);
-        $ala = $this->manos_lectivos->mGetID(date('Y'));
+        // $al = $this->manos_lectivos->mGetID($al);
+        //$ala = $this->manos_lectivos->mGetID(date('Y'));
+        $ala = date('Y');
         $this->db->select('Candidatos.id,Candidatos.cNome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
                 Candidatos.anos_lectivos_id,anos_lectivos.alAno,
                 Candidatos.cEstado,
@@ -1099,9 +1100,9 @@ function mreadto_Excel2() {
         $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
         //$this->db->join('Financas_Pagamentos_Candidatos', 'Financas_Pagamentos_Candidatos.Candidatos_id = Candidatos.id');
         if($al != "")
-            $this->db->where('Candidatos.Anos_Lectivos_id', $al);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
         else
-            $this->db->where('Candidatos.Anos_Lectivos_id', $ala);
+            $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $ala);
 
         $this->db->order_by('cNome,cApelido','ASC');
         $this->db->limit($l, $i);
