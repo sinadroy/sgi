@@ -33,6 +33,14 @@ class CNiveisCursos extends CI_Controller {
         echo $response;
     }
 
+    public function read_x_ncp_nomes(){
+        $n = $this->input->post('n');
+        $c = $this->input->post('c');
+        $p = $this->input->post('p');
+        $this->load->model('mniveiscursos');
+        echo $this->mniveiscursos->mreadXncp_nomes($n,$c,$p);
+    }
+
     public function read_nota_minima(){
         $n = $this->input->post('nNome');
         $c = $this->input->post('cNome');

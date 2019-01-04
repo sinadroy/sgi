@@ -50,6 +50,7 @@ class MFinancas_Pagamentos_Pendientes_Candidatos extends CI_Model {
     */
     function mread_ncpXid($id)
     {
+        $al = date('Y');
         $this->db->select('niveis_cursos.id,niveis.nNome,cursos.cNome,periodos.pNome,
             niveis_cursos.ncPreco_Inscricao');
         $this->db->from('Candidatos');
@@ -61,6 +62,7 @@ class MFinancas_Pagamentos_Pendientes_Candidatos extends CI_Model {
         $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
         $this->db->join('Financas_Pagamentos_Pendientes_Candidatos', 'Financas_Pagamentos_Pendientes_Candidatos.Candidatos_id = Candidatos.id');
         $this->db->where('Candidatos.cEstado', "Espera de Pagamento");
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
         if($id != ""){
             //$this->db->where('Financas_Pagamentos_Pendientes_Candidatos.id', $id);
             $this->db->where('Candidatos.id', $id);
@@ -291,6 +293,7 @@ class MFinancas_Pagamentos_Pendientes_Candidatos extends CI_Model {
     */
     function mreadXcb_valor_total_inscricao($cb)
     {
+        $al = date('Y');
         $this->db->select('niveis_cursos.id,niveis.nNome,cursos.cNome,periodos.pNome,
             niveis_cursos.ncPreco_Inscricao');
         $this->db->from('Candidatos');
@@ -302,6 +305,7 @@ class MFinancas_Pagamentos_Pendientes_Candidatos extends CI_Model {
         $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
         $this->db->join('Financas_Pagamentos_Pendientes_Candidatos', 'Financas_Pagamentos_Pendientes_Candidatos.Candidatos_id = Candidatos.id');
         $this->db->where('Candidatos.cEstado', "Espera de Pagamento");
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
         if($cb != ""){
             //$this->db->where('Financas_Pagamentos_Pendientes_Candidatos.id', $cb);
             $this->db->where('Candidatos.id', $cb);

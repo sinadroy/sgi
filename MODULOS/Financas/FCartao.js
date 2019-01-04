@@ -113,11 +113,15 @@ function cargarVistaFCartao(itemID) {
                                                         $$("idDTFormFCE").clearAll();
                                                         $$("idDTFormFCE").load(BASE_URL + "CFinancas_Pagamentos_Pendientes_Documentos/read_ncpXid_fd?id=" + candidato_id/*this.getValue()*/);
                                                         
+                                                        // obtener id de niveis_cursos
+                                                        let envio1 = "n=" + $$('idtext_nnome_fce').getValue() + "&c=" + $$('idtext_cnome_fce').getValue() + "&p=" + $$('idtext_pnome_fce').getValue();
+                                                        let rncp = webix.ajax().sync().post(BASE_URL + "CNiveisCursos/read_x_ncp_nomes", envio1);
+                                                        let id_ncp = rncp.responseText;
+
                                                         //actualizar valor total a pagar
-                                                        var envio = "id=" + $$('idCB_tdnome_fce').getValue();
-                                                        // var r = webix.ajax().sync().post(BASE_URL + "CFinancas_Pagamentos_Pendientes_Documentos/read_preco_documento", envio);
-                                                        var r = webix.ajax().sync().post(BASE_URL + "CFinancas_Pagamentos_Pendientes_Documentos/read_preco_documento", envio);
-                                                        var total_pagar = r.responseText;
+                                                        var envio2 = "id_ncp=" + id_ncp;
+                                                        var r3 = webix.ajax().sync().post(BASE_URL + "CPagamentos_Comprobativo_Prec/read_precario_cartao", envio2);
+                                                        var total_pagar = r3.responseText;
                                                         $$("idText_fceValor").setValue(total_pagar);
                                                         $$("idText_fceValor").disable();
                                                             //mandar este valor para que despues sea mandado para mFinancas_Inscricao_Comprobativo
@@ -180,7 +184,7 @@ function cargarVistaFCartao(itemID) {
         //$$("idbtn_cancelar_pag").enable();
     }
 }
-//Pagamento de Inscricao
+//Pagamento de cartao
 var formADDPagFCE = {
     view: "form",
     id: "idformADDPagFCE",
@@ -264,64 +268,60 @@ var formADDPagFCE = {
                         var bancNome = $$("idCombo_bancNome_fce").getValue();
                         var contNumero = $$("idCombo_contNumero_fce").getValue();
                         var ffpNome = $$("idCombo_ffpNome_fce").getValue();
+                        var total_pag = $$("idText_fceValor").getValue();
 
-                        // var efeito = $$("idText_efeito").getValue();
-                        // var td = $$("idText_td").getValue();
-
-                        if (idSelecionado && bancNome && contNumero && efeito) {
-                            var envio = "id=" + idSelecionado +
-                                "&total_pagar=" + $$("idText_fceValor").getValue() +
+                        if (idSelecionado && bancNome && contNumero && ffpNome) {
+                            var envio_rfc = "id=" + idSelecionado +
+                                "&total_pagar=" + total_pag +
                                 "&bancNome=" + bancNome +
                                 "&contNumero=" + contNumero +
                                 "&ffpNome=" + ffpNome +
                                 "&fpcRefPagamento=" + $$("idText_fpcRefPagamento_fce").getValue() +
                                 "&utilizadores_id=" + user_sessao +
-                                "&efeito=" + efeito +
-                                "&td=" + td;
-                            var r = webix.ajax().sync().post(BASE_URL + "CFinancas_Documentos_Comprovativo/imprimir", envio);
-                            if (r.responseText == "true") {
-                                webix.message("PDF criado com sucesso");
-                                //Carregar PDF
-                                webix.ui({
-                                    view: "window",
-                                    id: "idWinPDF_Comprobativo_fce",
-                                    height: 600,
-                                    width: 700,
-                                    left: 50, top: 50,
-                                    move: true,
-                                    modal: false,
-                                    //head:"This window can be moved",
-                                    head: {
-                                        view: "toolbar", cols: [
-                                            { view: "label", label: "Finan&ccedil;as Comprovativo de Inscri&ccedil;&atilde;o" },
-                                            { view: "button", label: 'X', width: 50, align: 'right', click: function () { $$('idWinPDF_Comprobativo_fce').close(); } }
-                                        ]
-                                    },
-                                    body: {
-                                        //template:"Some text"
-                                        template: '<div id="idPDFFD_Comprobativo" style="width:690px;  height:590px"></div>'
+                                "&webix_operation=insert";
+                            let rfc = webix.ajax().sync().post(BASE_URL + "CFinancas_cartao/crud", envio_rfc);
+                            if (rfc.responseText == "true") {
+                                webix.message("Pagamento registrado com sucesso");
+                                // criar PDF
+                                var r = webix.ajax().sync().post(BASE_URL + "CFinancas_Cartao_Comprovativo/imprimir", envio_rfc);
+                                if (r.responseText == "true") {
+                                    webix.message("PDF criado com sucesso");
+                                    //Carregar PDF
+                                    webix.ui({
+                                        view: "window",
+                                        id: "idWinPDF_Comprobativo_fce",
+                                        height: 600,
+                                        width: 700,
+                                        left: 50, top: 50,
+                                        move: true,
+                                        modal: false,
+                                        //head:"This window can be moved",
+                                        head: {
+                                            view: "toolbar", cols: [
+                                                { view: "label", label: "Finan&ccedil;as Comprovativo de Inscri&ccedil;&atilde;o" },
+                                                { view: "button", label: 'X', width: 50, align: 'right', click: function () { $$('idWinPDF_Comprobativo_fce').close(); } }
+                                            ]
+                                        },
+                                        body: {
+                                            //template:"Some text"
+                                            template: '<div id="idPDFFD_Comprobativo" style="width:690px;  height:590px"></div>'
+                                        }
+                                    }).show();
+                                    PDFObject.embed("../../relatorios/Financas_Cartao_Comprovativo.pdf", "#idPDFFD_Comprobativo");
+                                    //fechar a windows e limpar todo
+                                    if ($$("idtext_bi_fce").getValue() !== "") {
+                                        $$("idtext_bi_fce").setValue("");
                                     }
-                                }).show();
-                                PDFObject.embed("../../relatorios/Financas_Documentos_Comprovativo.pdf", "#idPDFFD_Comprobativo");
-                                //apagar pagamento pendiente
-                                var envio_bi = "bi=" + idSelecionado;
-                                var r2 = webix.ajax().sync().post(BASE_URL + "CFinancas_Pagamentos_Pendientes_Documentos/delete", envio_bi);
-                                if (r2.responseText == "true") {
-                                    webix.message("Pagamento registrado com sucesso");
-                                } else
-                                    webix.message({ type: "error", text: "Erro eliminando pagamento pendiente" });
-                                //fechar a windows e limpar todo
-                                if ($$("idtext_bi_fce").getValue() !== "") {
-                                    $$("idtext_bi_fce").setValue("");
+                                    $$("id_win_fce").close();
+    
+                                } else {
+                                    webix.message({ type: "error", text: "Erro ao criar comprobativo." });
                                 }
-                                $$("id_win_fce").close();
-
-                            } else {
-                                webix.message({ type: "error", text: "Erro atualizando dados" });
+                            } else{
+                                webix.message({ type: "error", text: "Erro ao registrar dados em finanças." });
                             }
-
                         } else {
-                            webix.message({ type: "error", text: "Deve selecionar os campos obrigatorio" });
+                            webix.message({ type: "error", text: "Deve selecionar os campos obrigatorio." });
                         }
                     }
                 },

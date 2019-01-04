@@ -79,6 +79,7 @@ if (!$this->session->userdata('idusuario')){
         <script src=<?php echo $web_dir."MODULOS/Administracao/tipo_aulas.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Administracao/modalidades_formacao.js";?> type="text/javascript"></script>
         <script src=<?php echo $web_dir."MODULOS/Administracao/universidades.js";?> type="text/javascript"></script>
+        <script src=<?php echo $web_dir."MODULOS/Administracao/Pagamentos_Comprobativo.js";?> type="text/javascript"></script>
         
        <!-- <div id="testA" style="width:400px; height:300px; margin:10px;"></div> -->
        <div id="headerAmin" style="margin:10px"></div>
@@ -114,8 +115,8 @@ if (!$this->session->userdata('idusuario')){
                     view:"list", id:"menuAdministracao",
                     //template:"#smNome#",
                     width: 250,
-                    height:750,
-                    //autoheight:true,
+                  //  height:900,
+                    autoheight:true,
                     yCount:10,
                     scroll:true,
                     //data: submodulosUsuarios,
@@ -251,6 +252,9 @@ if (!$this->session->userdata('idusuario')){
                 }
                 if(item.smCodigo==='0132'){
                     cargarVistaUniversidades(item.smCodigo);
+                }
+                if(item.smCodigo==='0133'){
+                    cargarVistaPag_Comp(item.smCodigo);
                 }
                 $$("tabs").addOption(item.smCodigo, item.smNome, true);
             }

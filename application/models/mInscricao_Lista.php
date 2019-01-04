@@ -2,7 +2,87 @@
   class MInscricao_Lista extends CI_Model{
     
     var $hpdf = '';
-    
+    function mreadXncp($n,$c,$p){
+        $this->db->select('Candidatos.id,Candidatos.cNome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
+                Candidatos.anos_lectivos_id,anos_lectivos.alAno,
+                Candidatos.cEstado,
+                cursos.cNome as curso, niveis.nNome, periodos.pNome');
+        $this->db->from('Cursos_Pretendidos');
+        $this->db->join('Candidatos', 'Cursos_Pretendidos.Candidatos_id = Candidatos.id');
+        $this->db->join('niveis_cursos', 'Cursos_Pretendidos.niveis_cursos_id = niveis_cursos.id');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
+        $this->db->where('niveis_cursos.niveis_id', $n);
+        $this->db->where('niveis_cursos.cursos_id', $c);
+        $this->db->where('niveis_cursos.periodos_id', $p);
+        $this->db->where('Candidatos.cEstado', "Inscrição aceite");
+        $this->db->order_by('cNome,cApelido','ASC');
+        $consulta = $this->db->get();
+        $ord=1;
+        $data = array();
+        foreach ($consulta->result() as $row) {
+            //$data[] = $row;
+            $data[] = array(
+                "id" => $row->id,
+                "ord" => $ord,
+                "cNome" => $row->cNome,
+                "cNomes" => $row->cNomes,
+                "cApelido" => $row->cApelido,
+                "cBI_Passaporte" => $row->cBI_Passaporte,
+                "cEstado" => $row->cEstado,
+                "alAno" => $row->alAno,
+                "curso" => $row->curso,
+                "nNome" => $row->nNome,
+                "pNome" => $row->pNome
+            );
+            $ord++;
+        }
+        return $data;
+    }
+
+    function mreadXncpal($n,$c,$p,$al){
+        $this->db->select('Candidatos.id,Candidatos.cNome,Candidatos.cNomes,Candidatos.cApelido,Candidatos.cBI_Passaporte,
+                Candidatos.anos_lectivos_id,anos_lectivos.alAno,
+                Candidatos.cEstado,
+                cursos.cNome as curso, niveis.nNome, periodos.pNome');
+        $this->db->from('Cursos_Pretendidos');
+        $this->db->join('Candidatos', 'Cursos_Pretendidos.Candidatos_id = Candidatos.id');
+        $this->db->join('niveis_cursos', 'Cursos_Pretendidos.niveis_cursos_id = niveis_cursos.id');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->join('anos_lectivos', 'Candidatos.anos_lectivos_id = anos_lectivos.id');
+        $this->db->where('niveis_cursos.niveis_id', $n);
+        $this->db->where('niveis_cursos.cursos_id', $c);
+        $this->db->where('niveis_cursos.periodos_id', $p);
+        $this->db->where('Cursos_Pretendidos.cp_ano_lec_insc', $al);
+        $this->db->where('Candidatos.cEstado', "Inscrição aceite");
+        $this->db->order_by('cNome,cApelido','ASC');
+        $consulta = $this->db->get();
+        $ord=1;
+        $data = array();
+        foreach ($consulta->result() as $row) {
+            //$data[] = $row;
+            $data[] = array(
+                "id" => $row->id,
+                "ord" => $ord,
+                "cNome" => $row->cNome,
+                "cNomes" => $row->cNomes,
+                "cApelido" => $row->cApelido,
+                "cBI_Passaporte" => $row->cBI_Passaporte,
+                "cEstado" => $row->cEstado,
+                "alAno" => $row->alAno,
+                "curso" => $row->curso,
+                "nNome" => $row->nNome,
+                "pNome" => $row->pNome
+            );
+            $ord++;
+        }
+        return $data;
+    }
+
     public function criarPdf($n, $c, $p, $al ,$utilizador)
     {
         $this->load->library('hpdf');
@@ -37,9 +117,9 @@
         $listaInscricao = "";
         $listaInscricao2 = "";
         $contador = 0;
-        $this->load->model('mCandidatos');
-        $Total_Record = count($this->mCandidatos->mreadXncp($n,$c,$p));
-        foreach ($this->mCandidatos->mreadXncpal($n,$c,$p,$al) as $value) {
+        // $this->load->model('mCandidatos');
+        $Total_Record = count($this->mreadXncpal($nNome,$cNome,$pNome,$al));
+        foreach ($this->mreadXncpal($nNome,$cNome,$pNome,$al) as $value) {
             $cNome = $value['cNome'];
             $cNomes = $value['cNomes'];
             $cApelido = $value['cApelido'];

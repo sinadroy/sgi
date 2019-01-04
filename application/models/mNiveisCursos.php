@@ -48,6 +48,20 @@
               return $value->id;
           }
       }
+      function mreadXncp_nomes($n,$c,$p){
+        $this->db->select('niveis_cursos.id');
+        $this->db->from('niveis_cursos');
+        $this->db->join('niveis', 'niveis_cursos.niveis_id = niveis.id');
+        $this->db->join('cursos', 'niveis_cursos.cursos_id = cursos.id');
+        $this->db->join('periodos', 'niveis_cursos.periodos_id = periodos.id');
+        $this->db->where('niveis.nNome', $n);
+        $this->db->where('cursos.cNome', $c);
+        $this->db->where('periodos.pNome', $p);
+        $consulta = $this->db->get();
+        foreach($consulta->result() as $value) {
+            return $value->id;
+        }
+    }
       function mread_nota_minima($n,$c,$p){
           $this->db->select('niveis_cursos.ncNota_Minima_EA');
           $this->db->from('niveis_cursos');

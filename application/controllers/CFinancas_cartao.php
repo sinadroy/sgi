@@ -13,12 +13,11 @@ class CFinancas_cartao extends CI_Controller {
         $fc_hora = $request["fc_hora"];
         $fc_ref_pag = $request["fc_ref_pag"];
         $fc_valor = $request["fc_valor"];
-        $ffpNome = $request["ffpNome"];
-        $contNumero = $request["contNumero"];
-        $alAno = $request["alAno"];
-        $cnome = $request["cnome"];
-        $cnomes = $request["cnomes"];
-        $cbi_passaporte = $request["cbi_passaporte"];
+        
+        $Financas_Forma_Pagamento_id = $request["Financas_Forma_Pagamento_id"];
+        $Financas_Contas_id = $request["Financas_Contas_id"];
+        $anos_lectivos_id = $request["anos_lectivos_id"];
+        $Estudantes_id = $request["Estudantes_id"];
 
         //webix_operation
         $webix_operation = $request["webix_operation"];
